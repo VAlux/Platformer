@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="128" height="32" tilewidth="32" tileheight="32">
+ <tileset firstgid="1" source="../tilesets/ground2.tsx"/>
+ <tileset firstgid="65" name="ent" tilewidth="32" tileheight="32">
+  <image source="../tilesets/platformer_tiles.png" width="256" height="256"/>
+ </tileset>
+ <layer name="1-tileset-layer" width="128" height="32">
+  <data encoding="base64" compression="zlib">
+   eJztmktOwzAURcNHUAnBHviIIlG6B4ZlFwzTjqAw4Ld3nlEszCN2E+c58ece6aitlDhubutnJ6kqAMrliXwmt+QL+Tptd5JhivNWk4/N+41Qm2/kO/lBfpJfQu3mzljnbY/cJw9bPCZngY4LykOPL1qpMSYl+HfXn82xN0Z86pFrbCltrOlyLkKcA6l5BOp4miC3fFlXv/UjV7B+/A+vJTnXToxfAAzHrBMlrrtKBdd30sD8f66b17rjvgfkkXiP3PjOPTGf+4vEdYET8ixsN3+w9bXPOIL5nDxj5Q/iBPmXDfIvG+RfNsi/DNRay1x3aXX+tbEdB9d80uWcvCAvyStPr8k5eePZB/68Ar+WmPM9qFi4Je88XXoeE89wxAPPf2EYKn8QD8g/H8xn/sw53aay19Ipxn8gj66p6r4Nr6HqPo6tjiL/vFDrtlOmax2P/NPj3qHKc8Fc7th+SP6uvsAwPrS4al5t+bfto7cfkn9bH2yfu+raz7fNvvv3OU6INnfta2urS/4rtr1U/j7fZWiekr+NsdoMeawp//+xOWZ2Y/oNn2bMMA==
+  </data>
+ </layer>
+ <layer name="2-tileset-layer" width="128" height="32">
+  <data encoding="base64" compression="zlib">
+   eJztzrENgDAAA8EsCamACrL/BngFKkvoTvr+xwAAAAAAAAAAAPhuS3ua7REqjnSmqz1CxZ2etNojAAAAAADwMy8p1ANP
+  </data>
+ </layer>
+ <objectgroup name="collidable-objects" width="128" height="32">
+  <object x="191" y="832" width="256" height="29"/>
+  <object x="383" y="862" width="32" height="160"/>
+  <object x="225" y="863" width="30" height="157"/>
+  <object x="576" y="673" width="574" height="29"/>
+  <object x="608" y="702" width="30" height="322"/>
+  <object x="1087" y="704" width="31" height="323"/>
+  <object x="288" y="448" width="285" height="30"/>
+  <object x="96" y="191" width="287" height="33"/>
+  <object x="702" y="287" width="131" height="31"/>
+  <object x="1056" y="384" width="223" height="31"/>
+  <object x="1311" y="95" width="224" height="30"/>
+  <object x="1664" y="448" width="191" height="32"/>
+  <object x="1568" y="705" width="352" height="29"/>
+  <object x="2048" y="161" width="349" height="29"/>
+  <object x="799" y="414" width="65" height="258"/>
+ </objectgroup>
+</map>

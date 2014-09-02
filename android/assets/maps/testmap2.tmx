@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="32" height="32" tilewidth="32" tileheight="32">
+ <tileset firstgid="1" source="ground.tsx"/>
+ <tileset firstgid="65" name="entities" tilewidth="32" tileheight="32">
+  <image source="../tilesets/platformer_tiles.png" width="256" height="256"/>
+ </tileset>
+ <layer name="Слой тайлов 1" width="32" height="32">
+  <data encoding="base64" compression="zlib">
+   eJztlEmrwjAUheOEguJGfT/AceHwH3Rn9+rCCXECXTls3uB/9xQaCLFNbtJahNcDH9nce0/DPSlj/0MXcAU3cH9DvU7f4Af8gr831CdKZKuwWQ/bL2f9EXN/os8VNVtzsIholihqtrZgBzYeTDhNZ5kqG0AuovmfIsqO/TQBUzBT1Oiy4e5S3PGZve43SEuwAmtFjS4b7i5N98uzuAcHcCR+bxSqgwZoghZog06M/q66oAf6YBCzt58/JS+UrNr6u3vQ7UCXVZM3KPurdnBi/lnl74zD36BKfFaQ/0moTYE0yLDg/6gKWdS+PCiAkUcRlCwYSlB6yoKv42Hrz/vH3kn1H0t9tv683zH0d6TesPfn80z8RSqgGtKfcv8a+BLqn/7RRYc=
+  </data>
+ </layer>
+ <objectgroup name="collidable-objects" width="32" height="32">
+  <object x="33" y="834" width="477" height="31"/>
+  <object x="66" y="871" width="31" height="157"/>
+  <object x="928" y="867" width="30" height="155"/>
+  <object x="643" y="834" width="354" height="32"/>
+  <object x="862" y="735" width="64" height="32"/>
+  <object x="703" y="641" width="192" height="27"/>
+  <object x="542" y="482" width="160" height="28"/>
+  <object x="736" y="481" width="30" height="29"/>
+  <object x="320" y="607" width="191" height="31"/>
+  <object x="477" y="866" width="32" height="155"/>
+  <object x="641" y="866" width="30" height="157"/>
+ </objectgroup>
+ <layer name="levers" width="32" height="32">
+  <data encoding="base64" compression="zlib">
+   eJztzUERAAAEADDdPPXvIwbHVmARAMAV6X/91/APwG4Nnx8BWA==
+  </data>
+ </layer>
+ <objectgroup name="levers-objects" width="32" height="32">
+  <object x="702" y="481" width="34" height="158"/>
+ </objectgroup>
+</map>

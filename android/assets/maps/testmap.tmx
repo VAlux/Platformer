@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="50" height="50" tilewidth="64" tileheight="64">
+ <tileset firstgid="1" source="default.tsx"/>
+ <tileset firstgid="25" name="ground-platformer" tilewidth="32" tileheight="32">
+  <image source="../tilesets/ground_platformer.png" width="256" height="256"/>
+ </tileset>
+ <layer name="bakcground" width="50" height="50">
+  <data encoding="base64" compression="zlib">
+   eJztl70KgDAMBp2cXHTx/d9UhLqItUn6kyh38C3FJjni0mkCAAAAAAAAAACA3uw/ytfBIxY1HktK6WwEVo+3eT1cLB6SOXu5bJlzrYdmvh4uVo/lIRpq799ptQ9vInnMguSI5FEDHrGwelj/41Jfbb9Svd770HqU7o70OHutKV4eNX2fakjq5b7x8rj28AePe42WHpp3bUsP77e69O3uPVcrH+95SOwcMkwg6g==
+  </data>
+ </layer>
+ <objectgroup name="collidable-objects" width="50" height="50">
+  <object x="-3" y="2945" width="512" height="67"/>
+  <object x="509" y="3009" width="127" height="58"/>
+  <object x="639" y="3073" width="255" height="58"/>
+  <object x="896" y="2946" width="61" height="124"/>
+  <object x="962" y="2945" width="445" height="64"/>
+  <object x="1536" y="2882" width="1148" height="64"/>
+  <object x="2691" y="2818" width="506" height="67"/>
+  <object x="2239" y="2494" width="382" height="64"/>
+  <object x="2427" y="2555" width="64" height="324"/>
+  <object x="2048" y="2685" width="61" height="200"/>
+  <object x="1473" y="2491" width="61" height="388"/>
+  <object x="1282" y="2624" width="191" height="64"/>
+  <object x="1283" y="2690" width="52" height="252"/>
+  <object x="1155" y="2748" width="61" height="191"/>
+  <object x="1216" y="2755" width="64" height="61"/>
+  <object x="191" y="2688" width="64" height="254"/>
+  <object x="1792" y="2240" width="578" height="64"/>
+  <object x="0" y="1600" width="60" height="1344"/>
+  <object x="64" y="1600" width="3128" height="64"/>
+  <object x="3136" y="1664" width="64" height="1148"/>
+  <object x="1472" y="2112" width="316" height="60"/>
+  <object x="1412" y="2048" width="120" height="64"/>
+  <object x="1344" y="1984" width="128" height="56"/>
+  <object x="1280" y="1920" width="124" height="64"/>
+  <object x="1220" y="1852" width="120" height="64"/>
+  <object x="904" y="1864" width="112" height="52"/>
+  <object x="836" y="1920" width="116" height="56"/>
+  <object x="776" y="1992" width="112" height="44"/>
+  <object x="712" y="2048" width="108" height="52"/>
+  <object x="456" y="2116" width="308" height="60"/>
+  <object x="444" y="2492" width="516" height="68"/>
+  <object x="2748" y="1976" width="72" height="836"/>
+  <object x="-752" y="2076"/>
+ </objectgroup>
+</map>

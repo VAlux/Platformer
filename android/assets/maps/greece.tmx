@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="128" height="32" tilewidth="32" tileheight="32">
+ <tileset firstgid="1" source="../tilesets/greece.tsx"/>
+ <layer name="background" width="128" height="32">
+  <data encoding="base64" compression="zlib">
+   eJzt1ckJAjEYhuFfXNqwAR2r8K6NeFbL8eLSi+BSibic/WQSEkRcwBBH3gdeElQkkGTGDAAAAAAAAAAAAAAAAAAAAFVTVw3VdDWi/GetbKtDaqOa2VnjycqxXwvzixvXGdeHtIZWnoGjhX2P99+fgWfiZwjPimoZWHkGbuM5mg9d3P//5vf5tucd1VWF6lnY/1f3H9U1dk3UXC3UUq3UVLX1bjjkWx4S8/d/pjZqq3Zqb+H+X7KtDikVru7d/L7iwVg8+D5+d+D3LSw877+Z/0/8tm2idm/+Dnl9+95/GvK6Ao2QaTE=
+  </data>
+ </layer>
+ <layer name="foreground" width="128" height="32">
+  <data encoding="base64" compression="zlib">
+   eJzt16ENADAIBMDuv0fX6Tq19Q2ehL8zWJIXD2sBAAAAAAAAAABT7O4FaHW6F6DV/SaQoep+90COqvvdAznkn03+2eSfrfr5/IEAALM8JwYNCg==
+  </data>
+ </layer>
+ <objectgroup name="special-objects" width="128" height="32">
+  <object name="spawn-point" x="178" y="720" width="33" height="32">
+   <ellipse/>
+  </object>
+ </objectgroup>
+ <objectgroup name="collidable-objects" width="128" height="32">
+  <object x="1" y="896" width="731" height="31"/>
+  <object x="704" y="928" width="61" height="30"/>
+  <object x="734" y="960" width="288" height="62"/>
+  <object x="32" y="672" width="317" height="31"/>
+  <object x="128" y="801" width="125" height="93"/>
+  <object x="576" y="736" width="127" height="32"/>
+ </objectgroup>
+</map>
