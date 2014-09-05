@@ -1,4 +1,4 @@
-package com.platformer.skills.effects;
+package com.platformer.skills.abilities;
 
 import com.badlogic.gdx.Gdx;
 import com.platformer.entities.Actor;
@@ -16,8 +16,8 @@ public class DamageEffect extends Effect {
 
     @Override
     public void run() {
-        damageAmount -= (damageAmount / 100) * actor.getStats().defense; // actors resists (defence - actors % of clear damage resistance)
-        actor.getStats().health -= damageAmount; // hit!
-        Gdx.app.log("DAMAGE", "players health: " + actor.getStats().health);
+        damageAmount -= (damageAmount / 100) * target.getStats().defense; // actors resists (defence - actors % of clear damage resistance)
+        target.getStats().health -= damageAmount; // hit!
+        Gdx.app.log("DAMAGE", "players health: " + target.getStats().health);
     }
 }

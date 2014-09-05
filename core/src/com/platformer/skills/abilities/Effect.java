@@ -1,15 +1,15 @@
-package com.platformer.skills.effects;
+package com.platformer.skills.abilities;
 
 import com.platformer.entities.Actor;
 
 public abstract class Effect {
 
     protected String name;
-    protected Actor actor;
+    protected Actor target;
     protected boolean isInstant;
 
-    protected Effect(Actor actor) {
-        this.actor = actor;
+    protected Effect(Actor target) {
+        this.target = target;
     }
 
     public boolean isInstant() {

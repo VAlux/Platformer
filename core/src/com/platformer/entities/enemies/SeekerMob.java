@@ -4,7 +4,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
-import com.platformer.skills.effects.DamageEffect;
+import com.platformer.skills.abilities.DamageEffect;
 import com.platformer.entities.Actor;
 import com.platformer.entities.Mob;
 import com.platformer.enums.ActorState;

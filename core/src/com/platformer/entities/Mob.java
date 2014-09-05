@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 import static com.platformer.enums.ActorState.DEAD;
 
-public class Mob extends Actor {
+public class Mob extends Character {
 
     protected Actor attackTarget;
     protected Rectangle fieldOfView;

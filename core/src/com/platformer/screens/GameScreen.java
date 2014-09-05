@@ -55,7 +55,6 @@ public class GameScreen implements Screen {
         player = new Elf(map);
         players.add(player);
 
-
         mob = new SeekerMob(map, new Vector2(27.0f * 32.0f, 8.0f * 32.0f), players);
         actors.add(player);
         actors.add(mob);

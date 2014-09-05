@@ -8,7 +8,7 @@ import com.platformer.maps.Map;
 
 import static com.platformer.enums.ActorState.*;
 
-public class Player extends Actor {
+public class Player extends Character {
 
     protected boolean isOnWall;
     protected boolean canWallJump;

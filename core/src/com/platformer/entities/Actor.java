@@ -1,5 +1,7 @@
 package com.platformer.entities;
 
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.MapObjects;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
@@ -11,7 +13,13 @@ import com.platformer.maps.Map;
 
 import static com.platformer.enums.ActorState.*;
 
-public class Actor extends GameEntity {
+public class Actor implements RenderableEntity {
+
+    protected double id;
+    protected float stateTime;
+    protected Vector2 position;
+    protected Rectangle bounds;
+    protected Texture texture;
 
     protected Vector2 velocity;
     protected Vector2 acceleration;
@@ -25,6 +33,7 @@ public class Actor extends GameEntity {
     protected boolean isOnGround;
 
     protected Actor(final float X, final float Y){
+        id = Math.random(); /// TODO: replace with hash later
         velocity = new Vector2();
         acceleration = new Vector2();
         position = new Vector2(X, Y);
@@ -91,9 +100,9 @@ public class Actor extends GameEntity {
         position.set(bounds.x, bounds.y);
     }
 
-    public void spawn(){
+    public void spawn() {
         this.bounds.setPosition(spawnPosition);
-        this.setPosition(bounds.x, bounds.y);
+        position.set(bounds.x, bounds.y);
         velocity.set(0, 0);
         acceleration.set(0, 0);
         state = SPAWN;
@@ -124,5 +133,22 @@ public class Actor extends GameEntity {
 
     public void dispose() {
         texture.dispose();
+    }
+
+    @Override
+    public Animation getCurrentAnimation() {
+        return null;
+    }
+
+    public Vector2 getPosition() {
+        return position;
+    }
+
+    public float getStateTime() {
+        return stateTime;
+    }
+
+    public Rectangle getBounds() {
+        return bounds;
     }
 }
