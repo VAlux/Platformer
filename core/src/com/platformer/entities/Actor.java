@@ -15,7 +15,7 @@ import static com.platformer.enums.ActorState.*;
 
 public class Actor implements RenderableEntity {
 
-    protected double id;
+    protected long id;
     protected float stateTime;
     protected Vector2 position;
     protected Rectangle bounds;
@@ -33,13 +33,15 @@ public class Actor implements RenderableEntity {
     protected boolean isOnGround;
 
     protected Actor(final float X, final float Y){
-        id = Math.random(); /// TODO: replace with hash later
+        id = (long) Math.random() * 1000L; /// TODO: replace with hash later
         velocity = new Vector2();
         acceleration = new Vector2();
         position = new Vector2(X, Y);
         bounds = new Rectangle(X, Y, 32, 32);
-        stats = new ActorStats();
         etalonStats = new ActorStats();
+        etalonStats.loadDefaults();
+        stats = new ActorStats();
+        stats.copy(etalonStats);
         stateTime = 0;
     }
 
@@ -138,6 +140,10 @@ public class Actor implements RenderableEntity {
     @Override
     public Animation getCurrentAnimation() {
         return null;
+    }
+
+    public double getId() {
+        return id;
     }
 
     public Vector2 getPosition() {

@@ -8,21 +8,24 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
-import com.platformer.utils.DebugRenderer;
 import com.platformer.entities.Actor;
+import com.platformer.entities.Character;
 import com.platformer.entities.characters.Elf;
 import com.platformer.entities.enemies.SeekerMob;
 import com.platformer.exceptions.MapLayerNotFoundException;
 import com.platformer.exceptions.MapObjectNotFoundException;
+import com.platformer.items.ItemsPool;
 import com.platformer.maps.Map;
+import com.platformer.utils.DebugRenderer;
 
 import java.util.ArrayList;
 
 public class GameScreen implements Screen {
+    private static final String TAG = GameScreen.class.getSimpleName();
 
     private Map map;
-    private Actor player;
-    private Actor mob;
+    private Character player;
+    private Character mob;
     private OrthogonalTiledMapRenderer mapRenderer;
     private OrthographicCamera camera;
     private Vector3 cameraLerpTarget;
@@ -34,7 +37,6 @@ public class GameScreen implements Screen {
     private DebugRenderer debugRenderer;
 
     @Override
-
     public void show() {
         try {
             map = new Map("maps/greece.tmx");
@@ -45,7 +47,7 @@ public class GameScreen implements Screen {
             e.printStackTrace();
             Gdx.app.exit();
         }
-
+        ItemsPool.initPool();
         mapRenderer = new OrthogonalTiledMapRenderer(map.getMap());
         players = new ArrayList<Actor>();
         actors = new ArrayList<Actor>();
@@ -54,6 +56,10 @@ public class GameScreen implements Screen {
         debugRenderer = new DebugRenderer(camera);
         player = new Elf(map);
         players.add(player);
+
+        player.pickItem(0L, 1);
+        player.pickItem(1L, 1);
+        player.pickItem(2L, 1);
 
         mob = new SeekerMob(map, new Vector2(27.0f * 32.0f, 8.0f * 32.0f), players);
         actors.add(player);
@@ -124,7 +130,7 @@ public class GameScreen implements Screen {
         map.dispose();
         player.dispose();
         mapRenderer.dispose();
-        Gdx.app.log("GameScreen", "game disposed");
+        Gdx.app.log(TAG, "game disposed");
     }
 
     @Override

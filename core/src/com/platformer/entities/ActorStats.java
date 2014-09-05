@@ -17,7 +17,7 @@ public class ActorStats {
     public float MAX_VELOCITY;
     public float FRICTION;
 
-    public ActorStats() {
+    public void loadDefaults(){
         level = 1;
         score = 0;
         health = 1000;

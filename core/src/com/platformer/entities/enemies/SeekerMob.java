@@ -4,7 +4,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
-import com.platformer.skills.abilities.DamageEffect;
+import com.platformer.abilities.effect.DamageEffect;
 import com.platformer.entities.Actor;
 import com.platformer.entities.Mob;
 import com.platformer.enums.ActorState;
@@ -35,7 +35,7 @@ public final class SeekerMob extends Mob {
         if (targetLocated) {
             if (this.bounds.overlaps(attackTarget.getBounds())) { // target reached
                 acceleration.set(0, 0);
-                new DamageEffect(attackTarget, stats.offence).run();
+                new DamageEffect(stats.offence).apply(attackTarget);
             } else {
                 pursuit();
             }
