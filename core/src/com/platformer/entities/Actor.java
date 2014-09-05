@@ -9,12 +9,15 @@ import com.badlogic.gdx.math.Vector2;
 import com.platformer.enums.ActorState;
 import com.platformer.maps.Map;
 
+import static com.platformer.enums.ActorState.*;
+
 public class Actor extends GameEntity {
 
     protected Vector2 velocity;
     protected Vector2 acceleration;
     protected Vector2 spawnPosition;
     protected ActorStats stats;
+    protected ActorStats etalonStats;
     protected ActorState state;
     protected MapObjects specialObjects;
     protected MapObjects collidableObjects;
@@ -27,6 +30,7 @@ public class Actor extends GameEntity {
         position = new Vector2(X, Y);
         bounds = new Rectangle(X, Y, 32, 32);
         stats = new ActorStats();
+        etalonStats = new ActorStats();
         stateTime = 0;
     }
 
@@ -45,9 +49,6 @@ public class Actor extends GameEntity {
     }
 
     public void act(final float deltaTime) {
-        if(!checkAlive())
-            spawn();
-
         acceleration.y = -stats.GRAVITY * deltaTime;
         velocity.add(acceleration);
 
@@ -92,8 +93,10 @@ public class Actor extends GameEntity {
 
     public void spawn(){
         this.bounds.setPosition(spawnPosition);
+        this.setPosition(bounds.x, bounds.y);
         velocity.set(0, 0);
         acceleration.set(0, 0);
+        state = SPAWN;
     }
 
     protected TextureRegion[] extractAnimation(final int startFrame, final int framesAmount){
@@ -111,8 +114,12 @@ public class Actor extends GameEntity {
         return frames;
     }
 
-    protected boolean checkAlive(){
-        return !(position.y < 0.0f || stats.health <= 0);
+    public ActorStats getStats() {
+        return stats;
+    }
+
+    protected boolean isAlive(){
+        return position.y > 0.0f && stats.health > 0 && state != DEAD;
     }
 
     public void dispose() {

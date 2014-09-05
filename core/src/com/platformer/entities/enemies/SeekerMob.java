@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
+import com.platformer.skills.effects.DamageEffect;
 import com.platformer.entities.Actor;
 import com.platformer.entities.Mob;
 import com.platformer.enums.ActorState;
@@ -34,13 +35,13 @@ public final class SeekerMob extends Mob {
         if (targetLocated) {
             if (this.bounds.overlaps(attackTarget.getBounds())) { // target reached
                 acceleration.set(0, 0);
-                System.out.println("ATTACK!");
+                new DamageEffect(attackTarget, stats.offence).run();
             } else {
                 pursuit();
             }
         }
         else {
-            acceleration.set(0, 0); // stop the pursuit.
+            acceleration.set(0, 0); // target lost, stop the pursuit.
         }
     }
 
@@ -49,7 +50,6 @@ public final class SeekerMob extends Mob {
             if (actor.getBounds().overlaps(fieldOfView)){
                 setAttackTarget(actor);
                 targetLocated = true;
-                System.out.println("target located!");
                 return;
             }
         }
@@ -83,7 +83,8 @@ public final class SeekerMob extends Mob {
                 return walkLeftAnimation;
             case WALK_RIGHT:
                 return walkRightAnimation;
+            default:
+                return idleAnimation;
         }
-        return null;
     }
 }

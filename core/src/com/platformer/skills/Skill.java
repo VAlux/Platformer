@@ -1,7 +1,13 @@
 package com.platformer.skills;
 
-/**
- * Created by Lux on 05.09.2014.
- */
-public class Skill {
+import com.platformer.skills.effects.Effect;
+
+import java.util.ArrayList;
+
+public abstract class Skill {
+
+    protected float cooldownTime;
+    protected ArrayList<Effect> effects;
+
+    ///TODO: some changes are stashed. do not touch. will be commited later
 }

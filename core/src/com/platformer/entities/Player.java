@@ -3,7 +3,6 @@ package com.platformer.entities;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
-import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.platformer.maps.Map;
 
@@ -21,25 +20,19 @@ public class Player extends Actor {
 
     @Override
     public void act(final float deltaTime) {
-        processKeys();
-        checkAlive();
-        acceleration.y = -stats.GRAVITY * deltaTime;
-        velocity.add(acceleration);
-
-        if (acceleration.x == 0)
-            velocity.x *= stats.FRICTION;
-
-        velocity.x = MathUtils.clamp(velocity.x, -stats.MAX_VELOCITY, stats.MAX_VELOCITY);
-        move(deltaTime);
-        stateTime += deltaTime;
+        if (isAlive()) {
+            processKeys();
+            super.act(deltaTime);
+        } else {
+            state = DEAD;
+            spawn();
+        }
     }
 
     @Override
     public void spawn() {
-        this.bounds.setPosition(spawnPosition);
-        velocity.set(0, 0);
-        acceleration.set(0, 0);
-        state = SPAWN;
+        super.spawn();
+        stats.copy(etalonStats);
     }
 
     @Override
@@ -77,15 +70,6 @@ public class Player extends Actor {
             }
         }
         position.set(bounds.x, bounds.y);
-    }
-
-    protected boolean checkAlive(){
-        if (!super.checkAlive()) {
-            state = DEAD;
-            spawn();
-            return false;
-        }
-        return true;
     }
 
     private void processKeys(){

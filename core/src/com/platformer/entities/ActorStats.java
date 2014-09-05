@@ -20,10 +20,10 @@ public class ActorStats {
     public ActorStats() {
         level = 1;
         score = 0;
-        health = 100;
-        energy = 100;
+        health = 1000;
+        energy = 500;
         experience = 0;
-        offence = 10;
+        offence = 50;
         defense = 10;
 
         GRAVITY = 900.0f;
@@ -31,5 +31,21 @@ public class ActorStats {
         JUMP_VELOCITY = 500.0f;
         MAX_VELOCITY = 500.0f;
         FRICTION = 0.9f;
+    }
+
+    public void copy(final ActorStats stats) {
+        level = stats.level;
+        score = stats.score;
+        health = stats.health;
+        energy = stats.energy;
+        experience = stats.experience;
+        offence = stats.offence;
+        defense = stats.defense;
+
+        GRAVITY = stats.GRAVITY;
+        ACCELERATION = stats.ACCELERATION;
+        JUMP_VELOCITY = stats.JUMP_VELOCITY;
+        MAX_VELOCITY = stats.MAX_VELOCITY;
+        FRICTION = stats.FRICTION;
     }
 }

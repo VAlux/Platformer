@@ -8,7 +8,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
-import com.platformer.DebugRenderer;
+import com.platformer.utils.DebugRenderer;
 import com.platformer.entities.Actor;
 import com.platformer.entities.characters.Elf;
 import com.platformer.entities.enemies.SeekerMob;

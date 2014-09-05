@@ -7,6 +7,8 @@ import com.platformer.maps.Map;
 
 import java.util.ArrayList;
 
+import static com.platformer.enums.ActorState.DEAD;
+
 public class Mob extends Actor {
 
     protected Actor attackTarget;
@@ -27,18 +29,18 @@ public class Mob extends Actor {
 
     @Override
     public void act(float deltaTime) {
-        super.act(deltaTime);
-        fieldOfView.setPosition(position.x - fovSize.x / 2, position.y - fovSize.y / 2);
+        if (isAlive()) {
+            super.act(deltaTime);
+            fieldOfView.setPosition(position.x - fovSize.x / 2, position.y - fovSize.y / 2);
+        } else {
+            state = DEAD;
+            spawn();
+        }
     }
 
     @Override
     public void move(float deltaTime) {
         super.move(deltaTime);
-    }
-
-    @Override
-    public void spawn() {
-        super.spawn();
     }
 
     public void setAttackTarget(Actor attackTarget) {
