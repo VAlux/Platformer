@@ -1,4 +1,4 @@
-package com.platformer;
+package com.platformer.utils;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
