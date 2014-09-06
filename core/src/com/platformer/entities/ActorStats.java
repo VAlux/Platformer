@@ -89,8 +89,8 @@ public class ActorStats {
         score = MathUtils.clamp(score - stats.score, 0, score - stats.score);
 
         maxHealth = MathUtils.clamp(maxHealth - stats.maxHealth, 0, maxHealth - stats.maxHealth);
-        health = MathUtils.clamp(health - stats.health, 0, maxHealth);
-        maxEnergy = MathUtils.clamp(maxEnergy - stats.maxEnergy, 0, maxEnergy - stats.maxEnergy);
+        health = MathUtils.clamp(health - stats.health - stats.maxHealth, 0, maxHealth);
+        maxEnergy = MathUtils.clamp(maxEnergy - stats.maxEnergy - stats.maxEnergy, 0, maxEnergy - stats.maxEnergy);
         energy = MathUtils.clamp(energy - stats.energy, 0, maxEnergy);
         offence = MathUtils.clamp(offence - stats.offence, 1, offence - stats.offence);
         defense = MathUtils.clamp(defense - stats.defense, 1, defense - stats.defense);
@@ -111,6 +111,7 @@ public class ActorStats {
                 "\noffence = " + offence +
                 "\ndefense = " + defense +
                 "\nscore = " + score +
+                "\n\n" +
                 "\nGRAVITY = " + GRAVITY +
                 "\nACCELERATION = " + ACCELERATION +
                 "\nJUMP_VELOCITY = " + JUMP_VELOCITY +

@@ -14,7 +14,7 @@ public class Inventory {
     private int maxCapacity;
 
     public Inventory(int maxCapacity) {
-        this.inventory = new HashMap<>();
+        this.inventory = new HashMap<Long, Integer>();
         this.maxCapacity = maxCapacity;
     }
 

@@ -113,4 +113,9 @@ public abstract class InventoryItem implements ApplicableObject, Cloneable {
             }
         }
     }
+
+    @Override
+    public String toString() {
+        return name;
+    }
 }
