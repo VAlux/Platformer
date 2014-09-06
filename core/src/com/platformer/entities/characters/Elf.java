@@ -16,8 +16,8 @@ public final class Elf extends Player {
     private Animation dyingAnimation;
     private Animation deadAnimation;
 
-    public Elf(Map map) {
-        super(map);
+    public Elf(Map map, int inventoryCapacity) {
+        super(map, inventoryCapacity);
         this.texture = new Texture("tilesets/atlases/character-elven.png");
         splittedTextureAtlas = new TextureRegion(texture).split((int) map.getTileWidth(), (int) map.getTileHeight());
         createAnimations();

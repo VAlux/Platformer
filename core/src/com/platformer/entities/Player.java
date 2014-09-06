@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.math.Rectangle;
+import com.platformer.items.ItemsPool;
 import com.platformer.maps.Map;
 
 import static com.platformer.enums.ActorState.*;
@@ -13,8 +14,8 @@ public class Player extends Character {
     protected boolean isOnWall;
     protected boolean canWallJump;
 
-    public Player(Map map) {
-        super(map, map.getSpawnPoint());
+    public Player(Map map, int inventoryCapacity) {
+        super(map, map.getSpawnPoint(), inventoryCapacity);
         state = IDLE;
     }
 
@@ -27,12 +28,6 @@ public class Player extends Character {
             state = DEAD;
             spawn();
         }
-    }
-
-    @Override
-    public void spawn() {
-        super.spawn();
-        stats.copy(etalonStats);
     }
 
     @Override
@@ -92,7 +87,13 @@ public class Player extends Character {
             acceleration.x = stats.ACCELERATION;
             if (state != JUMP)
                 state = WALK_RIGHT;
+        } else if (Gdx.input.isKeyPressed(Input.Keys.TAB)){   // just for fun enable/disable inventory by TAB
+            if (isActiveInventory) deactivateInventory();
+            else activateInventory();
+        } else if (Gdx.input.isKeyPressed(Input.Keys.E)){
+            useItem(ItemsPool.IDs.HEAL_POTION);
         }
+
         else {
             if (state != JUMP)
                 state = IDLE;

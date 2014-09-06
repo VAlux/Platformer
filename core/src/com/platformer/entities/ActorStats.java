@@ -1,15 +1,22 @@
 package com.platformer.entities;
 
 
+import com.badlogic.gdx.math.MathUtils;
+
 public class ActorStats {
 
     public int level;
-    public int health;
-    public int energy;
     public int experience;
+
+    public int score;
+
+    public int health;
+    public int maxHealth;
+    public int energy;
+    public int maxEnergy;
+
     public int offence;
     public int defense;
-    public int score;
 
     public float GRAVITY;
     public float ACCELERATION;
@@ -19,10 +26,14 @@ public class ActorStats {
 
     public void loadDefaults(){
         level = 1;
-        score = 0;
-        health = 1000;
-        energy = 500;
         experience = 0;
+        score = 0;
+
+        maxHealth = 1000;
+        health = maxHealth;
+        maxEnergy = 500;
+        energy = maxEnergy;
+
         offence = 50;
         defense = 10;
 
@@ -35,10 +46,14 @@ public class ActorStats {
 
     public void copy(final ActorStats stats) {
         level = stats.level;
-        score = stats.score;
-        health = stats.health;
-        energy = stats.energy;
         experience = stats.experience;
+        score = stats.score;
+
+        health = stats.health;
+        maxHealth = stats.maxHealth;
+        energy = stats.energy;
+        maxEnergy = stats.maxEnergy;
+
         offence = stats.offence;
         defense = stats.defense;
 
@@ -48,20 +63,59 @@ public class ActorStats {
         MAX_VELOCITY = stats.MAX_VELOCITY;
         FRICTION = stats.FRICTION;
     }
+    
+    public void addStats(final ActorStats stats){
+        level = MathUtils.clamp(level + stats.level, 1, level + stats.level);
+        experience = MathUtils.clamp(experience + stats.experience, 0, experience + stats.experience);
+        score = MathUtils.clamp(score + stats.score, 0, score + stats.score);
 
+        maxHealth = MathUtils.clamp(maxHealth + stats.maxHealth, 0, maxHealth + stats.maxHealth);
+        health = MathUtils.clamp(health + stats.health + stats.maxHealth, 0, maxHealth);
+        maxEnergy = MathUtils.clamp(maxEnergy + stats.maxEnergy, 0, maxEnergy + stats.maxEnergy);
+        energy = MathUtils.clamp(energy + stats.energy + stats.maxEnergy, 0, maxEnergy);
+        offence = MathUtils.clamp(offence + stats.offence, 1, offence + stats.offence);
+        defense = MathUtils.clamp(defense + stats.defense, 1, defense + stats.defense);
+
+        GRAVITY = MathUtils.clamp(GRAVITY + stats.GRAVITY, 100, 1500);
+        ACCELERATION = MathUtils.clamp(ACCELERATION + stats.ACCELERATION, 1, 50);
+        JUMP_VELOCITY = MathUtils.clamp(JUMP_VELOCITY + stats.JUMP_VELOCITY, 100, 1000);
+        MAX_VELOCITY = MathUtils.clamp(MAX_VELOCITY + stats.MAX_VELOCITY, 100, 1000);
+        FRICTION = MathUtils.clamp(FRICTION + stats.FRICTION, 0.001f, 5f);
+    }
+
+    public void subtractStats(final ActorStats stats){
+        level = MathUtils.clamp(level - stats.level, 1, level - stats.level);
+        experience = MathUtils.clamp(experience - stats.experience, 0, experience - stats.experience);
+        score = MathUtils.clamp(score - stats.score, 0, score - stats.score);
+
+        maxHealth = MathUtils.clamp(maxHealth - stats.maxHealth, 0, maxHealth - stats.maxHealth);
+        health = MathUtils.clamp(health - stats.health, 0, maxHealth);
+        maxEnergy = MathUtils.clamp(maxEnergy - stats.maxEnergy, 0, maxEnergy - stats.maxEnergy);
+        energy = MathUtils.clamp(energy - stats.energy, 0, maxEnergy);
+        offence = MathUtils.clamp(offence - stats.offence, 1, offence - stats.offence);
+        defense = MathUtils.clamp(defense - stats.defense, 1, defense - stats.defense);
+
+        GRAVITY = MathUtils.clamp(GRAVITY - stats.GRAVITY, 100, 1500);
+        ACCELERATION = MathUtils.clamp(ACCELERATION - stats.ACCELERATION, 1, 50);
+        JUMP_VELOCITY = MathUtils.clamp(JUMP_VELOCITY - stats.JUMP_VELOCITY, 100, 1000);
+        MAX_VELOCITY = MathUtils.clamp(MAX_VELOCITY - stats.MAX_VELOCITY, 100, 1000);
+        FRICTION = MathUtils.clamp(FRICTION - stats.FRICTION, 0.001f, 5f);
+    }
+    
     @Override
     public String toString() {
-        return     "level=" + level +
-                "\n health=" + health +
-                "\n energy=" + energy +
-                "\n experience=" + experience +
-                "\n offence=" + offence +
-                "\n defense=" + defense +
-                "\n score=" + score +
-                "\n GRAVITY=" + GRAVITY +
-                "\n ACCELERATION=" + ACCELERATION +
-                "\n JUMP_VELOCITY=" + JUMP_VELOCITY +
-                "\n MAX_VELOCITY=" + MAX_VELOCITY +
-                "\n FRICTION=" + FRICTION;
+        return  "level = " + level +
+                "\nhealth = " + health + "/" + maxHealth +
+                "\nenergy = " + energy + "/" + maxEnergy +
+                "\nexperience = " + experience +
+                "\noffence = " + offence +
+                "\ndefense = " + defense +
+                "\nscore = " + score +
+                "\nGRAVITY = " + GRAVITY +
+                "\nACCELERATION = " + ACCELERATION +
+                "\nJUMP_VELOCITY = " + JUMP_VELOCITY +
+                "\nMAX_VELOCITY = " + MAX_VELOCITY +
+                "\nFRICTION = " + FRICTION;
     }
+
 }

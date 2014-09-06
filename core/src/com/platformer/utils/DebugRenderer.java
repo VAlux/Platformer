@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import com.platformer.Platformer;
 import com.platformer.entities.Actor;
+import com.platformer.entities.Character;
 import com.platformer.entities.Mob;
 
 import java.util.ArrayList;
@@ -59,7 +60,14 @@ public class DebugRenderer {
     public void renderStats(final Actor actor) {
         batch.begin();
         font.setScale(.5f);
-        font.drawMultiLine(batch, actor.getStats().toString(), 0, Platformer.HEIGHT);
+        font.drawMultiLine(batch, actor.getStats().toString(), 10, Platformer.HEIGHT - 10);
+        batch.end();
+    }
+
+    public void renderInventory(final Character character){
+        batch.begin();
+        font.setScale(.5f);
+        font.drawMultiLine(batch, character.getInventory().toString(), Platformer.WIDTH - 120, Platformer.HEIGHT - 10);
         batch.end();
     }
 }
