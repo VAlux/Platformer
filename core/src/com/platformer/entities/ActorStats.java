@@ -48,4 +48,20 @@ public class ActorStats {
         MAX_VELOCITY = stats.MAX_VELOCITY;
         FRICTION = stats.FRICTION;
     }
+
+    @Override
+    public String toString() {
+        return     "level=" + level +
+                "\n health=" + health +
+                "\n energy=" + energy +
+                "\n experience=" + experience +
+                "\n offence=" + offence +
+                "\n defense=" + defense +
+                "\n score=" + score +
+                "\n GRAVITY=" + GRAVITY +
+                "\n ACCELERATION=" + ACCELERATION +
+                "\n JUMP_VELOCITY=" + JUMP_VELOCITY +
+                "\n MAX_VELOCITY=" + MAX_VELOCITY +
+                "\n FRICTION=" + FRICTION;
+    }
 }

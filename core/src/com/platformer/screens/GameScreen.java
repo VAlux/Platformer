@@ -53,6 +53,7 @@ public class GameScreen implements Screen {
         actors = new ArrayList<Actor>();
 
         camera = new OrthographicCamera();
+
         debugRenderer = new DebugRenderer(camera);
         player = new Elf(map);
         players.add(player);
@@ -116,6 +117,7 @@ public class GameScreen implements Screen {
     private void renderDebugInfo(){
         debugRenderer.renderActorsBounds(actors);
         debugRenderer.renderFOV(actors);
+        debugRenderer.renderStats(player);
     }
 
     @Override

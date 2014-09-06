@@ -17,7 +17,7 @@ public class DamageEffect extends Effect {
     @Override
     public void apply(Actor actor) {
         damageAmount -= (damageAmount / 100) * actor.getStats().defense; // actors resists (defense - actors % of clear damage resistance)
-        actor.getStats().health -= damageAmount;
+        actor.getStats().health -= damageAmount; // hit!
         Gdx.app.log(TAG, "Players health: " + actor.getStats().health);
     }
 

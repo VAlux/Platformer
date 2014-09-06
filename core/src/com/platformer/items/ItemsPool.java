@@ -1,6 +1,5 @@
 package com.platformer.items;
 
-
 import com.badlogic.gdx.Gdx;
 import com.platformer.abilities.effect.Effect;
 import com.platformer.abilities.effect.FreezeEffect;
