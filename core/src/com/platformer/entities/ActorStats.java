@@ -4,7 +4,9 @@ package com.platformer.entities;
 public class ActorStats {
 
     public int level;
+    public int maxHealth;
     public int health;
+    public int maxEnergy;
     public int energy;
     public int experience;
     public int offence;
@@ -20,8 +22,8 @@ public class ActorStats {
     public void loadDefaults(){
         level = 1;
         score = 0;
-        health = 1000;
-        energy = 500;
+        health = maxHealth = 1000;
+        energy = maxEnergy = 500;
         experience = 0;
         offence = 50;
         defense = 10;
@@ -36,8 +38,8 @@ public class ActorStats {
     public void copy(final ActorStats stats) {
         level = stats.level;
         score = stats.score;
-        health = stats.health;
-        energy = stats.energy;
+        health = maxHealth = stats.health;
+        energy = maxEnergy = stats.energy;
         experience = stats.experience;
         offence = stats.offence;
         defense = stats.defense;

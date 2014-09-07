@@ -1,0 +1,29 @@
+
+bars.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+barRed_horizontalMid
+  rotate: false
+  xy: 1, 21
+  size: 18, 18
+  split: 0, 18, 2, 10
+  orig: 18, 18
+  offset: 0, 0
+  index: -1
+barRed_horizontalLeft
+  rotate: false
+  xy: 1, 1
+  size: 9, 18
+  split: 8, 0, 7, 10
+  orig: 9, 18
+  offset: 0, 0
+  index: -1
+barRed_horizontalRight
+  rotate: false
+  xy: 12, 1
+  size: 9, 18
+  split: 0, 8, 7, 10
+  orig: 9, 18
+  offset: 0, 0
+  index: -1

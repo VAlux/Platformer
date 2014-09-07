@@ -5,6 +5,7 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.FPSLogger;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
@@ -16,6 +17,7 @@ import com.platformer.exceptions.MapLayerNotFoundException;
 import com.platformer.exceptions.MapObjectNotFoundException;
 import com.platformer.items.ItemsPool;
 import com.platformer.maps.Map;
+import com.platformer.ui.HUD;
 import com.platformer.utils.DebugRenderer;
 
 import java.util.ArrayList;
@@ -31,6 +33,7 @@ public class GameScreen implements Screen {
     private Vector3 cameraLerpTarget;
     private Vector3 playerPosition; // camera position interpolation needs vector3 instead of vector2.
     private FPSLogger fpsLogger;
+    private HUD hud;
 
     private ArrayList<Actor> players;
     private ArrayList<Actor> actors;
@@ -68,6 +71,8 @@ public class GameScreen implements Screen {
         playerPosition = new Vector3(player.getPosition(), 0);
         cameraLerpTarget = new Vector3(playerPosition);
         camera.position.set(playerPosition);
+
+        hud = new HUD(mapRenderer.getSpriteBatch(), player.getStats());
         fpsLogger = new FPSLogger();
     }
 
@@ -87,7 +92,7 @@ public class GameScreen implements Screen {
         mapRenderer.renderTileLayer(map.getForegroundLayer());
         mapRenderer.getSpriteBatch().end();
 
-        renderDebugInfo();
+        hud.render(delta);
 
         fpsLogger.log();
     }
@@ -114,10 +119,10 @@ public class GameScreen implements Screen {
                 mob.getPosition().x, mob.getPosition().y);
     }
 
-    private void renderDebugInfo(){
+    private void renderDebugInfo(Batch batch){
         debugRenderer.renderActorsBounds(actors);
         debugRenderer.renderFOV(actors);
-        debugRenderer.renderStats(player);
+        debugRenderer.renderStats(player.getStats(), batch);
     }
 
     @Override
