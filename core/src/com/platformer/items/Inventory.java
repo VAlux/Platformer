@@ -26,9 +26,7 @@ public class Inventory {
     public int size() {
         int size = 0;
         Set<Long> keys = inventory.keySet();
-        Iterator<Long> it = keys.iterator();
-        while (it.hasNext()){
-            Long itemID = it.next();
+        for (Long itemID : keys) {
             ItemEntry entry = getItem(itemID);
             if (entry.item.isConsumable()) ++size; // consumable items take one slot regardless quantity.
             else size += entry.quantity;           // other items take one slot per item.
@@ -110,9 +108,7 @@ public class Inventory {
                 Gdx.app.log(TAG, "Can't add (" + quantity + ") items: max capacity (" + maxCapacity + ") will be exceed.");
                 quantity = MathUtils.clamp(quantity, 1, maxCapacity - size);
             }
-
             setItem(itemID, quantity);
-
         }
     }
 

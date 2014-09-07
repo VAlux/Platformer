@@ -5,7 +5,6 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.FPSLogger;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
@@ -94,6 +93,7 @@ public class GameScreen implements Screen {
         mapRenderer.renderTileLayer(map.getForegroundLayer());
         mapRenderer.getSpriteBatch().end();
 
+        renderDebugInfo();
         hud.render(delta);
 
         //fpsLogger.log();
@@ -121,12 +121,12 @@ public class GameScreen implements Screen {
                 mob.getPosition().x, mob.getPosition().y);
     }
 
-    private void renderDebugInfo(Batch batch){
+    private void renderDebugInfo(){
         debugRenderer.renderActorsBounds(actors);
         debugRenderer.renderFOV(actors);
 
-        debugRenderer.renderStats(player.getStats(), mapRenderer.getSpriteBatch());
-        debugRenderer.renderInventory(player, mapRenderer.getSpriteBatch());
+        debugRenderer.renderStats(player.getStats());
+        debugRenderer.renderInventory(player);
     }
 
     @Override
