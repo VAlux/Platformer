@@ -16,8 +16,8 @@ public class Mob extends Character {
     protected ArrayList<Actor> actors;
     protected Vector2 fovSize;
 
-    public Mob(Map map, Vector2 spawnPosition, ArrayList<Actor> actors) {
-        super(map, spawnPosition);
+    public Mob(Map map, Vector2 spawnPosition, ArrayList<Actor> actors, int inventoryCapacity) {
+        super(map, spawnPosition, inventoryCapacity);
         specialObjects = map.getSpecObjectsLayer().getObjects();
         collidableObjects = map.getCollisionLayer().getObjects();
 
@@ -25,6 +25,10 @@ public class Mob extends Character {
         fovSize = new Vector2(10 * map.getTileWidth(), 10 * map.getTileHeight());
         fieldOfView = new Rectangle(position.x - fovSize.x / 2, position.y - fovSize.y / 2, fovSize.x, fovSize.y);
         state = ActorState.IDLE;
+    }
+
+    public Mob(Map map, Vector2 spawnPosition, ArrayList<Actor> actors){
+        this(map,spawnPosition, actors, 0);
     }
 
     @Override

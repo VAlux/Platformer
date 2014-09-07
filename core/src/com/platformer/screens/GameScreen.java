@@ -58,12 +58,14 @@ public class GameScreen implements Screen {
         camera = new OrthographicCamera();
 
         debugRenderer = new DebugRenderer(camera);
-        player = new Elf(map);
+        player = new Elf(map, 10);
         players.add(player);
-
-        player.pickItem(0L, 1);
-        player.pickItem(1L, 1);
-        player.pickItem(2L, 1);
+        /// TODO: test picking items
+        player.pickItem(ItemsPool.IDs.SCOUT_SWORD, 1);
+        player.pickItem(ItemsPool.IDs.STONE_RING, 3);
+        player.pickItem(ItemsPool.IDs.ICE_SWORD, 1);
+        player.pickItem(ItemsPool.IDs.JET_PACK, 1);
+        player.pickItem(ItemsPool.IDs.HEAL_POTION, 5);
 
         mob = new SeekerMob(map, new Vector2(27.0f * 32.0f, 8.0f * 32.0f), players);
         actors.add(player);
@@ -94,7 +96,7 @@ public class GameScreen implements Screen {
 
         hud.render(delta);
 
-        fpsLogger.log();
+        //fpsLogger.log();
     }
 
     private void updateCamera(final float delta) {
@@ -122,7 +124,9 @@ public class GameScreen implements Screen {
     private void renderDebugInfo(Batch batch){
         debugRenderer.renderActorsBounds(actors);
         debugRenderer.renderFOV(actors);
-        debugRenderer.renderStats(player.getStats(), batch);
+
+        debugRenderer.renderStats(player.getStats(), mapRenderer.getSpriteBatch());
+        debugRenderer.renderInventory(player, mapRenderer.getSpriteBatch());
     }
 
     @Override

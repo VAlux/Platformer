@@ -2,36 +2,78 @@ package com.platformer.items;
 
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.math.MathUtils;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 public class Inventory {
 
     private static final String TAG = Inventory.class.getSimpleName();
-    HashMap<Long, Integer> inventory;
 
-    public Inventory() {
+    private HashMap<Long, Integer> inventory;
+    private int maxCapacity;
+
+    public Inventory(int maxCapacity) {
         this.inventory = new HashMap<Long, Integer>();
+        this.maxCapacity = maxCapacity;
     }
 
-    public Inventory(HashMap<Long, Integer> inventory) {
-        this();
+    public Inventory(int maxCapacity, HashMap<Long, Integer> inventory) {
+        this(maxCapacity);
         addItems(inventory);
     }
 
-    public HashMap<Long, Integer> getItems() {
-        return inventory;
+    public int size() {
+        int size = 0;
+        Set<Long> keys = inventory.keySet();
+        Iterator<Long> it = keys.iterator();
+        while (it.hasNext()){
+            Long itemID = it.next();
+            ItemEntry entry = getItem(itemID);
+            if (entry.item.isConsumable()) ++size; // consumable items take one slot regardless quantity.
+            else size += entry.quantity;           // other items take one slot per item.
+        }
+        return size;
     }
 
-    public InventoryItem getItem(long itemID){
+    public int getMaxCapacity() {
+        return maxCapacity;
+    }
+
+    private InventoryItem getInventoryItem(long itemID){
         if (inventory.get(itemID) != null)
-            return ItemsPool.getItem(itemID);
+            return ItemsPool.obtain(itemID);
         else{
-            Gdx.app.log(TAG, "Item with ID = " + itemID + " was not found.");
+            Gdx.app.log(TAG, "Item with ID = " + itemID + " was not found in inventory.");
             return null;
         }
+    }
+
+    private InventoryItem obtainItem(long itemID){
+        InventoryItem item = ItemsPool.obtain(itemID);
+        if (item == null) {
+            Gdx.app.log(TAG, "Item with ID = " + itemID + " does not exist.");
+            return null;
+        }
+        return item;
+    }
+
+    public ItemEntry[] getItems() {
+        Set<Long> keys = inventory.keySet();
+        ItemEntry[] items = new ItemEntry[keys.size()];
+        Iterator<Long> it = keys.iterator();
+        for (int i = 0; i < items.length && it.hasNext(); i++){
+            long itemID = it.next();
+            int qty = inventory.get(itemID);
+            InventoryItem item = getInventoryItem(itemID);
+            items[i] = new ItemEntry(item, qty);
+        }
+        return items;
+    }
+
+    public ItemEntry getItem(long itemID){
+        InventoryItem item = getInventoryItem(itemID);
+        return (item == null ? null : new ItemEntry(item, inventory.get(itemID)));
     }
 
     /** Adds set of items to the inventory. */
@@ -45,8 +87,8 @@ public class Inventory {
     }
 
     /** Private method to change items. */
-    private void setItem(Long itemID, int quantity){
-        Integer q = this.inventory.get(itemID);
+    private void setItem(long itemID, int quantity){
+        Integer q = inventory.get(itemID);
         if (q == null) q = 0;
         if (q + quantity <= 0)
             inventory.remove(itemID);
@@ -58,9 +100,19 @@ public class Inventory {
      * @param itemID Specified item which is going to be added.
      * @param quantity Amount of item's instances to be removed.
      *  */
-    public void addItem(Long itemID, int quantity){
-        if (itemID != null && quantity > 0){
+    public void addItem(long itemID, int quantity){
+        if (quantity > 0){
+            int size = size();
+            InventoryItem item = obtainItem(itemID);
+            if (item == null) return;
+
+            if (!item.isConsumable() && size + quantity > maxCapacity) {
+                Gdx.app.log(TAG, "Can't add (" + quantity + ") items: max capacity (" + maxCapacity + ") will be exceed.");
+                quantity = MathUtils.clamp(quantity, 1, maxCapacity - size);
+            }
+
             setItem(itemID, quantity);
+
         }
     }
 
@@ -69,16 +121,8 @@ public class Inventory {
      * @param quantity Amount of item's instances to be removed.
      * Note: If quantity is greater than existed in inventory - item will be permanently deleted from inventory
      * */
-    public void removeItem(Long itemID, int quantity){
-        if (itemID != null && quantity < 0) {
-            Integer q = this.inventory.get(itemID);
-            if (q != null){
-                if (quantity >= q)
-                    this.inventory.remove(itemID);
-                else
-                    this.inventory.put(itemID, q + quantity);
-            }
-        }
+    public void removeItem(long itemID, int quantity){
+        setItem(itemID, -Math.abs(quantity));
     }
 
     /**
@@ -86,13 +130,34 @@ public class Inventory {
      * @param itemID Specified item's ID which is going to be removed.
      * */
     public void removeItem(long itemID){
-        this.inventory.remove(itemID);
+       inventory.remove(itemID);
     }
 
-    /**
-     * Removes all items from inventory.
-     */
+    /** Removes all items from inventory. */
     public void removeAll(){
         this.inventory.clear();
+    }
+
+    @Override
+    public String toString() {
+        String str = "Inventory: (" + size() +"/" + maxCapacity + ")\n";
+            for (ItemEntry i: getItems()){
+                str += '\t' + i.item.getName();
+                str += " x" + i.quantity;
+                str += '\n';
+            }
+        return str;
+    }
+
+    /** Represents pair of item an its' quantity. Provides easy access to item and quantity and reduces calls to HashMap. */
+    public class ItemEntry {
+
+        public InventoryItem item;
+        public int quantity;
+
+        private ItemEntry(InventoryItem item, int quantity) {
+            this.item = item;
+            this.quantity = quantity;
+        }
     }
 }

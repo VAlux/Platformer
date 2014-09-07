@@ -5,7 +5,7 @@ import com.platformer.abilities.effect.Effect;
 import com.platformer.entities.Actor;
 import com.platformer.entities.ActorStats;
 
-public abstract class InventoryItem implements ApplicableObject {
+public abstract class InventoryItem implements ApplicableObject, Cloneable {
     private static final String TAG = InventoryItem.class.getSimpleName();
 
     /** Unique item identifier. */
@@ -23,20 +23,26 @@ public abstract class InventoryItem implements ApplicableObject {
     /** Stores effects which will be activated when item is equipped. */
     protected Effect[] effects;
 
-    /** Flag intended to be sure that item was applied only once. */
-    protected boolean isApplied;
-
     /** Flag indicates whether current item is consumable and should be removed after applying. */
     protected boolean isConsumable;
 
-
-    protected InventoryItem(String name) {
-        this(name, "");
+    protected InventoryItem(long id, String name) {
+        this(id, name, "");
     }
 
-    protected InventoryItem(String name, String descr) {
+    protected InventoryItem(long id, String name, String description) {
+        this(id, name, description, false);
+    }
+
+    protected InventoryItem(long id, String name, boolean isConsumable) {
+        this(id, name, "", isConsumable);
+    }
+
+    protected InventoryItem(long id, String name, String description, boolean isConsumable) {
+        this.id = id;
         this.name = name;
-        this.description = descr;
+        this.description = description;
+        this.isConsumable = isConsumable;
 
         affectedStats = createAffectedStats();
         effects = createEffects();
@@ -68,19 +74,13 @@ public abstract class InventoryItem implements ApplicableObject {
 
     @Override
     public void apply(Actor actor){
-        if (isApplied){
-            Gdx.app.log(TAG, "Item (" + this.name + ") has been already applied to actor (" + actor.getId() + ").");
-            return;
-        }
-
         if (affectedStats == null){
-            Gdx.app.error(TAG, "Invalid item: Affected stats was not initialized. Item can not be applied...");
+            Gdx.app.error(TAG, "Invalid item (" + this.name + "): Affected stats was not initialized. Item can not be applied...");
             return;
         }
 
         if (actor != null && actor.getStats() != null) {
-            isApplied = true;
-            ///TODO: Define sum for stats to be able to add stats affected by current item
+            actor.getStats().addStats(affectedStats);
 
             if (effects != null && effects.length > 0){
                 for (Effect e : effects){   // apply all instant effects.
@@ -88,26 +88,20 @@ public abstract class InventoryItem implements ApplicableObject {
                 }
             }
             else{
-                Gdx.app.log(TAG, "Item hasn't got any effects.");
+                Gdx.app.log(TAG, "Item (" + this.name + ") hasn't got any effects.");
             }
         }
     }
 
     @Override
     public void remove(Actor actor){
-        if (!isApplied){
-            Gdx.app.log(TAG, "Item (" + this.name + ") wasn't be applied to actor (" + actor.getId() + ").");
-            return;
-        }
-
         if (affectedStats == null){
             Gdx.app.error(TAG, "Affected stats was not initialized: item can not be removed...");
             return;
         }
 
         if (actor != null && actor.getStats() != null) {
-            isApplied = false;
-            ///TODO: Define subtract for stats to be able to remove stats affected by current item
+            actor.getStats().subtractStats(affectedStats);
 
             if (effects != null && effects.length > 0){
                 for (Effect e : effects){   // remove all effects.
@@ -115,11 +109,13 @@ public abstract class InventoryItem implements ApplicableObject {
                 }
             }
             else{
-                Gdx.app.log(TAG, "Item hasn't got any effects.");
+                Gdx.app.log(TAG, "Item (" + this.name + ") hasn't got any effects.");
             }
         }
     }
 
-
-
+    @Override
+    public String toString() {
+        return name;
+    }
 }

@@ -7,8 +7,10 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
+import com.platformer.Platformer;
 import com.platformer.entities.Actor;
 import com.platformer.entities.ActorStats;
+import com.platformer.entities.Character;
 import com.platformer.entities.Mob;
 
 import java.util.ArrayList;
@@ -55,7 +57,16 @@ public class DebugRenderer {
 
     //method invocation must be injected between batch.begin() and batch.end() calls to avoid batch reinit. errors
     public void renderStats(final ActorStats stats, Batch batch) {
+        batch.begin();
         font.setScale(.5f);
-        font.drawMultiLine(batch, stats.toString(), 0.5f, 0.5f);
+        font.drawMultiLine(batch, stats.toString(), 10, Platformer.HEIGHT - 10);
+        batch.end();
+    }
+
+    public void renderInventory(final Character character, Batch batch){
+        batch.begin();
+        font.setScale(.5f);
+        font.drawMultiLine(batch, character.getInventory().toString(), Platformer.WIDTH - 120, Platformer.HEIGHT - 10);
+        batch.end();
     }
 }

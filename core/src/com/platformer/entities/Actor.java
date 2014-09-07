@@ -142,7 +142,7 @@ public class Actor implements RenderableEntity {
         return null;
     }
 
-    public double getId() {
+    public long getId() {
         return id;
     }
 
