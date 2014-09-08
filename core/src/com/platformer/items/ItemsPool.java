@@ -70,7 +70,7 @@ public class ItemsPool {
             @Override
             protected ActorStats createAffectedStats() {
                 ActorStats dmgStats = new ActorStats();
-                dmgStats.GRAVITY = -400;
+                dmgStats.JUMP_VELOCITY += 200;
                 return dmgStats;
             }
 
@@ -104,6 +104,4 @@ public class ItemsPool {
         if (item == null) Gdx.app.log(TAG, "Item with ID = " + id + " was not found.");
         return item;
     }
-
-
 }

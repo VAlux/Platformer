@@ -19,3 +19,11 @@ btndown
   orig: 43, 43
   offset: 0, 0
   index: -1
+default
+  rotate: false
+  xy: 46, 5
+  size: 43, 43
+  split: 6, 6, 15, 14
+  orig: 43, 43
+  offset: 0, 0
+  index: -1

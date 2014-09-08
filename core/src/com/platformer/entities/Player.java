@@ -2,6 +2,7 @@ package com.platformer.entities;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.math.Rectangle;
 import com.platformer.items.ItemsPool;
@@ -9,7 +10,7 @@ import com.platformer.maps.Map;
 
 import static com.platformer.enums.ActorState.*;
 
-public class Player extends Character {
+public class Player extends Character implements InputProcessor{
 
     protected boolean isOnWall;
     protected boolean canWallJump;
@@ -87,17 +88,59 @@ public class Player extends Character {
             acceleration.x = stats.ACCELERATION;
             if (state != JUMP)
                 state = WALK_RIGHT;
-        } else if (Gdx.input.isKeyPressed(Input.Keys.TAB)){   // just for fun enable/disable inventory by TAB
-            if (isActiveInventory) deactivateInventory();
-            else activateInventory();
-        } else if (Gdx.input.isKeyPressed(Input.Keys.E)){
-            useItem(ItemsPool.IDs.HEAL_POTION);
-        }
-
-        else {
+        } else {
             if (state != JUMP)
                 state = IDLE;
             acceleration.x = 0;
         }
+    }
+
+    @Override
+    public boolean keyDown(int keycode) {
+        return false;
+    }
+
+    @Override
+    public boolean keyUp(int keycode) {
+        return false;
+    }
+
+    @Override
+    public boolean keyTyped(char character) {
+        if (character == 'e') {
+            useItem(ItemsPool.IDs.HEAL_POTION);
+            return true;
+        }
+        else if (character == 'i') {
+            if (isActiveInventory) deactivateInventory();
+            else activateInventory();
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+        return false;
+    }
+
+    @Override
+    public boolean touchUp(int screenX, int screenY, int pointer, int button) {
+        return false;
+    }
+
+    @Override
+    public boolean touchDragged(int screenX, int screenY, int pointer) {
+        return false;
+    }
+
+    @Override
+    public boolean mouseMoved(int screenX, int screenY) {
+        return false;
+    }
+
+    @Override
+    public boolean scrolled(int amount) {
+        return false;
     }
 }

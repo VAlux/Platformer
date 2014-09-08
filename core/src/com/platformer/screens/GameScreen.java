@@ -8,8 +8,10 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
+import com.platformer.Platformer;
 import com.platformer.entities.Actor;
 import com.platformer.entities.Character;
+import com.platformer.entities.Player;
 import com.platformer.entities.characters.Elf;
 import com.platformer.entities.enemies.SeekerMob;
 import com.platformer.exceptions.MapLayerNotFoundException;
@@ -25,7 +27,7 @@ public class GameScreen implements Screen {
     private static final String TAG = GameScreen.class.getSimpleName();
 
     private Map map;
-    private Character player;
+    private Player player;
     private Character mob;
     private OrthogonalTiledMapRenderer mapRenderer;
     private OrthographicCamera camera;
@@ -73,7 +75,7 @@ public class GameScreen implements Screen {
         cameraLerpTarget = new Vector3(playerPosition);
         camera.position.set(playerPosition);
 
-        hud = new HUD(mapRenderer.getSpriteBatch(), player.getStats());
+        hud = new HUD(mapRenderer.getSpriteBatch(), player);
         fpsLogger = new FPSLogger();
     }
 
@@ -93,7 +95,10 @@ public class GameScreen implements Screen {
         mapRenderer.renderTileLayer(map.getForegroundLayer());
         mapRenderer.getSpriteBatch().end();
 
-        renderDebugInfo();
+        if (Platformer.DEBUG_INFO_ENABLED)
+            renderDebugInfo();
+
+        hud.update();
         hud.render(delta);
 
         //fpsLogger.log();
@@ -125,12 +130,13 @@ public class GameScreen implements Screen {
         debugRenderer.renderActorsBounds(actors);
         debugRenderer.renderFOV(actors);
 
-        debugRenderer.renderStats(player.getStats());
-        debugRenderer.renderInventory(player);
+//        debugRenderer.renderStats(player.getStats());
+//        debugRenderer.renderInventory(player);
     }
 
     @Override
     public void resize(int width, int height) {
+        hud.resize(width, height);
         camera.viewportWidth = width / 2;
         camera.viewportHeight = height / 2;
         updateCamera(Gdx.graphics.getDeltaTime());
@@ -141,6 +147,7 @@ public class GameScreen implements Screen {
         map.dispose();
         player.dispose();
         mapRenderer.dispose();
+        hud.dispose();
         Gdx.app.log(TAG, "game disposed");
     }
 

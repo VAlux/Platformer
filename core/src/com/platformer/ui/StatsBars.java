@@ -31,21 +31,29 @@ public class StatsBars extends Table{
         skin = new Skin(atlas);
         this.setSkin(skin);
 
-        healthBarStyle = new ProgressBarStyle(skin.getDrawable("barBack_horizontalMid"), skin.getDrawable("barRed_horizontalMid"));
+        TextureAtlas btnAtlas =new TextureAtlas(Gdx.files.internal("ui/buttons/button.pack"));
+        Skin skinBG = new Skin(btnAtlas);
+        this.background(skinBG.getDrawable("btndown"));
+
+        healthBarStyle = new ProgressBarStyle(skin.getDrawable("barBack_horizontalMid"),
+                                              skin.getDrawable("barRed_horizontalMid"));
         healthBarStyle.knobBefore = healthBarStyle.knob;
 
-        energyBarStyle = new ProgressBarStyle(skin.getDrawable("barBack_horizontalMid"), skin.getDrawable("barBlue_horizontalMid"));
+        energyBarStyle = new ProgressBarStyle(skin.getDrawable("barBack_horizontalMid"),
+                                              skin.getDrawable("barBlue_horizontalMid"));
         energyBarStyle.knobBefore = energyBarStyle.knob;
 
-        expBarStyle = new ProgressBarStyle(skin.getDrawable("barBack_horizontalMid"), skin.getDrawable("barGreen_horizontalMid"));
+        expBarStyle = new ProgressBarStyle(skin.getDrawable("barBack_horizontalMid"),
+                                           skin.getDrawable("barGreen_horizontalMid"));
         expBarStyle.knobBefore = expBarStyle.knob;
 
         health = new ProgressBar(0, stats.maxHealth, 1, false, healthBarStyle);
         energy = new ProgressBar(0, stats.maxEnergy, 1, false, energyBarStyle);
         experience = new ProgressBar(0, 100, 1, false, expBarStyle);
+        experience.setValue(100);
 
-        add(health).padBottom(5).padLeft(5).padTop(5).row();
-        add(energy).padBottom(5).padLeft(5).row();
+        add(health).padBottom(5).padLeft(5).padRight(5).row();
+        add(energy).padBottom(5).padLeft(5).padRight(5).row();
         add(experience).padLeft(5);
     }
 
@@ -53,5 +61,10 @@ public class StatsBars extends Table{
         health.setValue(stats.health);
         energy.setValue(stats.energy);
         experience.setValue(stats.experience);
+    }
+
+    public void dispose() {
+        skin.dispose();
+        atlas.dispose();
     }
 }

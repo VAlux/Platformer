@@ -105,4 +105,8 @@ public class Character extends Actor{
         }
         inventory.removeItem(id, quantity);
     }
+
+    public boolean isActiveInventory() {
+        return isActiveInventory;
+    }
 }
