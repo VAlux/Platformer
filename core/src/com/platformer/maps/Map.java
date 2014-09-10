@@ -55,16 +55,19 @@ public class Map {
     }
 
     private void validateLayersLoading() throws MapLayerNotFoundException {
-        if (collisionLayer == null ||
-            specObjectsLayer == null ||
-            foregroundLayer == null ||
-            backgroundLayer == null)
-            throw new MapLayerNotFoundException();
-    }
+        if (collisionLayer == null)
+            throw new MapLayerNotFoundException(COLL_OBJECTS_LAYER_TAG);
+        else if(specObjectsLayer == null)
+            throw new MapLayerNotFoundException(SPEC_OBJECTS_LAYER_TAG);
+        else if(foregroundLayer == null)
+            throw new MapLayerNotFoundException(FOREGROUND_LAYER_TAG);
+        else if(backgroundLayer == null)
+            throw new MapLayerNotFoundException(BACKGROUND_LAYER_TAG);
+}
 
     private void validateObjectsLoading ()throws MapObjectNotFoundException {
         if (spawn == null)
-            throw new MapObjectNotFoundException();
+            throw new MapObjectNotFoundException(SPAWN_OBJECT_TAG);
     }
 
     public Vector2 getSpawnPoint(){

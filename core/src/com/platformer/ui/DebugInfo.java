@@ -5,8 +5,8 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.platformer.entities.Actor;
-import com.platformer.entities.ActorStats;
+import com.platformer.entities.Character;
+import com.platformer.stats.CharacterStats;
 
 public class DebugInfo extends Table {
 
@@ -14,12 +14,12 @@ public class DebugInfo extends Table {
     private Label lblStats;
     private Label lblPosition;
     private Label lblFPS;
-    private ActorStats stats;
-    private Actor actor;
+    private CharacterStats stats;
+    private Character character;
 
-    public DebugInfo(final Actor actor) {
-        this.actor = actor;
-        stats = actor.getStats();
+    public DebugInfo(final Character character) {
+        this.character = character;
+        stats = character.getStats();
         font = new BitmapFont(Gdx.files.internal("fonts/font_white.fnt"));
         font.setScale(.8f);
 
@@ -29,7 +29,7 @@ public class DebugInfo extends Table {
 
         lblStats = new Label(stats.toString(), statsLabelStyle);
         lblStats.setWrap(true);
-        lblPosition = new Label("PosX: " + actor.getPosition().x + "\nPosY: " + actor.getPosition().y, posLabelStyle);
+        lblPosition = new Label("PosX: " + character.getPosition().x + "\nPosY: " + character.getPosition().y, posLabelStyle);
         lblPosition.setWrap(true);
         lblFPS = new Label("FPS: " + String.valueOf(Gdx.graphics.getFramesPerSecond()), fpsLabelStyle);
         lblFPS.setWrap(true);
@@ -43,7 +43,7 @@ public class DebugInfo extends Table {
 
     public void update(){
         lblStats.setText(stats.toString());
-        lblPosition.setText("PosX: " + actor.getPosition().x + "\nPosY: " + actor.getPosition().y);
+        lblPosition.setText("PosX: " + character.getPosition().x + "\nPosY: " + character.getPosition().y);
         lblFPS.setText("FPS: " + String.valueOf(Gdx.graphics.getFramesPerSecond()));
     }
 }

@@ -10,7 +10,7 @@ import com.platformer.maps.Map;
 
 import static com.platformer.enums.ActorState.*;
 
-public class Player extends Character implements InputProcessor{
+public class Player extends Character implements InputProcessor {
 
     protected boolean isOnWall;
     protected boolean canWallJump;

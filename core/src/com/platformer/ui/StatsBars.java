@@ -5,7 +5,7 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.ui.ProgressBar;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.platformer.entities.ActorStats;
+import com.platformer.stats.CharacterStats;
 
 import static com.badlogic.gdx.scenes.scene2d.ui.ProgressBar.ProgressBarStyle;
 
@@ -22,9 +22,9 @@ public class StatsBars extends Table{
     private TextureAtlas atlas;
     private Skin skin;
 
-    private ActorStats stats;
+    private CharacterStats stats;
 
-    public StatsBars(ActorStats stats) {
+    public StatsBars(CharacterStats stats) {
         super();
         this.stats = stats;
         atlas = new TextureAtlas(Gdx.files.internal("ui/bars/bars.pack"));

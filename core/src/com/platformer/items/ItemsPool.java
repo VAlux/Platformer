@@ -2,7 +2,7 @@ package com.platformer.items;
 
 import com.badlogic.gdx.Gdx;
 import com.platformer.abilities.effect.Effect;
-import com.platformer.entities.ActorStats;
+import com.platformer.stats.CharacterStats;
 
 import java.util.Hashtable;
 
@@ -23,8 +23,8 @@ public class ItemsPool {
         ///TODO: load items database here
         itemsCollection.put(IDs.SCOUT_SWORD, new InventoryItem(IDs.SCOUT_SWORD, "Scout Sword") {
             @Override
-            protected ActorStats createAffectedStats() {
-                ActorStats dmgStats = new ActorStats();
+            protected CharacterStats createAffectedStats() {
+                CharacterStats dmgStats = new CharacterStats();
                 dmgStats.offence = 10;
                 return dmgStats;
             }
@@ -37,8 +37,8 @@ public class ItemsPool {
 
         itemsCollection.put(IDs.STONE_RING, new InventoryItem(IDs.STONE_RING, "Stone Ring") {
             @Override
-            protected ActorStats createAffectedStats() {
-                ActorStats defStats = new ActorStats();
+            protected CharacterStats createAffectedStats() {
+                CharacterStats defStats = new CharacterStats();
                 defStats.defense = 10;
                 defStats.maxHealth = 400;
                 return defStats;
@@ -52,8 +52,8 @@ public class ItemsPool {
 
         itemsCollection.put(IDs.ICE_SWORD, new InventoryItem(IDs.ICE_SWORD, "Ice Sword") {
             @Override
-            protected ActorStats createAffectedStats() {
-                ActorStats dmgStats = new ActorStats();
+            protected CharacterStats createAffectedStats() {
+                CharacterStats dmgStats = new CharacterStats();
                 dmgStats.offence = 19;
                 dmgStats.ACCELERATION = -10;
                 dmgStats.MAX_VELOCITY = -200;
@@ -68,8 +68,8 @@ public class ItemsPool {
 
         itemsCollection.put(IDs.JET_PACK, new InventoryItem(IDs.JET_PACK, "Jet Pack") {
             @Override
-            protected ActorStats createAffectedStats() {
-                ActorStats dmgStats = new ActorStats();
+            protected CharacterStats createAffectedStats() {
+                CharacterStats dmgStats = new CharacterStats();
                 dmgStats.JUMP_VELOCITY += 200;
                 return dmgStats;
             }
@@ -82,8 +82,8 @@ public class ItemsPool {
 
         itemsCollection.put(IDs.HEAL_POTION, new InventoryItem(IDs.HEAL_POTION, "Healing Potion", true) {
             @Override
-            protected ActorStats createAffectedStats() {
-                ActorStats dmgStats = new ActorStats();
+            protected CharacterStats createAffectedStats() {
+                CharacterStats dmgStats = new CharacterStats();
                 dmgStats.health = 400;
                 return dmgStats;
             }

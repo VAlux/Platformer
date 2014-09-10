@@ -1,9 +1,9 @@
-package com.platformer.entities;
+package com.platformer.stats;
 
 
 import com.badlogic.gdx.math.MathUtils;
 
-public class ActorStats {
+public class CharacterStats {
 
     public int level;
 
@@ -42,7 +42,7 @@ public class ActorStats {
         FRICTION = 0.9f;
     }
 
-    public void copy(final ActorStats stats) {
+    public void copy(final CharacterStats stats) {
         level = stats.level;
         experience = stats.experience;
         score = stats.score;
@@ -62,7 +62,7 @@ public class ActorStats {
         FRICTION = stats.FRICTION;
     }
     
-    public void addStats(final ActorStats stats){
+    public void addStats(final CharacterStats stats){
         level = MathUtils.clamp(level + stats.level, 1, level + stats.level);
         experience = MathUtils.clamp(experience + stats.experience, 0, experience + stats.experience);
         score = MathUtils.clamp(score + stats.score, 0, score + stats.score);
@@ -81,7 +81,7 @@ public class ActorStats {
         FRICTION = MathUtils.clamp(FRICTION + stats.FRICTION, 0.001f, 5f);
     }
 
-    public void subtractStats(final ActorStats stats){
+    public void subtractStats(final CharacterStats stats){
         level = MathUtils.clamp(level - stats.level, 1, level - stats.level);
         experience = MathUtils.clamp(experience - stats.experience, 0, experience - stats.experience);
         score = MathUtils.clamp(score - stats.score, 0, score - stats.score);

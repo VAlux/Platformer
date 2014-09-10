@@ -2,7 +2,6 @@ package com.platformer.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.FPSLogger;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
@@ -33,11 +32,10 @@ public class GameScreen implements Screen {
     private OrthographicCamera camera;
     private Vector3 cameraLerpTarget;
     private Vector3 playerPosition; // camera position interpolation needs vector3 instead of vector2.
-    private FPSLogger fpsLogger;
     private HUD hud;
 
-    private ArrayList<Actor> players;
-    private ArrayList<Actor> actors;
+    private ArrayList<Character> players;
+    private ArrayList<Character> actors;
     private DebugRenderer debugRenderer;
 
     @Override
@@ -53,8 +51,8 @@ public class GameScreen implements Screen {
         }
         ItemsPool.initPool();
         mapRenderer = new OrthogonalTiledMapRenderer(map.getMap());
-        players = new ArrayList<Actor>();
-        actors = new ArrayList<Actor>();
+        players = new ArrayList<Character>();
+        actors = new ArrayList<Character>();
 
         camera = new OrthographicCamera();
 
@@ -76,7 +74,6 @@ public class GameScreen implements Screen {
         camera.position.set(playerPosition);
 
         hud = new HUD(mapRenderer.getSpriteBatch(), player);
-        fpsLogger = new FPSLogger();
     }
 
     @Override
@@ -100,8 +97,6 @@ public class GameScreen implements Screen {
 
         hud.update();
         hud.render(delta);
-
-        //fpsLogger.log();
     }
 
     private void updateCamera(final float delta) {
@@ -129,9 +124,6 @@ public class GameScreen implements Screen {
     private void renderDebugInfo(){
         debugRenderer.renderActorsBounds(actors);
         debugRenderer.renderFOV(actors);
-
-//        debugRenderer.renderStats(player.getStats());
-//        debugRenderer.renderInventory(player);
     }
 
     @Override

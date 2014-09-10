@@ -4,7 +4,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
-import com.platformer.entities.Actor;
+import com.platformer.entities.Character;
 import com.platformer.entities.Mob;
 
 import java.util.ArrayList;
@@ -19,27 +19,27 @@ public class DebugRenderer {
         renderer = new ShapeRenderer(256);
     }
 
-    public void renderActorsBounds(final ArrayList<Actor> actors) {
+    public void renderActorsBounds(final ArrayList<Character> characters) {
         renderer.setProjectionMatrix(camera.combined);
         renderer.begin(ShapeRenderer.ShapeType.Line);
         renderer.setColor(Color.GREEN);
         Rectangle actorBounds;
-        for (Actor actor : actors) {
-            actorBounds = actor.getBounds();
+        for (Character character : characters) {
+            actorBounds = character.getBounds();
             renderer.rect(actorBounds.x, actorBounds.y, actorBounds.width, actorBounds.height);
         }
         renderer.end();
     }
 
-    public void renderFOV(final ArrayList<Actor> actors) {
+    public void renderFOV(final ArrayList<Character> characters) {
         renderer.setProjectionMatrix(camera.combined);
         renderer.begin(ShapeRenderer.ShapeType.Line);
         renderer.setColor(Color.RED);
         Mob mob;
         Rectangle fov;
-        for (Actor actor : actors) {
-            if (actor instanceof Mob) {
-                mob = (Mob) actor;
+        for (Character character : characters) {
+            if (character instanceof Mob) {
+                mob = (Mob) character;
                 fov = mob.getFOV();
                 renderer.rect(fov.x, fov.y, fov.width, fov.height);
             }

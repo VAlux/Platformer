@@ -30,8 +30,8 @@ public class HUD extends InputAdapter {
 
         table = new Table();
         table.setFillParent(true);
-        table.debug();
-        table.debugTable();
+//        table.debug();
+//        table.debugTable();
 
         bars = new StatsBars(player.getStats());
         table.left().top();
@@ -60,7 +60,7 @@ public class HUD extends InputAdapter {
     public void render(float delta) {
         stage.act(delta);
         stage.draw();
-        Table.drawDebug(stage);
+        //Table.drawDebug(stage);
     }
 
     public void update(){

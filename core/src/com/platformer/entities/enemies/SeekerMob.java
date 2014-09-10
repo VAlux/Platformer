@@ -5,10 +5,11 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.platformer.abilities.effect.DamageEffect;
-import com.platformer.entities.Actor;
+import com.platformer.entities.Character;
 import com.platformer.entities.Mob;
 import com.platformer.enums.ActorState;
 import com.platformer.maps.Map;
+import com.platformer.utils.Tools;
 
 import java.util.ArrayList;
 
@@ -20,7 +21,7 @@ public final class SeekerMob extends Mob {
 
     private boolean targetLocated;
 
-    public SeekerMob(Map map, Vector2 spawnPosition, ArrayList<Actor> actors) {
+    public SeekerMob(Map map, Vector2 spawnPosition, ArrayList<Character> actors) {
         super(map, spawnPosition, actors);
         targetLocated = false;
         this.texture = new Texture("tilesets/atlases/character-elven.png");
@@ -46,9 +47,9 @@ public final class SeekerMob extends Mob {
     }
 
     private void seek() {
-        for (Actor actor : actors) {
-            if (actor.getBounds().overlaps(fieldOfView)){
-                setAttackTarget(actor);
+        for (Character character : characters) {
+            if (character.getBounds().overlaps(fieldOfView)){
+                setAttackTarget(character);
                 targetLocated = true;
                 return;
             }
@@ -69,8 +70,8 @@ public final class SeekerMob extends Mob {
     }
 
     private void createAnimations() {
-        walkRightAnimation = new Animation(0.1f, extractAnimation(0, 3));
-        walkLeftAnimation = new Animation(0.1f, extractAnimation(9, 3));
+        walkRightAnimation = new Animation(0.1f, Tools.extractAnimation(splittedTextureAtlas, 0, 3));
+        walkLeftAnimation = new Animation(0.1f, Tools.extractAnimation(splittedTextureAtlas, 9, 3));
         idleAnimation = new Animation(0.1f, splittedTextureAtlas[0][0]); // need to be added. no art now :(
     }
 

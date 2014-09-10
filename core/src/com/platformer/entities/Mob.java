@@ -11,24 +11,24 @@ import static com.platformer.enums.ActorState.DEAD;
 
 public class Mob extends Character {
 
-    protected Actor attackTarget;
+    protected Character attackTarget;
     protected Rectangle fieldOfView;
-    protected ArrayList<Actor> actors;
+    protected ArrayList<Character> characters;
     protected Vector2 fovSize;
 
-    public Mob(Map map, Vector2 spawnPosition, ArrayList<Actor> actors, int inventoryCapacity) {
+    public Mob(Map map, Vector2 spawnPosition, ArrayList<Character> characters, int inventoryCapacity) {
         super(map, spawnPosition, inventoryCapacity);
         specialObjects = map.getSpecObjectsLayer().getObjects();
         collidableObjects = map.getCollisionLayer().getObjects();
 
-        this.actors = actors;
+        this.characters = characters;
         fovSize = new Vector2(10 * map.getTileWidth(), 10 * map.getTileHeight());
         fieldOfView = new Rectangle(position.x - fovSize.x / 2, position.y - fovSize.y / 2, fovSize.x, fovSize.y);
         state = ActorState.IDLE;
     }
 
-    public Mob(Map map, Vector2 spawnPosition, ArrayList<Actor> actors){
-        this(map,spawnPosition, actors, 0);
+    public Mob(Map map, Vector2 spawnPosition, ArrayList<Character> characters){
+        this(map,spawnPosition, characters, 0);
     }
 
     @Override
@@ -47,7 +47,7 @@ public class Mob extends Character {
         super.move(deltaTime);
     }
 
-    public void setAttackTarget(Actor attackTarget) {
+    public void setAttackTarget(Character attackTarget) {
         this.attackTarget = attackTarget;
     }
 

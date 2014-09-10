@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.platformer.entities.Player;
 import com.platformer.maps.Map;
+import com.platformer.utils.Tools;
 
 public final class Elf extends Player {
 
@@ -24,9 +25,9 @@ public final class Elf extends Player {
     }
 
     private void createAnimations() {
-        walkRightAnimation = new Animation(0.1f, extractAnimation(0, 3));
-        walkLeftAnimation = new Animation(0.1f, extractAnimation(9, 3));
-        jumpAnimation = new Animation(0.1f, extractAnimation(4, 3));
+        walkRightAnimation = new Animation(0.1f, Tools.extractAnimation(splittedTextureAtlas, 0, 3));
+        walkLeftAnimation = new Animation(0.1f, Tools.extractAnimation(splittedTextureAtlas, 9, 3));
+        jumpAnimation = new Animation(0.1f, Tools.extractAnimation(splittedTextureAtlas, 4, 3));
         idleAnimation = new Animation(0.1f, splittedTextureAtlas[0][0]); // need to be added. no art now :(
     }
 

@@ -1,6 +1,7 @@
 package com.platformer.abilities.effect;
 
 import com.platformer.entities.Actor;
+import com.platformer.entities.Character;
 import com.platformer.items.ApplicableObject;
 
 public abstract class Effect implements ApplicableObject {
@@ -36,8 +37,8 @@ public abstract class Effect implements ApplicableObject {
     }
 
     @Override
-    public abstract void apply(Actor actor);
+    public abstract void apply(Character actor);
 
     @Override
-    public abstract void remove(Actor actor);
+    public abstract void remove(Character actor);
 }

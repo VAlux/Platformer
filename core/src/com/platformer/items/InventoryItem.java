@@ -2,8 +2,8 @@ package com.platformer.items;
 
 import com.badlogic.gdx.Gdx;
 import com.platformer.abilities.effect.Effect;
-import com.platformer.entities.Actor;
-import com.platformer.entities.ActorStats;
+import com.platformer.entities.Character;
+import com.platformer.stats.CharacterStats;
 
 public abstract class InventoryItem implements ApplicableObject, Cloneable {
     private static final String TAG = InventoryItem.class.getSimpleName();
@@ -18,7 +18,7 @@ public abstract class InventoryItem implements ApplicableObject, Cloneable {
     protected String description;
 
     /** Stores some affected stats. */
-    protected ActorStats affectedStats;
+    protected CharacterStats affectedStats;
 
     /** Stores effects which will be activated when item is equipped. */
     protected Effect[] effects;
@@ -67,13 +67,13 @@ public abstract class InventoryItem implements ApplicableObject, Cloneable {
     /** Defines all stats which will be affected.
      * Note: if stat isn't affected value should be set to 0.
      * */
-    protected abstract ActorStats createAffectedStats();
+    protected abstract CharacterStats createAffectedStats();
 
     /** Defines list of effects which will be applied. */
     protected abstract Effect[] createEffects();
 
     @Override
-    public void apply(Actor actor){
+    public void apply(Character actor){
         if (affectedStats == null){
             Gdx.app.error(TAG, "Invalid item (" + this.name + "): Affected stats was not initialized. Item can not be applied...");
             return;
@@ -94,7 +94,7 @@ public abstract class InventoryItem implements ApplicableObject, Cloneable {
     }
 
     @Override
-    public void remove(Actor actor){
+    public void remove(Character actor){
         if (affectedStats == null){
             Gdx.app.error(TAG, "Affected stats was not initialized: item can not be removed...");
             return;
