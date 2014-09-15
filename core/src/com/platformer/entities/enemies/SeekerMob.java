@@ -7,6 +7,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.platformer.abilities.effect.DamageEffect;
 import com.platformer.entities.Character;
 import com.platformer.entities.Mob;
+import com.platformer.entities.Player;
 import com.platformer.enums.ActorState;
 import com.platformer.maps.Map;
 import com.platformer.utils.Tools;
@@ -48,7 +49,7 @@ public final class SeekerMob extends Mob {
 
     private void seek() {
         for (Character character : characters) {
-            if (character.getBounds().overlaps(fieldOfView)){
+            if (character instanceof Player && character.getBounds().overlaps(fieldOfView)){
                 setAttackTarget(character);
                 targetLocated = true;
                 return;

@@ -5,9 +5,9 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.platformer.utils.Tools;
 
-public class Explosion extends FX {
+public class FXExplosion extends FX {
 
-    public Explosion(float X, float Y) {
+    public FXExplosion(float X, float Y) {
         super(X, Y);
         width = height = 96;
         texture = new Texture("tilesets/fx/explosion_big.png");

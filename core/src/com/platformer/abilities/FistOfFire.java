@@ -1,13 +1,18 @@
 package com.platformer.abilities;
 
 import com.platformer.abilities.effect.DamageEffect;
+import com.platformer.fx.FXExplosion;
 
 public class FistOfFire extends Ability {
 
-    public FistOfFire() {
+    private DamageEffect damageEffect;
+    private FXExplosion explosionFX;
+
+    public FistOfFire(final float X, final float Y) {
         super();
+
         cooldownTime = 1.0f;
-        effects.add(new DamageEffect(10.0f));
+        damageEffect = new DamageEffect(10.0f);
     }
 
     @Override

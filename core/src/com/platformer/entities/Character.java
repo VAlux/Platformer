@@ -195,8 +195,4 @@ public class Character extends RenderableEntity{
     public Animation getCurrentAnimation() {
         return null;
     }
-
-    public Vector2 getPosition() {
-        return position;
-    }
 }
