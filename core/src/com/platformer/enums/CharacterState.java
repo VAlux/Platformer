@@ -1,6 +1,6 @@
 package com.platformer.enums;
 
-public enum ActorState {
+public enum CharacterState {
     IDLE,
     RUN,
     JUMP,

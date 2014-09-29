@@ -8,9 +8,11 @@ public abstract class FX extends RenderableEntity {
     protected Animation animation;
     protected int width;
     protected int height;
+    protected boolean isRunning;
 
     protected FX(float X, float Y) {
         super(X, Y);
+        isRunning = false;
     }
 
     protected abstract void createAnimations();
@@ -19,7 +21,12 @@ public abstract class FX extends RenderableEntity {
         stateTime += delta;
     }
 
-    public Animation getCurrentAnimation() {
+    public Animation getAnimation() {
         return animation;
+    }
+
+    public void setRunning(boolean isRunning) {
+        stateTime = 0;
+        this.isRunning = isRunning;
     }
 }

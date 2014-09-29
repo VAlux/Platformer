@@ -2,12 +2,12 @@ package com.platformer.entities;
 
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
-import com.platformer.enums.ActorState;
+import com.platformer.enums.CharacterState;
 import com.platformer.maps.Map;
 
 import java.util.ArrayList;
 
-import static com.platformer.enums.ActorState.DEAD;
+import static com.platformer.enums.CharacterState.DEAD;
 
 public class Mob extends Character {
 
@@ -24,7 +24,7 @@ public class Mob extends Character {
         this.characters = characters;
         fovSize = new Vector2(10 * map.getTileWidth(), 10 * map.getTileHeight());
         fieldOfView = new Rectangle(position.x - fovSize.x / 2, position.y - fovSize.y / 2, fovSize.x, fovSize.y);
-        state = ActorState.IDLE;
+        state = CharacterState.IDLE;
     }
 
     public Mob(Map map, Vector2 spawnPosition, ArrayList<Character> characters){
@@ -32,9 +32,9 @@ public class Mob extends Character {
     }
 
     @Override
-    public void act(float deltaTime) {
+    public void act(float delta) {
         if (isAlive()) {
-            super.act(deltaTime);
+            super.act(delta);
             fieldOfView.setPosition(position.x - fovSize.x / 2, position.y - fovSize.y / 2);
         } else {
             state = DEAD;

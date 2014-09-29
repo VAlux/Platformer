@@ -8,7 +8,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.platformer.items.ItemsPool;
 import com.platformer.maps.Map;
 
-import static com.platformer.enums.ActorState.*;
+import static com.platformer.enums.CharacterState.*;
 
 public class Player extends Character implements InputProcessor {
 
@@ -21,10 +21,10 @@ public class Player extends Character implements InputProcessor {
     }
 
     @Override
-    public void act(final float deltaTime) {
+    public void act(final float delta) {
         if (isAlive()) {
             processKeys();
-            super.act(deltaTime);
+            super.act(delta);
         } else {
             state = DEAD;
             spawn();
@@ -115,6 +115,9 @@ public class Player extends Character implements InputProcessor {
             if (isActiveInventory) deactivateInventory();
             else activateInventory();
             return true;
+        }
+        else if (character == 'q'){
+            abilities.get(0).activate();
         }
         return false;
     }

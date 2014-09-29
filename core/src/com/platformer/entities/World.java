@@ -17,7 +17,6 @@ public class World extends Actor {
     public ArrayList<Character> characters;
     public ArrayList<Mob> mobs;
     public Player player;
-    public SeekerMob mob;
 
     public World() {
         loadMap();
@@ -35,8 +34,8 @@ public class World extends Actor {
     private void createMobs(){
         mobs = new ArrayList<Mob>();
 
-        mob = new SeekerMob(map, new Vector2(27.0f * 32.0f, 16.0f * 32.0f), characters);
-        mobs.add(mob);
+        SeekerMob smob = new SeekerMob(map, new Vector2(27.0f * 32.0f, 16.0f * 32.0f), characters);
+        mobs.add(smob);
 
         for (Mob mob : mobs){
             characters.add(mob);

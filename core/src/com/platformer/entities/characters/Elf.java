@@ -3,6 +3,7 @@ package com.platformer.entities.characters;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.platformer.abilities.FistOfFire;
 import com.platformer.entities.Player;
 import com.platformer.maps.Map;
 import com.platformer.utils.Tools;
@@ -28,11 +29,17 @@ public final class Elf extends Player {
         walkRightAnimation = new Animation(0.1f, Tools.extractAnimation(splittedTextureAtlas, 0, 3));
         walkLeftAnimation = new Animation(0.1f, Tools.extractAnimation(splittedTextureAtlas, 9, 3));
         jumpAnimation = new Animation(0.1f, Tools.extractAnimation(splittedTextureAtlas, 4, 3));
-        idleAnimation = new Animation(0.1f, splittedTextureAtlas[0][0]); // need to be added. no art now :(
+        idleAnimation = new Animation(0.1f, splittedTextureAtlas[0][0]); ///TODO: need to be added. no art now :(
     }
 
     @Override
-    public Animation getCurrentAnimation(){
+    protected void createAbilities() {
+        super.createAbilities();
+        this.abilities.add(new FistOfFire(this));
+    }
+
+    @Override
+    public Animation getAnimation(){
         switch (state) {
             case IDLE:
                 return idleAnimation;

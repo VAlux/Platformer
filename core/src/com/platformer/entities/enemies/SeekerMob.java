@@ -8,7 +8,7 @@ import com.platformer.abilities.effect.DamageEffect;
 import com.platformer.entities.Character;
 import com.platformer.entities.Mob;
 import com.platformer.entities.Player;
-import com.platformer.enums.ActorState;
+import com.platformer.enums.CharacterState;
 import com.platformer.maps.Map;
 import com.platformer.utils.Tools;
 
@@ -31,8 +31,8 @@ public final class SeekerMob extends Mob {
     }
 
     @Override
-    public void act(float deltaTime) {
-        super.act(deltaTime);
+    public void act(float delta) {
+        super.act(delta);
         seek();
         if (targetLocated) {
             if (this.bounds.overlaps(attackTarget.getBounds())) { // target reached
@@ -49,6 +49,7 @@ public final class SeekerMob extends Mob {
 
     private void seek() {
         for (Character character : characters) {
+            ///TODO: replace this shit with target recognition mechanism.
             if (character instanceof Player && character.getBounds().overlaps(fieldOfView)){
                 setAttackTarget(character);
                 targetLocated = true;
@@ -62,10 +63,10 @@ public final class SeekerMob extends Mob {
         if (attackTarget != null) {
             if (attackTarget.getPosition().x > this.position.x) {
                 this.acceleration.x = stats.ACCELERATION;
-                state = ActorState.WALK_RIGHT;
+                state = CharacterState.WALK_RIGHT;
             } else if (attackTarget.getPosition().x < this.position.x){
                 this.acceleration.x = -stats.ACCELERATION;
-                state = ActorState.WALK_LEFT;
+                state = CharacterState.WALK_LEFT;
             }
         }
     }
@@ -77,7 +78,7 @@ public final class SeekerMob extends Mob {
     }
 
     @Override
-    public Animation getCurrentAnimation() {
+    public Animation getAnimation() {
         switch (state){
             case IDLE:
                 return idleAnimation;

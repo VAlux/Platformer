@@ -9,25 +9,38 @@ import com.platformer.maps.Map;
 
 public abstract class RenderableEntity extends Actor {
 
+    private static final int DEF_BOUNDS_SIZE = 32;
+
     protected Rectangle bounds;
     protected Vector2 position;
     protected Texture texture;
     protected TextureRegion[][] splittedTextureAtlas;
 
-    public abstract Animation getCurrentAnimation();
+    public abstract Animation getAnimation();
 
-    protected RenderableEntity(final float X, final float Y) {
+    protected RenderableEntity() {
+        this(0, 0);
+    }
+
+    protected RenderableEntity(float X, float Y) {
         super();
-        bounds = new Rectangle(X, Y, 32, 32);
+        position = new Vector2(X, Y);
+        bounds = new Rectangle(X, Y, DEF_BOUNDS_SIZE, DEF_BOUNDS_SIZE);
     }
 
     protected RenderableEntity(Map map, Vector2 position) {
         this(map, position.x, position.y);
     }
 
-    protected RenderableEntity(Map map, final float X, final float Y) {
+    protected RenderableEntity(Map map, float X, float Y) {
         super(map);
-        bounds = new Rectangle(X, Y, 32, 32);
+        bounds = new Rectangle(X, Y, DEF_BOUNDS_SIZE, DEF_BOUNDS_SIZE);
+        position = new Vector2(X, Y);
+    }
+
+    protected RenderableEntity(Map map, float X, float Y, int width, int height) {
+        super(map);
+        bounds = new Rectangle(X, Y, width, height);
         position = new Vector2(X, Y);
     }
 

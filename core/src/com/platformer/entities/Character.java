@@ -7,27 +7,35 @@ import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
-import com.platformer.enums.ActorState;
+import com.platformer.abilities.Ability;
+import com.platformer.enums.CharacterState;
 import com.platformer.items.Inventory;
 import com.platformer.maps.Map;
 import com.platformer.stats.CharacterStats;
 
-import static com.platformer.enums.ActorState.DEAD;
-import static com.platformer.enums.ActorState.SPAWN;
+import java.util.ArrayList;
+
+import static com.platformer.enums.CharacterState.DEAD;
+import static com.platformer.enums.CharacterState.SPAWN;
 
 public class Character extends RenderableEntity{
 
     private static final String TAG = Character.class.getSimpleName();
 
     protected Inventory inventory;
+
     protected Vector2 velocity;
     protected Vector2 acceleration;
     protected Vector2 spawnPosition;
+
     protected CharacterStats stats;
     protected CharacterStats etalonStats;
-    protected ActorState state;
+    protected CharacterState state;
+
     protected MapObjects specialObjects;
     protected MapObjects collidableObjects;
+
+    protected ArrayList<Ability> abilities;
     protected boolean isOnGround;
 
     protected Character(Map map, float xPos, float yPos, int inventoryCapacity) {
@@ -46,14 +54,15 @@ public class Character extends RenderableEntity{
         stats.copy(etalonStats);
 
         inventory = new Inventory(inventoryCapacity);
+        createAbilities();
     }
 
     protected Character(Map map, Vector2 spawnPosition, int inventoryCapacity) {
         this(map, spawnPosition.x, spawnPosition.y, inventoryCapacity);
     }
 
-    public Inventory getInventory() {
-        return inventory;
+    protected void createAbilities() {
+        abilities = new ArrayList<Ability>();
     }
 
     public void spawn() {
@@ -67,17 +76,22 @@ public class Character extends RenderableEntity{
         activateInventory();
     }
 
+
     @Override
-    public void act(final float deltaTime) {
-        acceleration.y = -stats.GRAVITY * deltaTime;
+    public void act(final float delta) {
+        acceleration.y = -stats.GRAVITY * delta;
         velocity.add(acceleration);
+
+        for (Ability ability : abilities) {
+            ability.act(delta);
+        }
 
         if (acceleration.x == 0)
             velocity.x *= stats.FRICTION;
 
         velocity.x = MathUtils.clamp(velocity.x, -stats.MAX_VELOCITY, stats.MAX_VELOCITY);
-        move(deltaTime);
-        stateTime += deltaTime;
+        move(delta);
+        stateTime += delta;
     }
 
     /// TODO: temp kostil...see descr below.
@@ -109,10 +123,10 @@ public class Character extends RenderableEntity{
                     itemEntry.item.apply(this);
         }
     }
+
     public void pickItem(long id) {
         pickItem(id, 1);
     }
-
     public void pickItem(long id, int quantity){
         inventory.addItem(id, quantity);
         Inventory.ItemEntry itemEntry = inventory.getItem(id);
@@ -121,10 +135,10 @@ public class Character extends RenderableEntity{
                 itemEntry.item.apply(this);
     }
 
-
     public void dropItem(long id) {
         dropItem(id, 1);
     }
+
 
     public void dropItem(long id, int quantity){
         Inventory.ItemEntry itemEntry = inventory.getItem(id);
@@ -137,6 +151,7 @@ public class Character extends RenderableEntity{
     public void useItem(long id){
         useItem(id, 1);
     }
+
     public void useItem(long id, int quantity){
         Inventory.ItemEntry itemEntry = inventory.getItem(id);
         if (itemEntry != null && itemEntry.item.isConsumable()){
@@ -147,7 +162,6 @@ public class Character extends RenderableEntity{
         }
         inventory.removeItem(id, quantity);
     }
-
     public boolean isActiveInventory() {
         return isActiveInventory;
     }
@@ -192,7 +206,15 @@ public class Character extends RenderableEntity{
     }
 
     @Override
-    public Animation getCurrentAnimation() {
+    public Animation getAnimation() {
         return null;
+    }
+
+    public Inventory getInventory() {
+        return inventory;
+    }
+
+    public CharacterState getState() {
+        return state;
     }
 }
