@@ -11,13 +11,18 @@ import com.platformer.Platformer;
 import com.platformer.entities.Mob;
 import com.platformer.entities.World;
 import com.platformer.fx.FXRenderer;
+import com.platformer.input.CharacterInputHandler;
+import com.platformer.input.InputProcessor;
 import com.platformer.ui.HUD;
 import com.platformer.utils.DebugRenderer;
+import com.sun.corba.se.pept.encoding.InputObject;
 
 public class GameScreen implements Screen {
     private static final String TAG = GameScreen.class.getSimpleName();
 
     public static SpriteBatch batch;
+
+    private InputProcessor inputProcessor;
     private World world;
     private OrthogonalTiledMapRenderer mapRenderer;
     private DebugRenderer debugRenderer;
@@ -29,6 +34,8 @@ public class GameScreen implements Screen {
     @Override
     public void show() {
         world = new World();
+        inputProcessor = new InputProcessor();
+        inputProcessor.add(new CharacterInputHandler(world.player));
         mapRenderer = new OrthogonalTiledMapRenderer(world.map.getMap());
         batch = (SpriteBatch) mapRenderer.getSpriteBatch();
         camera = new OrthographicCamera();
@@ -46,6 +53,7 @@ public class GameScreen implements Screen {
         updateCamera(delta);
         mapRenderer.setView(camera);
 
+        inputProcessor.processInput();
         world.act(delta);
 
         batch.begin();

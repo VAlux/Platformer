@@ -22,7 +22,6 @@ public class World extends Actor {
         loadMap();
         createCharacters();
         ItemsPool.initPool();
-        testInventoryLoadout();
     }
 
     private void createCharacters(){
@@ -34,6 +33,7 @@ public class World extends Actor {
     private void createMobs(){
         mobs = new ArrayList<Mob>();
 
+        //TODO: WTF? Fix that magic numbers below.
         SeekerMob smob = new SeekerMob(map, new Vector2(27.0f * 32.0f, 16.0f * 32.0f), characters);
         mobs.add(smob);
 
@@ -45,15 +45,6 @@ public class World extends Actor {
     private void createPlayer(){
         player = new Elf(map, 10);
         characters.add(player);
-    }
-
-    private void testInventoryLoadout(){
-        /// TODO: test picking items
-        player.pickItem(ItemsPool.IDs.SCOUT_SWORD, 1);
-        player.pickItem(ItemsPool.IDs.STONE_RING, 3);
-        player.pickItem(ItemsPool.IDs.ICE_SWORD, 1);
-        player.pickItem(ItemsPool.IDs.JET_PACK, 1);
-        player.pickItem(ItemsPool.IDs.HEAL_POTION, 5);
     }
 
     private void loadMap(){

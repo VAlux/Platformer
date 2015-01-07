@@ -1,7 +1,6 @@
 package com.platformer;
 
 import com.badlogic.gdx.Game;
-import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.platformer.screens.GameScreen;
 
 public class Platformer extends Game {
@@ -10,13 +9,9 @@ public class Platformer extends Game {
     public static final int HEIGHT = 960;
     public static final boolean DEBUG_INFO_ENABLED = true;
 
-    private GameScreen gameScreen;
-    private Stage stage;
-
     @Override
     public void create () {
-        gameScreen = new GameScreen();
-        setScreen(gameScreen);
+        setScreen(new GameScreen());
     }
 
     @Override

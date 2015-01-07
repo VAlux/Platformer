@@ -15,7 +15,7 @@ public abstract class Actor {
         stateTime = 0;
     }
 
-    protected Actor(Map map) {
+    protected Actor(final Map map) {
         this();
         this.map = map;
     }

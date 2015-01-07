@@ -15,8 +15,7 @@ import com.platformer.stats.CharacterStats;
 
 import java.util.ArrayList;
 
-import static com.platformer.enums.CharacterState.DEAD;
-import static com.platformer.enums.CharacterState.SPAWN;
+import static com.platformer.enums.CharacterState.*;
 
 public class Character extends RenderableEntity{
 
@@ -36,7 +35,10 @@ public class Character extends RenderableEntity{
     protected MapObjects collidableObjects;
 
     protected ArrayList<Ability> abilities;
+
     protected boolean isOnGround;
+    protected boolean isOnWall;
+    protected boolean canWallJump;
 
     protected Character(Map map, float xPos, float yPos, int inventoryCapacity) {
         super(map, xPos, yPos);
@@ -97,7 +99,7 @@ public class Character extends RenderableEntity{
     /// TODO: temp kostil...see descr below.
     // Deeply hidden bug, items from pool should be cloned and have its' own unique entry identifier (while still have ID which differ items from each other).
     // Temporary solution is to clear items' effects from actor.
-    protected void deactivateInventory(){
+    public void deactivateInventory(){
         Gdx.app.log(TAG, "Re-initializing inventory of character with ID = " + this.getId());
         if (inventory == null || inventory.size() == 0) return;
         for (Inventory.ItemEntry itemEntry : inventory.getItems()){
@@ -110,7 +112,7 @@ public class Character extends RenderableEntity{
 
     protected boolean isActiveInventory = true;
 
-    protected void activateInventory(){
+    public void activateInventory(){
         applyInventory();
         isActiveInventory = true;
     }
@@ -178,6 +180,7 @@ public class Character extends RenderableEntity{
                     bounds.x = collRect.x + collRect.width + 0.01f;
 
                 velocity.x = 0;
+                isOnWall = !isOnGround;
             }
         }
         bounds.y += velocity.y * deltaTime;
@@ -190,6 +193,10 @@ public class Character extends RenderableEntity{
                 else {
                     bounds.y = collRect.y + collRect.height + 0.01f;
                     isOnGround = true;
+                    canWallJump = true;
+                    isOnWall = false;
+                    if (state == JUMP)
+                        state = IDLE;
                 }
                 velocity.y = 0;
             }
@@ -216,5 +223,57 @@ public class Character extends RenderableEntity{
 
     public CharacterState getState() {
         return state;
+    }
+
+    public void setState(CharacterState state) {
+        this.state = state;
+    }
+
+    public Vector2 getVelocity() {
+        return velocity;
+    }
+
+    public Vector2 getAcceleration() {
+        return acceleration;
+    }
+
+    public void setAcceleration(Vector2 acceleration) {
+        this.acceleration = acceleration;
+    }
+
+    public void setAcceleration(float x, float y) {
+        this.acceleration.set(x, y);
+    }
+
+    public Vector2 getSpawnPosition() {
+        return spawnPosition;
+    }
+
+    public boolean isOnGround() {
+        return isOnGround;
+    }
+
+    public void setOnGround(boolean isOnGround) {
+        this.isOnGround = isOnGround;
+    }
+
+    public boolean isOnWall() {
+        return isOnWall;
+    }
+
+    public void setOnWall(boolean isOnWall) {
+        this.isOnWall = isOnWall;
+    }
+
+    public boolean isCanWallJump() {
+        return canWallJump;
+    }
+
+    public void setCanWallJump(boolean canWallJump) {
+        this.canWallJump = canWallJump;
+    }
+
+    public ArrayList<Ability> getAbilities() {
+        return abilities;
     }
 }
