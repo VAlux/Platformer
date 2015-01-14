@@ -5,7 +5,7 @@ import com.platformer.maps.Map;
 import static com.platformer.enums.CharacterState.DEAD;
 import static com.platformer.enums.CharacterState.IDLE;
 
-public class Player extends Character {
+public class Player extends Char {
 
     public Player(Map map, int inventoryCapacity) {
         super(map, map.getSpawnPoint(), inventoryCapacity);

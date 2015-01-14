@@ -9,26 +9,26 @@ import java.util.ArrayList;
 
 import static com.platformer.enums.CharacterState.DEAD;
 
-public class Mob extends Character {
+public class Mob extends Char {
 
-    protected Character attackTarget;
+    protected Char attackTarget;
     protected Rectangle fieldOfView;
-    protected ArrayList<Character> characters;
+    protected ArrayList<Char> aChars;
     protected Vector2 fovSize;
 
-    public Mob(Map map, Vector2 spawnPosition, ArrayList<Character> characters, int inventoryCapacity) {
+    public Mob(Map map, Vector2 spawnPosition, ArrayList<Char> aChars, int inventoryCapacity) {
         super(map, spawnPosition, inventoryCapacity);
         specialObjects = map.getSpecObjectsLayer().getObjects();
         collidableObjects = map.getCollisionLayer().getObjects();
 
-        this.characters = characters;
+        this.aChars = aChars;
         fovSize = new Vector2(10 * map.getTileWidth(), 10 * map.getTileHeight());
         fieldOfView = new Rectangle(position.x - fovSize.x / 2, position.y - fovSize.y / 2, fovSize.x, fovSize.y);
         state = CharacterState.IDLE;
     }
 
-    public Mob(Map map, Vector2 spawnPosition, ArrayList<Character> characters){
-        this(map,spawnPosition, characters, 0);
+    public Mob(Map map, Vector2 spawnPosition, ArrayList<Char> aChars){
+        this(map,spawnPosition, aChars, 0);
     }
 
     @Override
@@ -47,7 +47,7 @@ public class Mob extends Character {
         super.move(deltaTime);
     }
 
-    public void setAttackTarget(Character attackTarget) {
+    public void setAttackTarget(Char attackTarget) {
         this.attackTarget = attackTarget;
     }
 

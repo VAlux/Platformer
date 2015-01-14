@@ -5,7 +5,7 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.platformer.abilities.effect.DamageEffect;
-import com.platformer.entities.Character;
+import com.platformer.entities.Char;
 import com.platformer.entities.Mob;
 import com.platformer.entities.Player;
 import com.platformer.enums.CharacterState;
@@ -22,7 +22,7 @@ public final class SeekerMob extends Mob {
 
     private boolean targetLocated;
 
-    public SeekerMob(Map map, Vector2 spawnPosition, ArrayList<Character> actors) {
+    public SeekerMob(Map map, Vector2 spawnPosition, ArrayList<Char> actors) {
         super(map, spawnPosition, actors);
         targetLocated = false;
         this.texture = new Texture("tilesets/atlases/character-elven.png");
@@ -48,10 +48,10 @@ public final class SeekerMob extends Mob {
     }
 
     private void seek() {
-        for (Character character : characters) {
+        for (Char aChar : aChars) {
             ///TODO: replace this shit with target recognition mechanism.
-            if (character instanceof Player && character.getBounds().overlaps(fieldOfView)){
-                setAttackTarget(character);
+            if (aChar instanceof Player && aChar.getBounds().overlaps(fieldOfView)){
+                setAttackTarget(aChar);
                 targetLocated = true;
                 return;
             }

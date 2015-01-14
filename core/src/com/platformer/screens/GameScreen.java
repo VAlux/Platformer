@@ -12,17 +12,16 @@ import com.platformer.entities.Mob;
 import com.platformer.entities.World;
 import com.platformer.fx.FXRenderer;
 import com.platformer.input.CharacterInputHandler;
-import com.platformer.input.InputProcessor;
+import com.platformer.input.InputQueueProcessor;
 import com.platformer.ui.HUD;
 import com.platformer.utils.DebugRenderer;
-import com.sun.corba.se.pept.encoding.InputObject;
 
 public class GameScreen implements Screen {
     private static final String TAG = GameScreen.class.getSimpleName();
 
     public static SpriteBatch batch;
 
-    private InputProcessor inputProcessor;
+    private InputQueueProcessor inputQueueProcessor;
     private World world;
     private OrthogonalTiledMapRenderer mapRenderer;
     private DebugRenderer debugRenderer;
@@ -34,8 +33,8 @@ public class GameScreen implements Screen {
     @Override
     public void show() {
         world = new World();
-        inputProcessor = new InputProcessor();
-        inputProcessor.add(new CharacterInputHandler(world.player));
+        inputQueueProcessor = new InputQueueProcessor();
+        inputQueueProcessor.add(new CharacterInputHandler(world.player));
         mapRenderer = new OrthogonalTiledMapRenderer(world.map.getMap());
         batch = (SpriteBatch) mapRenderer.getSpriteBatch();
         camera = new OrthographicCamera();
@@ -52,8 +51,7 @@ public class GameScreen implements Screen {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
         updateCamera(delta);
         mapRenderer.setView(camera);
-
-        inputProcessor.processInput();
+        inputQueueProcessor.processInput();
         world.act(delta);
 
         batch.begin();
@@ -99,8 +97,8 @@ public class GameScreen implements Screen {
     }
     
     private void renderDebugInfo(){
-        debugRenderer.renderActorsBounds(world.characters);
-        debugRenderer.renderFOV(world.characters);
+        debugRenderer.renderActorsBounds(world.aChars);
+        debugRenderer.renderFOV(world.aChars);
     }
 
     @Override

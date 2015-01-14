@@ -1,6 +1,6 @@
 package com.platformer.abilities.effect;
 
-import com.platformer.entities.Character;
+import com.platformer.entities.Char;
 
 public class DamageEffect extends Effect {
 
@@ -15,13 +15,13 @@ public class DamageEffect extends Effect {
     }
 
     @Override
-    public void apply(Character character) {
-        damageAmount -= (damageAmount / 100) * character.getStats().defense; // characters resists (defense - characters % of clear damage resistance)
-        character.getStats().health -= damageAmount; // hit!
+    public void apply(Char aChar) {
+        damageAmount -= (damageAmount / 100) * aChar.getStats().defense; // characters resists (defense - characters % of clear damage resistance)
+        aChar.getStats().health -= damageAmount; // hit!
     }
 
     @Override
-    public void remove(Character character) {
+    public void remove(Char aChar) {
 
     }
 }

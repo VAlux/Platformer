@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
+import com.platformer.entities.Char;
 
 import static com.platformer.Platformer.DEBUG_INFO_ENABLED;
 
@@ -15,7 +16,7 @@ public class HUD extends InputAdapter {
     private Stage stage;
     private DebugInfo debugInfo;
 
-    public HUD(Batch batch, com.platformer.entities.Character player) {
+    public HUD(Batch batch, Char player) {
         debugInfo = new DebugInfo(player);
 
         stage = new Stage(new StretchViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight()), batch);

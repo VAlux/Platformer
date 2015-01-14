@@ -14,7 +14,7 @@ import java.util.ArrayList;
 public class World extends Actor {
 
     public Map map;
-    public ArrayList<Character> characters;
+    public ArrayList<Char> aChars;
     public ArrayList<Mob> mobs;
     public Player player;
 
@@ -25,7 +25,7 @@ public class World extends Actor {
     }
 
     private void createCharacters(){
-        characters = new ArrayList<Character>();
+        aChars = new ArrayList<Char>();
         createPlayer();
         createMobs();
     }
@@ -34,17 +34,17 @@ public class World extends Actor {
         mobs = new ArrayList<Mob>();
 
         //TODO: WTF? Fix that magic numbers below.
-        SeekerMob smob = new SeekerMob(map, new Vector2(27.0f * 32.0f, 16.0f * 32.0f), characters);
+        SeekerMob smob = new SeekerMob(map, new Vector2(27.0f * 32.0f, 16.0f * 32.0f), aChars);
         mobs.add(smob);
 
         for (Mob mob : mobs){
-            characters.add(mob);
+            aChars.add(mob);
         }
     }
 
     private void createPlayer(){
         player = new Elf(map, 10);
-        characters.add(player);
+        aChars.add(player);
     }
 
     private void loadMap(){

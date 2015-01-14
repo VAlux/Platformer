@@ -5,7 +5,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.platformer.entities.Character;
+import com.platformer.entities.Char;
 import com.platformer.stats.CharacterStats;
 
 public class DebugInfo extends Table {
@@ -15,11 +15,11 @@ public class DebugInfo extends Table {
     private Label lblFPS;
     private Label lblIsOnGround;
     private CharacterStats stats;
-    private Character character;
+    private Char aChar;
 
-    public DebugInfo(final Character character) {
-        this.character = character;
-        stats = character.getStats();
+    public DebugInfo(final Char aChar) {
+        this.aChar = aChar;
+        stats = aChar.getStats();
         BitmapFont font = new BitmapFont(Gdx.files.internal("fonts/font_white.fnt"));
         font.setScale(.6f);
 
@@ -29,9 +29,9 @@ public class DebugInfo extends Table {
         final Label.LabelStyle iogLabelStyle = new Label.LabelStyle(font, Color.YELLOW);
 
         lblStats = new Label(stats.toString(), statsLabelStyle);
-        lblPosition = new Label("PosX: " + character.getPosition().x + "\nPosY: " + character.getPosition().y, posLabelStyle);
+        lblPosition = new Label("PosX: " + aChar.getPosition().x + "\nPosY: " + aChar.getPosition().y, posLabelStyle);
         lblFPS = new Label("FPS: " + String.valueOf(Gdx.graphics.getFramesPerSecond()), fpsLabelStyle);
-        lblIsOnGround = new Label("Is On Ground: " + String.valueOf(character.isOnGround()), iogLabelStyle);
+        lblIsOnGround = new Label("Is On Ground: " + String.valueOf(aChar.isOnGround()), iogLabelStyle);
 
         lblFPS.setWrap(true);
         lblStats.setWrap(true);
@@ -48,8 +48,8 @@ public class DebugInfo extends Table {
 
     public void update(){
         lblStats.setText(stats.toString());
-        lblPosition.setText("PosX: " + character.getPosition().x + "\nPosY: " + character.getPosition().y);
-        lblIsOnGround.setText("Is On Ground: " + String.valueOf(character.isOnGround()));
+        lblPosition.setText("PosX: " + aChar.getPosition().x + "\nPosY: " + aChar.getPosition().y);
+        lblIsOnGround.setText("Is On Ground: " + String.valueOf(aChar.isOnGround()));
         lblFPS.setText("FPS: " + String.valueOf(Gdx.graphics.getFramesPerSecond()));
     }
 }

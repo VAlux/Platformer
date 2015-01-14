@@ -1,7 +1,7 @@
 package com.platformer.input;
 
 import com.badlogic.gdx.*;
-import com.platformer.entities.Character;
+import com.platformer.entities.Char;
 import com.platformer.items.ItemsPool;
 
 import static com.platformer.enums.CharacterState.*;
@@ -11,21 +11,21 @@ import static com.platformer.enums.CharacterState.*;
  */
 
 /**
- * handles the input for the c
+ * handles the input for the specified character.
  */
-public class CharacterInputHandler implements InputHandler, com.badlogic.gdx.InputProcessor {
+public class CharacterInputHandler implements InputHandler {
 
     /**
      * target to control by input handling.
      */
-    private Character c;
+    private Char c;
 
     /**
      * Constructs the input handler for the specified character.
-     * @param character character to control.
+     * @param aChar character to control.
      */
-    public CharacterInputHandler(Character character) {
-        this.c = character;
+    public CharacterInputHandler(Char aChar) {
+        this.c = aChar;
     }
 
     @Override

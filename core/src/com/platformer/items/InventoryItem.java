@@ -2,7 +2,7 @@ package com.platformer.items;
 
 import com.badlogic.gdx.Gdx;
 import com.platformer.abilities.effect.Effect;
-import com.platformer.entities.Character;
+import com.platformer.entities.Char;
 import com.platformer.stats.CharacterStats;
 
 public abstract class InventoryItem implements ApplicableObject, Cloneable {
@@ -73,7 +73,7 @@ public abstract class InventoryItem implements ApplicableObject, Cloneable {
     protected abstract Effect[] createEffects();
 
     @Override
-    public void apply(Character actor){
+    public void apply(Char actor){
         if (affectedStats == null){
             Gdx.app.error(TAG, "Invalid item (" + this.name + "): Affected stats was not initialized. Item can not be applied...");
             return;
@@ -94,7 +94,7 @@ public abstract class InventoryItem implements ApplicableObject, Cloneable {
     }
 
     @Override
-    public void remove(Character actor){
+    public void remove(Char actor){
         if (affectedStats == null){
             Gdx.app.error(TAG, "Affected stats was not initialized: item can not be removed...");
             return;

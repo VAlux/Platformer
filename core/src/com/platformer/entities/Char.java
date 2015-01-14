@@ -17,9 +17,9 @@ import java.util.ArrayList;
 
 import static com.platformer.enums.CharacterState.*;
 
-public class Character extends RenderableEntity{
+public class Char extends RenderableEntity{
 
-    private static final String TAG = Character.class.getSimpleName();
+    private static final String TAG = Char.class.getSimpleName();
 
     protected Inventory inventory;
 
@@ -40,7 +40,7 @@ public class Character extends RenderableEntity{
     protected boolean isOnWall;
     protected boolean canWallJump;
 
-    protected Character(Map map, float xPos, float yPos, int inventoryCapacity) {
+    protected Char(Map map, float xPos, float yPos, int inventoryCapacity) {
         super(map, xPos, yPos);
 
         spawnPosition = new Vector2(xPos, yPos);
@@ -59,7 +59,7 @@ public class Character extends RenderableEntity{
         createAbilities();
     }
 
-    protected Character(Map map, Vector2 spawnPosition, int inventoryCapacity) {
+    protected Char(Map map, Vector2 spawnPosition, int inventoryCapacity) {
         this(map, spawnPosition.x, spawnPosition.y, inventoryCapacity);
     }
 
@@ -129,6 +129,7 @@ public class Character extends RenderableEntity{
     public void pickItem(long id) {
         pickItem(id, 1);
     }
+
     public void pickItem(long id, int quantity){
         inventory.addItem(id, quantity);
         Inventory.ItemEntry itemEntry = inventory.getItem(id);
