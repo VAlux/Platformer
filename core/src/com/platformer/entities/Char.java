@@ -40,6 +40,9 @@ public class Char extends RenderableEntity{
     protected boolean isOnWall;
     protected boolean canWallJump;
 
+    private boolean hasXCollision;
+    private boolean hasYCollision;
+
     protected Char(Map map, float xPos, float yPos, int inventoryCapacity) {
         super(map, xPos, yPos);
 
@@ -171,10 +174,12 @@ public class Char extends RenderableEntity{
 
     public void move(final float deltaTime) {
         bounds.x += velocity.x * deltaTime;
+        hasXCollision = hasYCollision = false;
         Rectangle collRect;
         for (RectangleMapObject object : collidableObjects.getByType(RectangleMapObject.class)) {
             collRect = object.getRectangle();
             if (bounds.overlaps(collRect)) {
+                hasXCollision = true;
                 if (velocity.x > 0)
                     bounds.x = collRect.x - bounds.width - 0.01f;
                 else
@@ -192,6 +197,7 @@ public class Char extends RenderableEntity{
                     bounds.y = collRect.y - bounds.height - 0.01f;
                 }
                 else {
+                    hasYCollision = true;
                     bounds.y = collRect.y + collRect.height + 0.01f;
                     isOnGround = true;
                     canWallJump = true;
@@ -201,6 +207,9 @@ public class Char extends RenderableEntity{
                 }
                 velocity.y = 0;
             }
+        }
+        if (!hasYCollision) {
+            isOnGround = false;
         }
         position.set(bounds.x, bounds.y);
     }
