@@ -6,18 +6,18 @@ import java.util.ArrayList;
 
 public class FXRenderer {
 
-    private static ArrayList<FX> fxes;
+    private static ArrayList<FX> effects;
 
     static {
-        fxes = new ArrayList<FX>(512);
+        effects = new ArrayList<FX>(512);
     }
 
     public static void addEffect(FX fx) {
-        fxes.add(fx);
+        effects.add(fx);
     }
 
-    public static void render(final float delta) {
-        for (FX fx : fxes) {
+    public static void render() {
+        for (FX fx : effects) {
             if (fx.isRunning) {
                 GameScreen.batch.draw(fx.getAnimation().getKeyFrame(fx.getStateTime(), false),
                                       fx.getPosition().x,

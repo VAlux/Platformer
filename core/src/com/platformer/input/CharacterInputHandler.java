@@ -28,6 +28,9 @@ public class CharacterInputHandler implements InputHandler {
         this.c = aChar;
     }
 
+    /**
+     * called once per frame. controls the current character.
+     */
     @Override
     public void handle() {
         if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
@@ -68,6 +71,12 @@ public class CharacterInputHandler implements InputHandler {
         return false;
     }
 
+    /**
+     * invoked when the key is typed.
+     * Needed for the ui actions
+     * @param character typed character
+     * @return event propagation status.
+     */
     @Override
     public boolean keyTyped(char character) {
         if (character == 'e') {

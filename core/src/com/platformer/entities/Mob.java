@@ -11,6 +11,8 @@ import static com.platformer.enums.CharacterState.DEAD;
 
 public class Mob extends Char {
 
+    private static final int FOV_SCALE = 16;
+
     protected Char attackTarget;
     protected Rectangle fieldOfView;
     protected ArrayList<Char> aChars;
@@ -22,7 +24,7 @@ public class Mob extends Char {
         collidableObjects = map.getCollisionLayer().getObjects();
 
         this.aChars = aChars;
-        fovSize = new Vector2(10 * map.getTileWidth(), 10 * map.getTileHeight());
+        fovSize = new Vector2(FOV_SCALE * map.getTileWidth(), FOV_SCALE * map.getTileHeight());
         fieldOfView = new Rectangle(position.x - fovSize.x / 2, position.y - fovSize.y / 2, fovSize.x, fovSize.y);
         state = CharacterState.IDLE;
     }

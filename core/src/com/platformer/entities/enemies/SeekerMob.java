@@ -68,6 +68,10 @@ public final class SeekerMob extends Mob {
                 this.acceleration.x = -stats.ACCELERATION;
                 state = CharacterState.WALK_LEFT;
             }
+            if (attackTarget.getPosition().y > this.position.y) {
+                this.velocity.y = stats.JUMP_VELOCITY;
+                state = CharacterState.JUMP;
+            }
         }
     }
 

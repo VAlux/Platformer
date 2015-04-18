@@ -52,6 +52,10 @@ public abstract class RenderableEntity extends Actor {
         return position;
     }
 
+    public void setPosition(Vector2 position) {
+        this.position = position;
+    }
+
     public void dispose() {
         texture.dispose();
     }

@@ -1,29 +1,28 @@
 package com.platformer.abilities;
 
-import com.badlogic.gdx.graphics.g2d.Animation;
 import com.platformer.entities.Actor;
-import com.platformer.entities.RenderableEntity;
 
-public abstract  class Ability extends RenderableEntity {
+public abstract  class Ability extends Actor {
 
+    protected Actor source;
+    protected float currentCooldown;
     protected float cooldownTime;
     protected boolean isAvailable;
-    protected Actor source;
 
     public abstract void activate();
 
     protected Ability(final Actor source) {
         super();
-        cooldownTime = 0;
+        cooldownTime = 1.0f;
+        currentCooldown = 0;
         isAvailable = true;
         this.source = source;
     }
 
     public void updateCooldown(final float delta) {
-        cooldownTime -= delta;
-
-        if (cooldownTime <= 0) {
-            cooldownTime = 1.0f;
+        currentCooldown -= delta;
+        if (currentCooldown <= 0) {
+            currentCooldown = cooldownTime;
             isAvailable = true;
         }
     }
@@ -33,10 +32,5 @@ public abstract  class Ability extends RenderableEntity {
         stateTime += delta;
         if (!isAvailable)
             updateCooldown(delta);
-    }
-
-    @Override
-    public Animation getAnimation() {
-        return null;
     }
 }

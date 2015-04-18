@@ -45,6 +45,10 @@ public class GameScreen implements Screen {
         hud = new HUD(mapRenderer.getSpriteBatch(), world.player);
     }
 
+    /**
+     * Rendering loop.
+     * @param delta Time passed between frames in ms.
+     */
     @Override
     public void render(float delta) {
         Gdx.gl.glClearColor(0.2f, 0.2f, 0.2f, 1);
@@ -58,7 +62,7 @@ public class GameScreen implements Screen {
         mapRenderer.renderTileLayer(world.map.getBackgroundLayer());
         renderActors();
         mapRenderer.renderTileLayer(world.map.getForegroundLayer());
-        FXRenderer.render(delta);
+        FXRenderer.render();
         batch.end();
 
         if (Platformer.DEBUG_INFO_ENABLED)
@@ -86,8 +90,8 @@ public class GameScreen implements Screen {
 
     private void renderActors() {
         batch.draw(world.player.getAnimation().getKeyFrame(world.player.getStateTime(), true),
-                                          world.player.getPosition().x,
-                                          world.player.getPosition().y);
+                   world.player.getPosition().x,
+                   world.player.getPosition().y);
 
         for (Mob mob : world.mobs) {
             batch.draw(mob.getAnimation().getKeyFrame(mob.getStateTime(), true),
@@ -97,8 +101,8 @@ public class GameScreen implements Screen {
     }
     
     private void renderDebugInfo(){
-        debugRenderer.renderActorsBounds(world.aChars);
-        debugRenderer.renderFOV(world.aChars);
+        debugRenderer.renderActorsBounds(world.chars);
+        debugRenderer.renderFOV(world.chars);
     }
 
     @Override

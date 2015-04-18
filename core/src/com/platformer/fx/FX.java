@@ -5,10 +5,10 @@ import com.platformer.entities.RenderableEntity;
 
 public abstract class FX extends RenderableEntity {
 
-    protected Animation animation;
     protected int width;
     protected int height;
     protected boolean isRunning;
+    protected Animation animation;
 
     protected FX(float X, float Y) {
         super(X, Y);
@@ -26,7 +26,6 @@ public abstract class FX extends RenderableEntity {
     }
 
     public void setRunning(boolean isRunning) {
-        stateTime = 0;
         this.isRunning = isRunning;
     }
 }

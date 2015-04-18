@@ -7,7 +7,7 @@ public class Platformer extends Game {
 
     public static final int WIDTH = 1280;
     public static final int HEIGHT = 960;
-    public static final boolean DEBUG_INFO_ENABLED = true;
+    public static final boolean DEBUG_INFO_ENABLED = false;
 
     @Override
     public void create () {

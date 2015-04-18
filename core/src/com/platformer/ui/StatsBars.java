@@ -15,10 +15,6 @@ public class StatsBars extends Table{
     private ProgressBar energy;
     private ProgressBar experience;
 
-    private ProgressBarStyle healthBarStyle;
-    private ProgressBarStyle energyBarStyle;
-    private ProgressBarStyle expBarStyle;
-
     private TextureAtlas atlas;
     private Skin skin;
 
@@ -35,16 +31,16 @@ public class StatsBars extends Table{
         Skin skinBG = new Skin(btnAtlas);
         this.background(skinBG.getDrawable("btndown"));
 
-        healthBarStyle = new ProgressBarStyle(skin.getDrawable("barBack_horizontalMid"),
-                                              skin.getDrawable("barRed_horizontalMid"));
+        ProgressBarStyle healthBarStyle = new ProgressBarStyle(skin.getDrawable("barBack_horizontalMid"),
+                skin.getDrawable("barRed_horizontalMid"));
         healthBarStyle.knobBefore = healthBarStyle.knob;
 
-        energyBarStyle = new ProgressBarStyle(skin.getDrawable("barBack_horizontalMid"),
-                                              skin.getDrawable("barBlue_horizontalMid"));
+        ProgressBarStyle energyBarStyle = new ProgressBarStyle(skin.getDrawable("barBack_horizontalMid"),
+                skin.getDrawable("barBlue_horizontalMid"));
         energyBarStyle.knobBefore = energyBarStyle.knob;
 
-        expBarStyle = new ProgressBarStyle(skin.getDrawable("barBack_horizontalMid"),
-                                           skin.getDrawable("barGreen_horizontalMid"));
+        ProgressBarStyle expBarStyle = new ProgressBarStyle(skin.getDrawable("barBack_horizontalMid"),
+                skin.getDrawable("barGreen_horizontalMid"));
         expBarStyle.knobBefore = expBarStyle.knob;
 
         health = new ProgressBar(0, stats.maxHealth, 1, false, healthBarStyle);

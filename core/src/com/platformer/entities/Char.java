@@ -76,9 +76,7 @@ public class Char extends RenderableEntity{
         velocity.set(0, 0);
         acceleration.set(0, 0);
         state = SPAWN;
-        deactivateInventory();
         stats.copy(etalonStats);
-        activateInventory();
     }
 
 
@@ -214,17 +212,17 @@ public class Char extends RenderableEntity{
         position.set(bounds.x, bounds.y);
     }
 
+    @Override
+    public Animation getAnimation() {
+        return null;
+    }
+
     public CharacterStats getStats() {
         return stats;
     }
 
     protected boolean isAlive(){
         return position.y > 0.0f && stats.health > 0 && state != DEAD;
-    }
-
-    @Override
-    public Animation getAnimation() {
-        return null;
     }
 
     public Inventory getInventory() {
@@ -285,5 +283,13 @@ public class Char extends RenderableEntity{
 
     public ArrayList<Ability> getAbilities() {
         return abilities;
+    }
+
+    public boolean hasXCollision() {
+        return hasXCollision;
+    }
+
+    public boolean hasYCollision() {
+        return hasYCollision;
     }
 }
