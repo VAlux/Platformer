@@ -62,7 +62,7 @@ public class GameScreen implements Screen {
         mapRenderer.renderTileLayer(world.map.getBackgroundLayer());
         renderActors();
         mapRenderer.renderTileLayer(world.map.getForegroundLayer());
-        FXRenderer.render();
+        FXRenderer.render(delta);
         batch.end();
 
         if (Platformer.DEBUG_INFO_ENABLED)

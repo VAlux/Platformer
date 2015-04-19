@@ -15,7 +15,7 @@ public class FistOfFire extends Ability {
     public FistOfFire(final Actor source) {
         super(source);
         sourceChar = (Char) source;
-        cooldownTime = 0.3f;
+        cooldownTime = 0.1f;
         damageEffect = new DamageEffect(10.0f);
         explosionFX = new FXExplosion(sourceChar.getPosition());
     }
@@ -28,11 +28,5 @@ public class FistOfFire extends Ability {
             isAvailable = false;
             FXRenderer.addEffect(explosionFX);
         }
-    }
-
-    @Override
-    public void act(float delta) {
-        super.act(delta);
-        explosionFX.act(delta);
     }
 }

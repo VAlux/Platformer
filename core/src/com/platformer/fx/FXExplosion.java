@@ -26,7 +26,7 @@ public class FXExplosion extends FX {
     public void act(float delta) {
         super.act(delta);
         if (animation.isAnimationFinished(stateTime)) {
-            isRunning = false;
+            setRunning(false);
         }
     }
 
