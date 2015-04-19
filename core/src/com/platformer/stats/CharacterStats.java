@@ -19,11 +19,7 @@ public class CharacterStats {
     public int offence;
     public int defense;
 
-    public float GRAVITY;
-    public float ACCELERATION;
-    public float JUMP_VELOCITY;
-    public float MAX_VELOCITY;
-    public float FRICTION;
+    public float jumpVelocity;
 
     public void loadDefaults(){
         level = 1;
@@ -35,11 +31,7 @@ public class CharacterStats {
         offence = 50;
         defense = 10;
 
-        GRAVITY = 900.0f;
-        ACCELERATION = 20.0f;
-        JUMP_VELOCITY = 500.0f;
-        MAX_VELOCITY = 500.0f;
-        FRICTION = 0.9f;
+        jumpVelocity = 500.0f;
     }
 
     public void copy(final CharacterStats stats) {
@@ -55,11 +47,7 @@ public class CharacterStats {
         offence = stats.offence;
         defense = stats.defense;
 
-        GRAVITY = stats.GRAVITY;
-        ACCELERATION = stats.ACCELERATION;
-        JUMP_VELOCITY = stats.JUMP_VELOCITY;
-        MAX_VELOCITY = stats.MAX_VELOCITY;
-        FRICTION = stats.FRICTION;
+        jumpVelocity = stats.jumpVelocity;
     }
     
     public void addStats(final CharacterStats stats){
@@ -74,11 +62,7 @@ public class CharacterStats {
         offence = MathUtils.clamp(offence + stats.offence, 1, offence + stats.offence);
         defense = MathUtils.clamp(defense + stats.defense, 1, defense + stats.defense);
 
-        GRAVITY = MathUtils.clamp(GRAVITY + stats.GRAVITY, 100, 1500);
-        ACCELERATION = MathUtils.clamp(ACCELERATION + stats.ACCELERATION, 1, 50);
-        JUMP_VELOCITY = MathUtils.clamp(JUMP_VELOCITY + stats.JUMP_VELOCITY, 100, 1000);
-        MAX_VELOCITY = MathUtils.clamp(MAX_VELOCITY + stats.MAX_VELOCITY, 100, 1000);
-        FRICTION = MathUtils.clamp(FRICTION + stats.FRICTION, 0.001f, 5f);
+        jumpVelocity = MathUtils.clamp(jumpVelocity + stats.jumpVelocity, 100, 1000);
     }
 
     public void subtractStats(final CharacterStats stats){
@@ -93,11 +77,7 @@ public class CharacterStats {
         offence = MathUtils.clamp(offence - stats.offence, 1, offence - stats.offence);
         defense = MathUtils.clamp(defense - stats.defense, 1, defense - stats.defense);
 
-        GRAVITY = MathUtils.clamp(GRAVITY - stats.GRAVITY, 100, 1500);
-        ACCELERATION = MathUtils.clamp(ACCELERATION - stats.ACCELERATION, 1, 50);
-        JUMP_VELOCITY = MathUtils.clamp(JUMP_VELOCITY - stats.JUMP_VELOCITY, 100, 1000);
-        MAX_VELOCITY = MathUtils.clamp(MAX_VELOCITY - stats.MAX_VELOCITY, 100, 1000);
-        FRICTION = MathUtils.clamp(FRICTION - stats.FRICTION, 0.001f, 5f);
+        jumpVelocity = MathUtils.clamp(jumpVelocity - stats.jumpVelocity, 100, 1000);
     }
     
     @Override
@@ -109,12 +89,6 @@ public class CharacterStats {
                 "\noffence = " + offence +
                 "\ndefense = " + defense +
                 "\nscore = " + score +
-                "\n\n" +
-                "\nGRAVITY = " + GRAVITY +
-                "\nACCELERATION = " + ACCELERATION +
-                "\nJUMP_VELOCITY = " + JUMP_VELOCITY +
-                "\nMAX_VELOCITY = " + MAX_VELOCITY +
-                "\nFRICTION = " + FRICTION;
+                "\njumpVelocity = " + jumpVelocity;
     }
-
 }

@@ -55,8 +55,6 @@ public class ItemsPool {
             protected CharacterStats createAffectedStats() {
                 CharacterStats dmgStats = new CharacterStats();
                 dmgStats.offence = 19;
-                dmgStats.ACCELERATION = -10;
-                dmgStats.MAX_VELOCITY = -200;
                 return dmgStats;
             }
 
@@ -70,7 +68,7 @@ public class ItemsPool {
             @Override
             protected CharacterStats createAffectedStats() {
                 CharacterStats dmgStats = new CharacterStats();
-                dmgStats.JUMP_VELOCITY += 200;
+                dmgStats.jumpVelocity += 200;
                 return dmgStats;
             }
 

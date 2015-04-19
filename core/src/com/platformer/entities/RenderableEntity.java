@@ -7,12 +7,10 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.platformer.maps.Map;
 
-public abstract class RenderableEntity extends Actor {
+public abstract class RenderableEntity extends PhysicalEntity {
 
     private static final int DEF_BOUNDS_SIZE = 32;
 
-    protected Rectangle bounds;
-    protected Vector2 position;
     protected Texture texture;
     protected TextureRegion[][] splittedTextureAtlas;
 
@@ -42,18 +40,6 @@ public abstract class RenderableEntity extends Actor {
         super(map);
         bounds = new Rectangle(X, Y, width, height);
         position = new Vector2(X, Y);
-    }
-
-    public Rectangle getBounds() {
-        return bounds;
-    }
-
-    public Vector2 getPosition() {
-        return position;
-    }
-
-    public void setPosition(Vector2 position) {
-        this.position = position;
     }
 
     public void dispose() {

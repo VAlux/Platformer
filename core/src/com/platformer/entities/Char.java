@@ -17,14 +17,12 @@ import java.util.ArrayList;
 
 import static com.platformer.enums.CharacterState.*;
 
-public class Char extends RenderableEntity{
+public class Char extends RenderableEntity {
 
     private static final String TAG = Char.class.getSimpleName();
 
     protected Inventory inventory;
 
-    protected Vector2 velocity;
-    protected Vector2 acceleration;
     protected Vector2 spawnPosition;
 
     protected CharacterStats stats;
@@ -82,17 +80,12 @@ public class Char extends RenderableEntity{
 
     @Override
     public void act(final float delta) {
-        acceleration.y = -stats.GRAVITY * delta;
-        velocity.add(acceleration);
+        super.act(delta);
 
         for (Ability ability : abilities) {
             ability.act(delta);
         }
 
-        if (acceleration.x == 0)
-            velocity.x *= stats.FRICTION;
-
-        velocity.x = MathUtils.clamp(velocity.x, -stats.MAX_VELOCITY, stats.MAX_VELOCITY);
         move(delta);
         stateTime += delta;
     }

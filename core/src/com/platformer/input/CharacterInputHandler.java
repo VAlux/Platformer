@@ -35,23 +35,23 @@ public class CharacterInputHandler implements InputHandler {
     public void handle() {
         if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
             if (c.isOnGround()) {
-                c.getVelocity().y = c.getStats().JUMP_VELOCITY;
+                c.getVelocity().y = c.getStats().jumpVelocity;
                 c.setOnGround(false);
                 Gdx.app.log("input", "REGULAR JUMP");
             }
             if (c.isOnWall() && c.isCanWallJump()) {
-                c.getVelocity().y = c.getStats().JUMP_VELOCITY;
+                c.getVelocity().y = c.getStats().jumpVelocity;
                 c.setCanWallJump(false);
                 c.setOnWall(false);
                 Gdx.app.log("input", "WALL JUMP");
             }
             c.setState(JUMP);
         } else if (Gdx.input.isKeyPressed(Input.Keys.A)) {
-            c.getAcceleration().x = -c.getStats().ACCELERATION;
+            c.getAcceleration().x = -c.getAccelerationFactor();
             if (c.getState() != JUMP)
                 c.setState(WALK_LEFT);
         } else if (Gdx.input.isKeyPressed(Input.Keys.D)) {
-            c.getAcceleration().x = c.getStats().ACCELERATION;
+            c.getAcceleration().x = c.getAccelerationFactor();
             if (c.getState() != JUMP)
                 c.setState(WALK_RIGHT);
         } else {

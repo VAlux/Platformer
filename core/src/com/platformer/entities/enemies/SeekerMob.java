@@ -62,14 +62,14 @@ public final class SeekerMob extends Mob {
     private void pursuit() {
         if (attackTarget != null) {
             if (attackTarget.getPosition().x > this.position.x) {
-                this.acceleration.x = stats.ACCELERATION;
+                this.acceleration.x = accelerationFactor;
                 state = CharacterState.WALK_RIGHT;
             } else if (attackTarget.getPosition().x < this.position.x){
-                this.acceleration.x = -stats.ACCELERATION;
+                this.acceleration.x = -accelerationFactor;
                 state = CharacterState.WALK_LEFT;
             }
             if (attackTarget.getPosition().y > this.position.y) {
-                this.velocity.y = stats.JUMP_VELOCITY;
+                this.velocity.y = stats.jumpVelocity;
                 state = CharacterState.JUMP;
             }
         }
