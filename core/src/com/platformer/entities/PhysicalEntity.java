@@ -3,7 +3,6 @@ package com.platformer.entities;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
-import com.platformer.maps.Map;
 
 import static com.platformer.stats.WorldConstants.GRAVITY;
 
@@ -28,11 +27,6 @@ public class PhysicalEntity extends Actor {
         init();
     }
 
-    public PhysicalEntity(Map map) {
-        super(map);
-        init();
-    }
-
     private void init() {
         this.velocity = new Vector2();
         this.acceleration = new Vector2();
@@ -51,6 +45,11 @@ public class PhysicalEntity extends Actor {
             velocity.x *= friction;
 
         velocity.x = MathUtils.clamp(velocity.x, -maxVelocity, maxVelocity);
+    }
+
+    @Override
+    public void destroy() {
+        //Nothing to destroy =)
     }
 
     public Vector2 getVelocity() {

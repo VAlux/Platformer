@@ -4,7 +4,7 @@ import com.badlogic.gdx.*;
 import com.platformer.entities.Char;
 import com.platformer.items.ItemsPool;
 
-import static com.platformer.enums.CharacterState.*;
+import static com.platformer.states.CharacterState.*;
 
 /**
  * Created by alvo on 28.12.14.

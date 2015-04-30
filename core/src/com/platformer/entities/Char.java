@@ -8,20 +8,24 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.platformer.abilities.Ability;
-import com.platformer.enums.CharacterState;
+import com.platformer.screens.GameScreen;
+import com.platformer.states.CharacterState;
 import com.platformer.items.Inventory;
 import com.platformer.maps.Map;
 import com.platformer.stats.CharacterStats;
 
 import java.util.ArrayList;
 
-import static com.platformer.enums.CharacterState.*;
+import static com.platformer.states.CharacterState.*;
 
 public class Char extends RenderableEntity {
 
     private static final String TAG = Char.class.getSimpleName();
 
     protected Inventory inventory;
+    protected boolean isActiveInventory = true;
+
+    protected Map map;
 
     protected Vector2 spawnPosition;
 
@@ -41,9 +45,10 @@ public class Char extends RenderableEntity {
     private boolean hasXCollision;
     private boolean hasYCollision;
 
-    protected Char(Map map, float xPos, float yPos, int inventoryCapacity) {
-        super(map, xPos, yPos);
+    protected Char(float xPos, float yPos, int inventoryCapacity) {
+        super(xPos, yPos);
 
+        map = GameScreen.world.getMap();
         spawnPosition = new Vector2(xPos, yPos);
         specialObjects = map.getSpecObjectsLayer().getObjects();
         collidableObjects = map.getCollisionLayer().getObjects();
@@ -60,8 +65,8 @@ public class Char extends RenderableEntity {
         createAbilities();
     }
 
-    protected Char(Map map, Vector2 spawnPosition, int inventoryCapacity) {
-        this(map, spawnPosition.x, spawnPosition.y, inventoryCapacity);
+    protected Char(Vector2 spawnPosition, int inventoryCapacity) {
+        this(spawnPosition.x, spawnPosition.y, inventoryCapacity);
     }
 
     protected void createAbilities() {
@@ -103,8 +108,6 @@ public class Char extends RenderableEntity {
         }
         isActiveInventory = false;
     }
-
-    protected boolean isActiveInventory = true;
 
     public void activateInventory(){
         applyInventory();

@@ -29,4 +29,9 @@ public class FistOfFire extends Ability {
             FXRenderer.addEffect(explosionFX);
         }
     }
+
+    @Override
+    public void destroy() {
+        explosionFX.destroy();
+    }
 }

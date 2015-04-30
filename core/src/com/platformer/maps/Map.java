@@ -104,7 +104,7 @@ public class Map {
         return tileHeight;
     }
 
-    public TiledMap getMap() {
+    public TiledMap getTiledMap() {
         return map;
     }
 

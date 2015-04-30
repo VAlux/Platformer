@@ -3,12 +3,12 @@
  <tileset firstgid="1" source="../tilesets/greece.tsx"/>
  <layer name="background" width="128" height="32">
   <data encoding="base64" compression="zlib">
-   eJzt1U1qAjEYh/FXtF7DC+gUtD1C97ruxxG6rq48SzfV3qVQ7UlKq+v+ZRKSih8IpnHs84OHDArDC5nMmAEAAAAAAAAAAAAAAAAAsF1X9dSVus48C/7erbpT9+oh8yz4ra4a6sLViPK/NbNNh9Qea2YLrd9Wrje1cL1061vG+ZDWwMpn4MvCvsf775+BXeJ3CO+Kaulb+Qys1kV0PXBx/s+b3+fVnrdVRxXq0sL+7zv/qK4n11C9qImaqlc1Ui19Gz7zjYfE/Pl/Vu9qpubqw8L5X2abDikVrs7a9XrFhrXY8H/87cDpm1h43x8zf0+ctlmi5gnvXdVy7MO+jn3uD2n8z9ol10w/NlngcQ==
+   eJzt1UtKA0EURuEbEh36WIEbMC34WIJzM/axBMfqyLU4MboXwcSViCZj/9BVVBligpDypuP54FBNAs2F6uo2AwAAAAAAAAAAAAAAAADgZ4fqSB2rE+dZ8PfO1YW6VFfOs+C7tuqojVAnK/626TYdSrtumY20flq9nrbS9TisL47zoaye1c/Ah6V9z/c/PgPz5O8Q3hXNcmb1MzBZR9l1L8T5X29xnyd7vq+6qlIHlvZ/0flHc92EbtWj6qsn9azu1J6+De9+49mWPi7baiesu23HYdZQPP8P6lUN1FC9WTr/Y7fpUFIV6k5dT1fNWKsZ/+ffDqy+vqX3/TKL98RqGxRqWPDeTc1jHxa17HP/m+7/WfN4zfQFSJ7gzQ==
   </data>
  </layer>
  <layer name="foreground" width="128" height="32">
   <data encoding="base64" compression="zlib">
-   eJzt16ENwEAIBdDbf4+q7lLVXaqanG84R8KlvGdAknwBjAEAAAAAAAAAAPzFUT0Apa7qASj1fCpkOBc9+4h2f9Y9cC969hHt/qx7QP77k39v8u9N/r1FP1/WHyj/3uTf27voAagxAVrhG/I=
+   eJzt17ENhDAMBVB0tKxzI1OxCxUb3BBXIdGjJAIRKRZ5r4ndWfpF7GEAAAAAAAAAAADeYm49AE2trQegqf/phRqWTE0cqb+/1j6wZWriSP39tfYB+ccn/77Jv2/y71vq5qt1Bz7J//cp98T3JP9pLPfEt2fqK75juQfgvgM83R5K
   </data>
  </layer>
  <objectgroup name="special-objects" width="128" height="32">
@@ -25,5 +25,6 @@
   <object x="576" y="736" width="127" height="32"/>
   <object x="832" y="608" width="128" height="64"/>
   <object x="3136" y="960" width="960" height="64"/>
+  <object x="1312" y="832" width="160" height="32"/>
  </objectgroup>
 </map>

@@ -13,43 +13,87 @@ import java.util.ArrayList;
 
 public class World extends Actor {
 
-    public Map map;
-    public ArrayList<Char> chars;
-    public ArrayList<Mob> mobs;
-    public Player player;
+    /**
+     * World map.
+     */
+    private Map map;
+
+    /**
+     * Controllable player.
+     */
+    private Player player;
+
+    /**
+     * All of the actors in the world.
+     */
+    private ArrayList<Actor> actors;
+
+    /**
+     * Sub-list of the actors list, contains only references to the renderable actors in the world.
+     */
+    private ArrayList<RenderableEntity> renderableActors;
+
+    /**
+     * Sub-list of the actors list, contains only references to the characters in the world.
+     */
+    private ArrayList<Char> chars;
+
+    /**
+     * Sub-list of the actors list, contains only references to the mobs in the world.
+     */
+    private ArrayList<Mob> mobs;
 
     public World() {
-        loadMap();
+        actors = new ArrayList<Actor>();
+        renderableActors = new ArrayList<RenderableEntity>();
+        chars = new ArrayList<Char>();
+        mobs = new ArrayList<Mob>();
+    }
+
+    public void init() {
+        loadMap("maps/jungle.tmx");
         createCharacters();
         ItemsPool.initPool();
     }
 
+    public void addRenderableActor(RenderableEntity actor) {
+        addActor(actor);
+        renderableActors.add(actor);
+    }
+
+    public void addActor(Actor actor) {
+        actors.add(actor);
+    }
+
+    public void addCharacter(Char character) {
+        addRenderableActor(character);
+        chars.add(character);
+    }
+
+    public void addMob(Mob mob) {
+        addCharacter(mob);
+        mobs.add(mob);
+    }
+
     private void createCharacters(){
-        chars = new ArrayList<Char>();
         createPlayer();
         createMobs();
     }
 
     private void createMobs(){
-        mobs = new ArrayList<Mob>();
-
         //TODO: hardcoded testing location of the mob.
-        SeekerMob smob = new SeekerMob(map, new Vector2(27.0f * 32.0f, 16.0f * 32.0f), chars);
-        mobs.add(smob);
-
-        for (Mob mob : mobs){
-            chars.add(mob);
-        }
+        SeekerMob smob = new SeekerMob(new Vector2(27.0f * 32.0f, 16.0f * 32.0f));
+        addMob(smob);
     }
 
     private void createPlayer(){
         player = new Elf(map, 10);
-        chars.add(player);
+        addCharacter(player);
     }
 
-    private void loadMap(){
+    private void loadMap(String mapPath){
         try {
-            map = new Map("maps/greece.tmx");
+            map = new Map(mapPath);
         } catch (MapObjectNotFoundException e) {
             e.printStackTrace();
             Gdx.app.exit();
@@ -61,9 +105,39 @@ public class World extends Actor {
 
     @Override
     public void act(float delta) {
-        player.act(delta);
+        for (Actor actor : actors) {
+            actor.act(delta);
+        }
+    }
 
-        for (Mob mob : mobs)
-            mob.act(delta);
+    @Override
+    public void destroy() {
+        for (Actor actor : actors) {
+            actor.destroy();
+        }
+    }
+
+    public Map getMap() {
+        return map;
+    }
+
+    public Player getPlayer() {
+        return player;
+    }
+
+    public ArrayList<Actor> getActors() {
+        return actors;
+    }
+
+    public ArrayList<RenderableEntity> getRenderableActors() {
+        return renderableActors;
+    }
+
+    public ArrayList<Char> getChars() {
+        return chars;
+    }
+
+    public ArrayList<Mob> getMobs() {
+        return mobs;
     }
 }

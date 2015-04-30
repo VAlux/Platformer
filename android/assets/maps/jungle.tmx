@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="100" height="100" tilewidth="32" tileheight="32">
+ <tileset firstgid="1" source="../tilesets/jungle.tsx"/>
+ <tileset firstgid="421" name="jungle-objects" tilewidth="32" tileheight="32">
+  <image source="../tilesets/atlases/Jungle_objects.PNG" width="416" height="224"/>
+ </tileset>
+ <layer name="background" width="100" height="100">
+  <data encoding="base64" compression="zlib">
+   eJzt1ktKw0AAgOHxtVTwtdTqUsEHeAYFXXsBBb2Hrjyoeg6n6kAJzTRJYxPT74MfamdqMxOmJAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAKCJ+5Wur2B5jbd+NbaWGUutxzYy85nfQewwNsqMpY5ix5n5zG8z9hrbmjL2Hvso6XNRF7hkTsLP/Tjt+kL4dh3KzweL9xCcjz5J5+Om6wsZmOKzadXS+XgM/X6O3Y3txfZ/X0/+3UZt/8/is2nTRiVr/4uqfsd43kWFLivOqzu3yvzi+FnsrYV2OlrvrM9f/bO2a+77S8n75z1YyxBK96Nsn+ucj67XMoRm/V7l7tPkmPPRTrc19j/XXQ/WMoSeGu5/secerGVaX8GLrzk=
+  </data>
+ </layer>
+ <layer name="foreground" width="100" height="100">
+  <data encoding="base64" compression="zlib">
+   eJzt0cENglAURNGPJdmJKHYhIF0gas3OkqUmEBI8J7n7l3mlAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA3zpVpdTpnC6pSddq66v+1y3bt6lLfbqnwT82M2b7R5rSM73S2z8AAH52mAV7dVwwAIA1fABC8gum
+  </data>
+ </layer>
+ <objectgroup name="special-objects" width="100" height="100">
+  <object name="spawn-point" x="1600" y="2880" width="32" height="32">
+   <ellipse/>
+  </object>
+ </objectgroup>
+ <objectgroup name="collidable-objects" width="100" height="100">
+  <object x="1408" y="2976" width="608" height="224"/>
+  <object x="1856" y="2752" width="96" height="224"/>
+  <object x="1952" y="2752" width="384" height="64"/>
+ </objectgroup>
+</map>

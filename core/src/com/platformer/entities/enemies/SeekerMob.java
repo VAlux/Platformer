@@ -8,7 +8,7 @@ import com.platformer.abilities.effect.DamageEffect;
 import com.platformer.entities.Char;
 import com.platformer.entities.Mob;
 import com.platformer.entities.Player;
-import com.platformer.enums.CharacterState;
+import com.platformer.states.CharacterState;
 import com.platformer.maps.Map;
 import com.platformer.utils.Tools;
 
@@ -22,8 +22,8 @@ public final class SeekerMob extends Mob {
 
     private boolean targetLocated;
 
-    public SeekerMob(Map map, Vector2 spawnPosition, ArrayList<Char> actors) {
-        super(map, spawnPosition, actors);
+    public SeekerMob(Vector2 spawnPosition) {
+        super(spawnPosition);
         targetLocated = false;
         this.texture = new Texture("tilesets/atlases/character-elven.png");
         splittedTextureAtlas = new TextureRegion(texture).split((int) map.getTileWidth(), (int) map.getTileHeight());

@@ -4,12 +4,13 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.utils.Disposable;
 import com.platformer.entities.Char;
 import com.platformer.entities.Mob;
 
 import java.util.ArrayList;
 
-public class DebugRenderer {
+public final class DebugRenderer implements Disposable {
 
     private ShapeRenderer renderer;
     private OrthographicCamera camera;
@@ -45,5 +46,9 @@ public class DebugRenderer {
             }
         }
         renderer.end();
+    }
+
+    public void dispose() {
+        renderer.dispose();
     }
 }

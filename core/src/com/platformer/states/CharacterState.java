@@ -1,4 +1,4 @@
-package com.platformer.enums;
+package com.platformer.states;
 
 public enum CharacterState {
     IDLE,

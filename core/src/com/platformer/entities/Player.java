@@ -2,13 +2,13 @@ package com.platformer.entities;
 
 import com.platformer.maps.Map;
 
-import static com.platformer.enums.CharacterState.DEAD;
-import static com.platformer.enums.CharacterState.IDLE;
+import static com.platformer.states.CharacterState.DEAD;
+import static com.platformer.states.CharacterState.IDLE;
 
 public class Player extends Char {
 
     public Player(Map map, int inventoryCapacity) {
-        super(map, map.getSpawnPoint(), inventoryCapacity);
+        super(map.getSpawnPoint(), inventoryCapacity);
         state = IDLE;
     }
 

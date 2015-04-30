@@ -2,12 +2,13 @@ package com.platformer.entities;
 
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
-import com.platformer.enums.CharacterState;
 import com.platformer.maps.Map;
+import com.platformer.screens.GameScreen;
+import com.platformer.states.CharacterState;
 
 import java.util.ArrayList;
 
-import static com.platformer.enums.CharacterState.DEAD;
+import static com.platformer.states.CharacterState.DEAD;
 
 public class Mob extends Char {
 
@@ -18,19 +19,15 @@ public class Mob extends Char {
     protected ArrayList<Char> aChars;
     protected Vector2 fovSize;
 
-    public Mob(Map map, Vector2 spawnPosition, ArrayList<Char> aChars, int inventoryCapacity) {
-        super(map, spawnPosition, inventoryCapacity);
+    public Mob(Vector2 spawnPosition){
+        super(spawnPosition, 0);
         specialObjects = map.getSpecObjectsLayer().getObjects();
         collidableObjects = map.getCollisionLayer().getObjects();
 
-        this.aChars = aChars;
+        this.aChars = GameScreen.world.getChars();
         fovSize = new Vector2(FOV_SCALE * map.getTileWidth(), FOV_SCALE * map.getTileHeight());
         fieldOfView = new Rectangle(position.x - fovSize.x / 2, position.y - fovSize.y / 2, fovSize.x, fovSize.y);
         state = CharacterState.IDLE;
-    }
-
-    public Mob(Map map, Vector2 spawnPosition, ArrayList<Char> aChars){
-        this(map,spawnPosition, aChars, 0);
     }
 
     @Override
