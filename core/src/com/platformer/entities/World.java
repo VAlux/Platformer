@@ -10,6 +10,7 @@ import com.platformer.items.ItemsPool;
 import com.platformer.maps.Map;
 
 import java.util.ArrayList;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public class World extends Actor {
 
@@ -26,7 +27,7 @@ public class World extends Actor {
     /**
      * All of the actors in the world.
      */
-    private ArrayList<Actor> actors;
+    private CopyOnWriteArrayList<Actor> actors;
 
     /**
      * Sub-list of the actors list, contains only references to the renderable actors in the world.
@@ -44,7 +45,7 @@ public class World extends Actor {
     private ArrayList<Mob> mobs;
 
     public World() {
-        actors = new ArrayList<Actor>();
+        actors = new CopyOnWriteArrayList<Actor>();
         renderableActors = new ArrayList<RenderableEntity>();
         chars = new ArrayList<Char>();
         mobs = new ArrayList<Mob>();
@@ -75,6 +76,10 @@ public class World extends Actor {
         mobs.add(mob);
     }
 
+    public void removeActor(Actor actor) {
+        actors.remove(actor);
+    }
+
     private void createCharacters(){
         createPlayer();
         createMobs();
@@ -82,8 +87,8 @@ public class World extends Actor {
 
     private void createMobs(){
         //TODO: hardcoded testing location of the mob.
-        SeekerMob smob = new SeekerMob(new Vector2(27.0f * 32.0f, 16.0f * 32.0f));
-        addMob(smob);
+        SeekerMob seekerMob = new SeekerMob(new Vector2(27.0f * 32.0f, 16.0f * 32.0f));
+        addMob(seekerMob);
     }
 
     private void createPlayer(){
@@ -125,7 +130,7 @@ public class World extends Actor {
         return player;
     }
 
-    public ArrayList<Actor> getActors() {
+    public CopyOnWriteArrayList<Actor> getActors() {
         return actors;
     }
 

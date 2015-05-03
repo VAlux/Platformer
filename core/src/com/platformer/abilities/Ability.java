@@ -1,8 +1,9 @@
 package com.platformer.abilities;
 
 import com.platformer.entities.Actor;
+import com.platformer.entities.Entity;
 
-public abstract  class Ability extends Actor {
+public abstract  class Ability extends Entity {
 
     protected Actor source;
     protected float currentCooldown;
@@ -43,7 +44,7 @@ public abstract  class Ability extends Actor {
 
     @Override
     public void act(float delta) {
-        stateTime += delta;
+        super.act(delta);
         if (!isAvailable)
             updateCooldown(delta);
     }

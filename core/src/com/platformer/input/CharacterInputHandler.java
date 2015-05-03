@@ -89,7 +89,7 @@ public class CharacterInputHandler implements InputHandler {
             return true;
         }
         else if (character == 'q'){
-            c.getAbilities().get(0).activate(); ///TODO: just testing.
+            c.getAbilities().get(1).activate(); ///TODO: just testing.
             return true;
         }
         return false;

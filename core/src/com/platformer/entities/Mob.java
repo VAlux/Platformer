@@ -41,11 +41,6 @@ public class Mob extends Char {
         }
     }
 
-    @Override
-    public void move(float deltaTime) {
-        super.move(deltaTime);
-    }
-
     public void setAttackTarget(Char attackTarget) {
         this.attackTarget = attackTarget;
     }

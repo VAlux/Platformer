@@ -2,16 +2,11 @@ package com.platformer.entities;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Animation;
-import com.badlogic.gdx.maps.MapObjects;
-import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.math.MathUtils;
-import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.platformer.abilities.Ability;
-import com.platformer.screens.GameScreen;
-import com.platformer.states.CharacterState;
 import com.platformer.items.Inventory;
-import com.platformer.maps.Map;
+import com.platformer.states.CharacterState;
 import com.platformer.stats.CharacterStats;
 
 import java.util.ArrayList;
@@ -25,33 +20,23 @@ public class Char extends RenderableEntity {
     protected Inventory inventory;
     protected boolean isActiveInventory = true;
 
-    protected Map map;
-
     protected Vector2 spawnPosition;
 
     protected CharacterStats stats;
     protected CharacterStats etalonStats;
     protected CharacterState state;
 
-    protected MapObjects specialObjects;
-    protected MapObjects collidableObjects;
-
     protected ArrayList<Ability> abilities;
 
-    protected boolean isOnGround;
     protected boolean isOnWall;
     protected boolean canWallJump;
-
-    private boolean hasXCollision;
-    private boolean hasYCollision;
 
     protected Char(float xPos, float yPos, int inventoryCapacity) {
         super(xPos, yPos);
 
-        map = GameScreen.world.getMap();
+
         spawnPosition = new Vector2(xPos, yPos);
-        specialObjects = map.getSpecObjectsLayer().getObjects();
-        collidableObjects = map.getCollisionLayer().getObjects();
+
 
         velocity = new Vector2();
         acceleration = new Vector2();
@@ -92,7 +77,6 @@ public class Char extends RenderableEntity {
         }
 
         move(delta);
-        stateTime += delta;
     }
 
     /// TODO: temp kostil...see descr below.
@@ -162,50 +146,32 @@ public class Char extends RenderableEntity {
         }
         inventory.removeItem(id, quantity);
     }
+
     public boolean isActiveInventory() {
         return isActiveInventory;
     }
 
+    @Override
     public void move(final float deltaTime) {
-        bounds.x += velocity.x * deltaTime;
-        hasXCollision = hasYCollision = false;
-        Rectangle collRect;
-        for (RectangleMapObject object : collidableObjects.getByType(RectangleMapObject.class)) {
-            collRect = object.getRectangle();
-            if (bounds.overlaps(collRect)) {
-                hasXCollision = true;
-                if (velocity.x > 0)
-                    bounds.x = collRect.x - bounds.width - 0.01f;
-                else
-                    bounds.x = collRect.x + collRect.width + 0.01f;
+        super.move(deltaTime);
+        if (hasXCollision) {
+            isOnWall = !isOnGround;
+        }
+        if (hasYCollision){
+            canWallJump = true;
+            isOnWall = false;
+            if (state == JUMP) {
+                state = IDLE;
+            }
+        }
+    }
 
-                velocity.x = 0;
-                isOnWall = !isOnGround;
-            }
-        }
-        bounds.y += velocity.y * deltaTime;
-        for (RectangleMapObject object : collidableObjects.getByType(RectangleMapObject.class)) {
-            collRect = object.getRectangle();
-            if (bounds.overlaps(collRect)) {
-                if (velocity.y > 0) {
-                    bounds.y = collRect.y - bounds.height - 0.01f;
-                }
-                else {
-                    hasYCollision = true;
-                    bounds.y = collRect.y + collRect.height + 0.01f;
-                    isOnGround = true;
-                    canWallJump = true;
-                    isOnWall = false;
-                    if (state == JUMP)
-                        state = IDLE;
-                }
-                velocity.y = 0;
-            }
-        }
-        if (!hasYCollision) {
-            isOnGround = false;
-        }
-        position.set(bounds.x, bounds.y);
+    /**
+     * Character is alive if It is not fallen below the map, or health is > 0, and It's state is not set to DEAD.
+     * @return Is character alive?
+     */
+    protected boolean isAlive() {
+        return position.y > 0.0f && stats.health > 0 && state != DEAD;
     }
 
     @Override
@@ -215,10 +181,6 @@ public class Char extends RenderableEntity {
 
     public CharacterStats getStats() {
         return stats;
-    }
-
-    protected boolean isAlive(){
-        return position.y > 0.0f && stats.health > 0 && state != DEAD;
     }
 
     public Inventory getInventory() {
@@ -231,18 +193,6 @@ public class Char extends RenderableEntity {
 
     public void setState(CharacterState state) {
         this.state = state;
-    }
-
-    public Vector2 getVelocity() {
-        return velocity;
-    }
-
-    public Vector2 getAcceleration() {
-        return acceleration;
-    }
-
-    public void setAcceleration(Vector2 acceleration) {
-        this.acceleration = acceleration;
     }
 
     public void setAcceleration(float x, float y) {

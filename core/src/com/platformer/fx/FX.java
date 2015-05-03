@@ -18,7 +18,7 @@ public abstract class FX extends RenderableEntity {
     protected abstract void createAnimations();
 
     public void act(final float delta) {
-        stateTime += delta;
+        super.act(delta);
     }
 
     public Animation getAnimation() {

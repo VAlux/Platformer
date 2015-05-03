@@ -1,15 +1,21 @@
 package com.platformer.entities;
 
+import com.badlogic.gdx.maps.MapObjects;
+import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import com.platformer.maps.Map;
+import com.platformer.screens.GameScreen;
 
+import static com.platformer.states.CharacterState.IDLE;
+import static com.platformer.states.CharacterState.JUMP;
 import static com.platformer.stats.WorldConstants.GRAVITY;
 
 /**
  * Created by alexander on 19.04.15.
  */
-public class PhysicalEntity extends Actor {
+public class PhysicalEntity extends Entity {
 
     protected Vector2 position;
     protected Vector2 velocity;
@@ -21,6 +27,15 @@ public class PhysicalEntity extends Actor {
     protected float accelerationFactor;
 
     protected Rectangle bounds;
+
+    protected boolean hasXCollision;
+    protected boolean hasYCollision;
+    protected boolean isOnGround;
+
+    protected MapObjects specialObjects;
+    protected MapObjects collidableObjects;
+
+    protected Map map;
 
     public PhysicalEntity() {
         super();
@@ -34,10 +49,15 @@ public class PhysicalEntity extends Actor {
         this.friction = 0.9f;
         this.maxVelocity = 500.0f;
         this.accelerationFactor = 20.0f;
+        map = GameScreen.world.getMap();
+
+        specialObjects = map.getSpecObjectsLayer().getObjects();
+        collidableObjects = map.getCollisionLayer().getObjects();
     }
 
     @Override
     public void act(float delta) {
+        super.act(delta);
         acceleration.y = -GRAVITY * gravityScale * delta;
         velocity.add(acceleration);
 
@@ -47,9 +67,50 @@ public class PhysicalEntity extends Actor {
         velocity.x = MathUtils.clamp(velocity.x, -maxVelocity, maxVelocity);
     }
 
+    public void move(final float delta) {
+        bounds.x += velocity.x * delta;
+        hasXCollision = hasYCollision = false;
+        Rectangle collRect;
+        for (RectangleMapObject object : collidableObjects.getByType(RectangleMapObject.class)) {
+            collRect = object.getRectangle();
+            if (bounds.overlaps(collRect)) {
+                hasXCollision = true;
+                if (velocity.x > 0)
+                    bounds.x = collRect.x - bounds.width - 0.01f;
+                else
+                    bounds.x = collRect.x + collRect.width + 0.01f;
+
+                velocity.x = 0;
+            }
+        }
+        bounds.y += velocity.y * delta;
+        for (RectangleMapObject object : collidableObjects.getByType(RectangleMapObject.class)) {
+            collRect = object.getRectangle();
+            if (bounds.overlaps(collRect)) {
+                if (velocity.y > 0) {
+                    bounds.y = collRect.y - bounds.height - 0.01f;
+                }
+                else {
+                    hasYCollision = true;
+                    bounds.y = collRect.y + collRect.height + 0.01f;
+                    isOnGround = true;
+                }
+                velocity.y = 0;
+            }
+        }
+        if (!hasYCollision) {
+            isOnGround = false;
+        }
+        position.set(bounds.x, bounds.y);
+    }
+
     @Override
     public void destroy() {
         //Nothing to destroy =)
+    }
+
+    public boolean hasCollision() {
+        return hasXCollision || hasYCollision;
     }
 
     public Vector2 getVelocity() {
