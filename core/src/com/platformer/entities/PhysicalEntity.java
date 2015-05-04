@@ -31,6 +31,7 @@ public class PhysicalEntity extends Entity {
     protected boolean hasXCollision;
     protected boolean hasYCollision;
     protected boolean isOnGround;
+    protected boolean isDynamic;
 
     protected MapObjects specialObjects;
     protected MapObjects collidableObjects;
@@ -43,14 +44,17 @@ public class PhysicalEntity extends Entity {
     }
 
     private void init() {
-        this.velocity = new Vector2();
-        this.acceleration = new Vector2();
-        this.gravityScale = 1.0f;
-        this.friction = 0.9f;
-        this.maxVelocity = 500.0f;
-        this.accelerationFactor = 20.0f;
-        map = GameScreen.world.getMap();
 
+        //default physics parameters.
+        velocity = new Vector2();
+        acceleration = new Vector2();
+        gravityScale = 1.0f;
+        friction = 0.9f;
+        maxVelocity = 500.0f;
+        accelerationFactor = 20.0f;
+        isDynamic = true;
+
+        map = GameScreen.world.getMap();
         specialObjects = map.getSpecObjectsLayer().getObjects();
         collidableObjects = map.getCollisionLayer().getObjects();
     }
@@ -58,50 +62,61 @@ public class PhysicalEntity extends Entity {
     @Override
     public void act(float delta) {
         super.act(delta);
-        acceleration.y = -GRAVITY * gravityScale * delta;
-        velocity.add(acceleration);
+        if(isDynamic) {
+            acceleration.y = -GRAVITY * gravityScale * delta;
+            velocity.add(acceleration);
 
-        if (acceleration.x == 0)
-            velocity.x *= friction;
+            if (acceleration.x == 0)
+                velocity.x *= friction;
 
-        velocity.x = MathUtils.clamp(velocity.x, -maxVelocity, maxVelocity);
+            velocity.x = MathUtils.clamp(velocity.x, -maxVelocity, maxVelocity);
+        }
     }
 
     public void move(final float delta) {
-        bounds.x += velocity.x * delta;
-        hasXCollision = hasYCollision = false;
-        Rectangle collRect;
-        for (RectangleMapObject object : collidableObjects.getByType(RectangleMapObject.class)) {
-            collRect = object.getRectangle();
-            if (bounds.overlaps(collRect)) {
-                hasXCollision = true;
-                if (velocity.x > 0)
-                    bounds.x = collRect.x - bounds.width - 0.01f;
-                else
-                    bounds.x = collRect.x + collRect.width + 0.01f;
+        if (isDynamic) {
+            bounds.x += velocity.x * delta;
+            hasXCollision = hasYCollision = false;
+            Rectangle collRect;
+            for (RectangleMapObject object : collidableObjects.getByType(RectangleMapObject.class)) {
+                collRect = object.getRectangle();
+                if (bounds.overlaps(collRect)) {
+                    hasXCollision = true;
+                    if (velocity.x > 0)
+                        bounds.x = collRect.x - bounds.width - 0.01f;
+                    else
+                        bounds.x = collRect.x + collRect.width + 0.01f;
 
-                velocity.x = 0;
-            }
-        }
-        bounds.y += velocity.y * delta;
-        for (RectangleMapObject object : collidableObjects.getByType(RectangleMapObject.class)) {
-            collRect = object.getRectangle();
-            if (bounds.overlaps(collRect)) {
-                if (velocity.y > 0) {
-                    bounds.y = collRect.y - bounds.height - 0.01f;
+                    velocity.x = 0;
                 }
-                else {
-                    hasYCollision = true;
-                    bounds.y = collRect.y + collRect.height + 0.01f;
-                    isOnGround = true;
-                }
-                velocity.y = 0;
             }
+            bounds.y += velocity.y * delta;
+            for (RectangleMapObject object : collidableObjects.getByType(RectangleMapObject.class)) {
+                collRect = object.getRectangle();
+                if (bounds.overlaps(collRect)) {
+                    if (velocity.y > 0) {
+                        bounds.y = collRect.y - bounds.height - 0.01f;
+                    } else {
+                        hasYCollision = true;
+                        bounds.y = collRect.y + collRect.height + 0.01f;
+                        isOnGround = true;
+                    }
+                    velocity.y = 0;
+                }
+            }
+            if (!hasYCollision) {
+                isOnGround = false;
+            }
+            position.set(bounds.x, bounds.y);
         }
-        if (!hasYCollision) {
-            isOnGround = false;
-        }
-        position.set(bounds.x, bounds.y);
+    }
+
+    public boolean isDynamic() {
+        return isDynamic;
+    }
+
+    public void setDynamic(boolean isDynamic) {
+        this.isDynamic = isDynamic;
     }
 
     @Override

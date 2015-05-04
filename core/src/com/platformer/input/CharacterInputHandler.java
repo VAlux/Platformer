@@ -13,7 +13,7 @@ import static com.platformer.states.CharacterState.*;
 /**
  * handles the input for the specified character.
  */
-public class CharacterInputHandler implements InputHandler {
+public class CharacterInputHandler extends InputAdapter implements InputHandler {
 
     /**
      * target to control by input handling.
@@ -34,18 +34,7 @@ public class CharacterInputHandler implements InputHandler {
     @Override
     public void handle() {
         if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
-            if (c.isOnGround()) {
-                c.getVelocity().y = c.getStats().jumpVelocity;
-                c.setOnGround(false);
-                Gdx.app.log("input", "REGULAR JUMP");
-            }
-            if (c.isOnWall() && c.isCanWallJump()) {
-                c.getVelocity().y = c.getStats().jumpVelocity;
-                c.setCanWallJump(false);
-                c.setOnWall(false);
-                Gdx.app.log("input", "WALL JUMP");
-            }
-            c.setState(JUMP);
+            c.jump();
         } else if (Gdx.input.isKeyPressed(Input.Keys.A)) {
             c.getAcceleration().x = -c.getAccelerationFactor();
             if (c.getState() != JUMP)
@@ -59,16 +48,6 @@ public class CharacterInputHandler implements InputHandler {
                 c.setState(IDLE);
             c.getAcceleration().x = 0;
         }
-    }
-
-    @Override
-    public boolean keyDown(int keycode) {
-        return false;
-    }
-
-    @Override
-    public boolean keyUp(int keycode) {
-        return false;
     }
 
     /**
@@ -92,31 +71,6 @@ public class CharacterInputHandler implements InputHandler {
             c.getAbilities().get(1).activate(); ///TODO: just testing.
             return true;
         }
-        return false;
-    }
-
-    @Override
-    public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-        return false;
-    }
-
-    @Override
-    public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-        return false;
-    }
-
-    @Override
-    public boolean touchDragged(int screenX, int screenY, int pointer) {
-        return false;
-    }
-
-    @Override
-    public boolean mouseMoved(int screenX, int screenY) {
-        return false;
-    }
-
-    @Override
-    public boolean scrolled(int amount) {
         return false;
     }
 }

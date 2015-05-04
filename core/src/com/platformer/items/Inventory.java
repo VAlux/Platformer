@@ -105,7 +105,7 @@ public class Inventory {
             if (item == null) return;
 
             if (!item.isConsumable() && size + quantity > maxCapacity) {
-                Gdx.app.log(TAG, "Can't add (" + quantity + ") items: max capacity (" + maxCapacity + ") will be exceed.");
+                Gdx.app.log(TAG, "Can't addInputHandler (" + quantity + ") items: max capacity (" + maxCapacity + ") will be exceed.");
                 quantity = MathUtils.clamp(quantity, 1, maxCapacity - size);
             }
             setItem(itemID, quantity);

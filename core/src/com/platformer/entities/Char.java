@@ -166,6 +166,21 @@ public class Char extends RenderableEntity {
         }
     }
 
+    public void jump() {
+        if (isOnGround()) {
+            velocity.y = stats.jumpVelocity;
+            setOnGround(false);
+            Gdx.app.log("input", "REGULAR JUMP");
+        }
+        if (isOnWall  && canWallJump) {
+            velocity.y = stats.jumpVelocity;
+            setCanWallJump(false);
+            setOnWall(false);
+            Gdx.app.log("input", "WALL JUMP");
+        }
+        setState(JUMP);
+    }
+
     /**
      * Character is alive if It is not fallen below the map, or health is > 0, and It's state is not set to DEAD.
      * @return Is character alive?

@@ -5,12 +5,14 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.input.GestureDetector;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector3;
 import com.platformer.Platformer;
 import com.platformer.entities.RenderableEntity;
 import com.platformer.entities.World;
 import com.platformer.fx.FXRenderer;
+import com.platformer.input.CharacterGestureInputHandler;
 import com.platformer.input.CharacterInputHandler;
 import com.platformer.input.InputQueueProcessor;
 import com.platformer.ui.HUD;
@@ -20,16 +22,16 @@ public class GameScreen implements Screen {
     private static final String TAG = GameScreen.class.getSimpleName();
 
     /**
-     * Sprite batch to draw all the stuff in the GameScreen.
-     */
-    public static SpriteBatch batch;
-
-    /**
      * World actor, contains all of the other actors, which are present in the game.
      * We need it to be static, because it is needed in a many places in the game logic and different game
      * entities, so we don't need to pass it as an argument to every entity, which would mess up the code.
      */
     public static World world;
+
+    /**
+     * Sprite batch to draw all the stuff in the GameScreen.
+     */
+    public static SpriteBatch batch;
 
     /**
      * Processes the inputs, which are flowing into the input queue.
@@ -70,8 +72,7 @@ public class GameScreen implements Screen {
     public void show() {
         world = new World();
         world.init();
-        inputQueueProcessor = new InputQueueProcessor();
-        inputQueueProcessor.add(new CharacterInputHandler(world.getPlayer()));
+        initInputHandling();
         mapRenderer = new OrthogonalTiledMapRenderer(world.getMap().getTiledMap());
         batch = (SpriteBatch) mapRenderer.getSpriteBatch();
         camera = new OrthographicCamera();
@@ -80,6 +81,21 @@ public class GameScreen implements Screen {
         cameraLerpTarget = new Vector3(playerPosition);
         camera.position.set(playerPosition);
         hud = new HUD(mapRenderer.getSpriteBatch(), world.getPlayer());
+    }
+
+    /**
+     * Initialise all, that related to the user input.
+     */
+    private void initInputHandling() {
+        final CharacterGestureInputHandler gestureInputHandler = new CharacterGestureInputHandler(world.getPlayer());
+        final CharacterInputHandler characterInputHandler = new CharacterInputHandler(world.getPlayer());
+        inputQueueProcessor = new InputQueueProcessor();
+
+        inputQueueProcessor.addInputHandler(characterInputHandler); // keyboard
+        inputQueueProcessor.addInputProcessor(characterInputHandler);
+
+        inputQueueProcessor.addInputHandler(gestureInputHandler); // custom handling of gestures
+        inputQueueProcessor.addInputProcessor(new GestureDetector(gestureInputHandler)); // standard gesture handling. (tap, pinch, zoom, etc.)
     }
 
     /**

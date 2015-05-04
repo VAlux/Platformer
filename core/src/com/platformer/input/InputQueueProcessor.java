@@ -3,6 +3,7 @@ package com.platformer.input;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.input.GestureDetector;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,13 +37,18 @@ public class InputQueueProcessor {
     }
 
     /**
-     * adds a new input processor to the input processing queue. and adds this processor to the input multiplexing
+     * adds a new input handler to the input processing queue.
+     * @param handler handler to add.
+     */
+    public final void addInputHandler(final InputHandler handler){
+        inputQueue.add((InputHandler) handler);
+    }
+
+    /**
+     * Adds a new input processor to the input multiplexing queue.
      * @param processor processor to add.
      */
-    public final void add(final InputProcessor processor){
-        if (processor instanceof InputHandler) {
-            inputQueue.add((InputHandler) processor);
-        }
+    public final void addInputProcessor(final InputProcessor processor) {
         inputMultiplexer.addProcessor(processor);
     }
 

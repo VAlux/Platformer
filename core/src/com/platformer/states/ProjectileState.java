@@ -5,5 +5,6 @@ package com.platformer.states;
  */
 public enum ProjectileState {
     FLYING,
-    EXPLODING
+    EXPLODING,
+    EXPLODED
 }
