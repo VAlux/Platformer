@@ -80,6 +80,11 @@ public class World extends Actor {
         actors.remove(actor);
     }
 
+    public void removeRenderableActor(RenderableEntity actor) {
+        renderableActors.remove(actor);
+        removeActor(actor);
+    }
+
     private void createCharacters(){
         createPlayer();
         createMobs();

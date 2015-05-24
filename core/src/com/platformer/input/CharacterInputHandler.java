@@ -45,7 +45,7 @@ public class CharacterInputHandler extends InputAdapter implements InputHandler 
                 c.setState(WALK_RIGHT);
         } else {
             if (c.getState() != JUMP)
-                c.setState(IDLE);
+                c.switchToIdleState();
             c.getAcceleration().x = 0;
         }
     }

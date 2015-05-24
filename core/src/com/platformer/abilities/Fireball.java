@@ -28,7 +28,7 @@ public class Fireball extends Ability {
             final Projectile fireball = new Projectile(sourceChar.getPosition());
             ///TODO: refactor the physics initial values setting.!!!
             fireball.setVelocity(new Vector2(0.0f, 500.0f));
-            fireball.setAcceleration(new Vector2(20.0f, 0.0f));
+            fireball.setAcceleration(new Vector2(250.0f, 0.0f));
             GameScreen.world.addRenderableActor(fireball);
             isAvailable = false;
         }

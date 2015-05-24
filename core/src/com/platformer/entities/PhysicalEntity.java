@@ -8,8 +8,6 @@ import com.badlogic.gdx.math.Vector2;
 import com.platformer.maps.Map;
 import com.platformer.screens.GameScreen;
 
-import static com.platformer.states.CharacterState.IDLE;
-import static com.platformer.states.CharacterState.JUMP;
 import static com.platformer.stats.WorldConstants.GRAVITY;
 
 /**

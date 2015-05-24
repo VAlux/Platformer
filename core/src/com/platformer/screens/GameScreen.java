@@ -115,7 +115,6 @@ public class GameScreen implements Screen {
         mapRenderer.renderTileLayer(world.getMap().getBackgroundLayer());
         renderActors();
         mapRenderer.renderTileLayer(world.getMap().getForegroundLayer());
-        FXRenderer.render(delta);
         batch.end();
 
         if (Platformer.DEBUG_INFO_ENABLED)
@@ -150,7 +149,7 @@ public class GameScreen implements Screen {
     }
     
     private void renderDebugInfo(){
-        debugRenderer.renderActorsBounds(world.getChars());
+        debugRenderer.renderActorsBounds(world.getRenderableActors());
         debugRenderer.renderFOV(world.getChars());
     }
 

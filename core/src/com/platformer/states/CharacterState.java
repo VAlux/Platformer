@@ -1,7 +1,8 @@
 package com.platformer.states;
 
 public enum CharacterState {
-    IDLE,
+    IDLE_LEFT,
+    IDLE_RIGHT,
     RUN,
     JUMP,
     WALK_LEFT,

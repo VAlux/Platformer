@@ -11,7 +11,8 @@ import com.platformer.utils.Tools;
 
 public final class Elf extends Player {
 
-    private Animation idleAnimation;
+    private Animation idleRightAnimation;
+    private Animation idleLeftAnimation;
     private Animation walkLeftAnimation;
     private Animation walkRightAnimation;
     private Animation jumpAnimation;
@@ -30,7 +31,8 @@ public final class Elf extends Player {
         walkRightAnimation = new Animation(0.1f, Tools.extractAnimation(splittedTextureAtlas, 0, 3));
         walkLeftAnimation = new Animation(0.1f, Tools.extractAnimation(splittedTextureAtlas, 9, 3));
         jumpAnimation = new Animation(0.1f, Tools.extractAnimation(splittedTextureAtlas, 4, 3));
-        idleAnimation = new Animation(0.1f, splittedTextureAtlas[0][0]); ///TODO: need to be added. no art now :(
+        idleRightAnimation = new Animation(0.1f, splittedTextureAtlas[0][0]); //just a static image for now.
+        idleLeftAnimation = new Animation(0.1f, splittedTextureAtlas[2][0]); // just a static image for now.
     }
 
     @Override
@@ -43,8 +45,10 @@ public final class Elf extends Player {
     @Override
     public Animation getAnimation(){
         switch (state) {
-            case IDLE:
-                return idleAnimation;
+            case IDLE_LEFT:
+                return idleLeftAnimation;
+            case IDLE_RIGHT:
+                return idleRightAnimation;
             case RUN:
                 return runAnimation;
             case JUMP:
@@ -58,7 +62,7 @@ public final class Elf extends Player {
             case DEAD:
                 return deadAnimation;
             default:
-                return idleAnimation;
+                return idleRightAnimation;
         }
     }
 }

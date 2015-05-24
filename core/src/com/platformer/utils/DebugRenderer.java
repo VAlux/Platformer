@@ -7,6 +7,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.Disposable;
 import com.platformer.entities.Char;
 import com.platformer.entities.Mob;
+import com.platformer.entities.RenderableEntity;
 
 import java.util.ArrayList;
 
@@ -20,13 +21,13 @@ public final class DebugRenderer implements Disposable {
         renderer = new ShapeRenderer(256);
     }
 
-    public void renderActorsBounds(final ArrayList<Char> aChars) {
+    public void renderActorsBounds(final ArrayList<RenderableEntity> entities) {
         renderer.setProjectionMatrix(camera.combined);
         renderer.begin(ShapeRenderer.ShapeType.Line);
         renderer.setColor(Color.GREEN);
         Rectangle actorBounds;
-        for (Char aChar : aChars) {
-            actorBounds = aChar.getBounds();
+        for (RenderableEntity entity : entities) {
+            actorBounds = entity.getBounds();
             renderer.rect(actorBounds.x, actorBounds.y, actorBounds.width, actorBounds.height);
         }
         renderer.end();

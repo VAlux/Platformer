@@ -27,7 +27,7 @@ public class Mob extends Char {
         this.aChars = GameScreen.world.getChars();
         fovSize = new Vector2(FOV_SCALE * map.getTileWidth(), FOV_SCALE * map.getTileHeight());
         fieldOfView = new Rectangle(position.x - fovSize.x / 2, position.y - fovSize.y / 2, fovSize.x, fovSize.y);
-        state = CharacterState.IDLE;
+        switchToIdleState();
     }
 
     @Override

@@ -9,14 +9,14 @@ import com.platformer.entities.Char;
 import com.platformer.entities.Mob;
 import com.platformer.entities.Player;
 import com.platformer.states.CharacterState;
-import com.platformer.maps.Map;
 import com.platformer.utils.Tools;
 
-import java.util.ArrayList;
+import static com.platformer.states.CharacterState.JUMP;
 
 public final class SeekerMob extends Mob {
 
-    private Animation idleAnimation;
+    private Animation idleRightAnimation;
+    private Animation idleLeftAnimation;
     private Animation walkLeftAnimation;
     private Animation walkRightAnimation;
 
@@ -68,9 +68,9 @@ public final class SeekerMob extends Mob {
                 this.acceleration.x = -accelerationFactor;
                 state = CharacterState.WALK_LEFT;
             }
-            if (attackTarget.getPosition().y > this.position.y) {
+            if (attackTarget.getPosition().y > this.position.y && isOnGround) {
                 this.velocity.y = stats.jumpVelocity;
-                state = CharacterState.JUMP;
+                state = JUMP;
             }
         }
     }
@@ -78,20 +78,23 @@ public final class SeekerMob extends Mob {
     private void createAnimations() {
         walkRightAnimation = new Animation(0.1f, Tools.extractAnimation(splittedTextureAtlas, 0, 3));
         walkLeftAnimation = new Animation(0.1f, Tools.extractAnimation(splittedTextureAtlas, 9, 3));
-        idleAnimation = new Animation(0.1f, splittedTextureAtlas[0][0]); // need to be added. no art now :(
+        idleRightAnimation = new Animation(0.1f, splittedTextureAtlas[0][0]);
+        idleLeftAnimation = new Animation(0.1f, splittedTextureAtlas[2][0]);
     }
 
     @Override
     public Animation getAnimation() {
         switch (state){
-            case IDLE:
-                return idleAnimation;
+            case IDLE_LEFT:
+                return idleRightAnimation;
+            case IDLE_RIGHT:
+                return idleLeftAnimation;
             case WALK_LEFT:
                 return walkLeftAnimation;
             case WALK_RIGHT:
                 return walkRightAnimation;
             default:
-                return idleAnimation;
+                return idleRightAnimation;
         }
     }
 }

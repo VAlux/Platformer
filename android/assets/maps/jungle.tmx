@@ -6,12 +6,12 @@
  </tileset>
  <layer name="background" width="100" height="100">
   <data encoding="base64" compression="zlib">
-   eJzt1ktKw0AAgOHxtVTwtdTqUsEHeAYFXXsBBb2Hrjyoeg6n6kAJzTRJYxPT74MfamdqMxOmJAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAKCJ+5Wur2B5jbd+NbaWGUutxzYy85nfQewwNsqMpY5ix5n5zG8z9hrbmjL2Hvso6XNRF7hkTsLP/Tjt+kL4dh3KzweL9xCcjz5J5+Om6wsZmOKzadXS+XgM/X6O3Y3txfZ/X0/+3UZt/8/is2nTRiVr/4uqfsd43kWFLivOqzu3yvzi+FnsrYV2OlrvrM9f/bO2a+77S8n75z1YyxBK96Nsn+ucj67XMoRm/V7l7tPkmPPRTrc19j/XXQ/WMoSeGu5/secerGVaX8GLrzk=
+   eJzt1ktKw0AAgOHxtVTwtdTqUsEHeAYFXXsBXXgPXXlQ9RxO1EAoTUiTdmak3wc/tJ0pnUyZkBAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAhHtdyr2B1VVu/HtvoGKvbjG11zGe8o9hxbNIxVncSO+2Yz3jbsbfYzoyxj9hnS1+pFrhizsLv/3GeeyH8uA3t54P0noLzUZL6fNzlXkhi08+OpVSfj+dQ9nPsfuwgdvj3uvl+SNPPjqU2abn2ZdT3N6p5Vz267jmvajf2/g/aW9D1zjO3z/dvFtxFAXvd7LXl88slXHuJ3Wfe53nOR+69SlHu+1XX/9QcW5Xzkfp+NfScPBSwVylKdb8a20sBezWrb7JP4Fc=
   </data>
  </layer>
  <layer name="foreground" width="100" height="100">
   <data encoding="base64" compression="zlib">
-   eJzt0cENglAURNGPJdmJKHYhIF0gas3OkqUmEBI8J7n7l3mlAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA3zpVpdTpnC6pSddq66v+1y3bt6lLfbqnwT82M2b7R5rSM73S2z8AAH52mAV7dVwwAIA1fABC8gum
+   eJzt1ktOwgAUhtHiktiJqOxCEXfAEEV34WMgifGBQx460LEuQHfiP8BESRAmtRDOSb6QtA1p7m2aFgUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAALCs7VpRNNJO2k17qVmr+q42z3Vm3k/76SC10mFqp6M5+7ixp9J1M+PjdJJ66TSdmTvAyjnPu/kiXaYr7+nK3WYHd+k+PZS8j0H+/9HO/zTMfEZpnCbTWb3l933O3F5y/HXm3Pe36iJPueZ5et3st+rWj/jtI7P69Bz/i/oaBausU/UNsBR7Koe5su6+AJgDJl4=
   </data>
  </layer>
  <objectgroup name="special-objects" width="100" height="100">
@@ -20,7 +20,7 @@
   </object>
  </objectgroup>
  <objectgroup name="collidable-objects" width="100" height="100">
-  <object x="1408" y="2976" width="608" height="224"/>
+  <object x="640" y="2976" width="1376" height="224"/>
   <object x="1856" y="2752" width="96" height="224"/>
   <object x="1952" y="2752" width="384" height="64"/>
  </objectgroup>

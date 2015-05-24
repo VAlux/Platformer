@@ -1,6 +1,5 @@
 package com.platformer.entities.projectiles;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -33,7 +32,7 @@ public class Projectile extends RenderableEntity {
     }
 
     protected void createAnimations() {
-        flyingAnimation = new Animation(0.1f, Tools.extractAnimation(splittedTextureAtlas, 0, 5));
+        flyingAnimation = new Animation(0.1f, Tools.extractAnimation(splittedTextureAtlas, 1, 3));
         explodeAnimation = new Animation(0.1f, Tools.extractAnimation(splittedTextureAtlas, 6, 10));
     }
 
@@ -44,7 +43,6 @@ public class Projectile extends RenderableEntity {
         TTL -= delta;
 
         if ((hasCollision() || ttlExpired()) && state != EXPLODING) {
-            Gdx.app.log("Projectile", "Start to explode...");
             stateTime = 0.0f;
             state = EXPLODING;
             setDynamic(false); // stop moving while exploding.
@@ -52,7 +50,6 @@ public class Projectile extends RenderableEntity {
 
         if (explodeAnimation.isAnimationFinished(stateTime)) {
             state = EXPLODED;
-            Gdx.app.log("Projectile", "Exploded and destroyed.");
             destroy();
         }
     }
@@ -72,7 +69,7 @@ public class Projectile extends RenderableEntity {
     @Override
     public void destroy() {
         super.destroy();
-        GameScreen.world.removeActor(this);
+        GameScreen.world.removeRenderableActor(this);
     }
 
     public boolean ttlExpired() {

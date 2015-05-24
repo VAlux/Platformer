@@ -33,11 +33,7 @@ public class Char extends RenderableEntity {
 
     protected Char(float xPos, float yPos, int inventoryCapacity) {
         super(xPos, yPos);
-
-
         spawnPosition = new Vector2(xPos, yPos);
-
-
         velocity = new Vector2();
         acceleration = new Vector2();
 
@@ -161,11 +157,27 @@ public class Char extends RenderableEntity {
             canWallJump = true;
             isOnWall = false;
             if (state == JUMP) {
-                state = IDLE;
+                switchToIdleState();
             }
         }
     }
 
+    /**
+     * determine the character orientation i.e.: left or right and return the corresponding state.
+     */
+    public void switchToIdleState() {
+        if (velocity.x > 0) {
+            state = IDLE_RIGHT;
+        } else {
+            state = IDLE_LEFT;
+        }
+    }
+
+    /**
+     * Character jumping action.
+     * Some logic to not to allow jumping if the character is not on the ground and
+     * allowing only 1 wall jump.
+     */
     public void jump() {
         if (isOnGround()) {
             velocity.y = stats.jumpVelocity;
