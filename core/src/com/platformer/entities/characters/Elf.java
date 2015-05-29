@@ -4,7 +4,6 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.platformer.abilities.Fireball;
-import com.platformer.abilities.FistOfFire;
 import com.platformer.entities.Player;
 import com.platformer.maps.Map;
 import com.platformer.utils.Tools;
@@ -38,7 +37,6 @@ public final class Elf extends Player {
     @Override
     protected void createAbilities() {
         super.createAbilities();
-        this.abilities.add(new FistOfFire(this));
         this.abilities.add(new Fireball(this));
     }
 

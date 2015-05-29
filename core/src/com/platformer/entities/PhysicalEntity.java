@@ -5,6 +5,7 @@ import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.utils.Array;
 import com.platformer.maps.Map;
 import com.platformer.screens.GameScreen;
 
@@ -35,6 +36,8 @@ public class PhysicalEntity extends Entity {
     protected MapObjects collidableObjects;
 
     protected Map map;
+
+    private final float collisionGap = 0.01f;
 
     public PhysicalEntity() {
         super();
@@ -72,31 +75,32 @@ public class PhysicalEntity extends Entity {
     }
 
     public void move(final float delta) {
-        if (isDynamic) {
-            bounds.x += velocity.x * delta;
+        if (isDynamic) { // do we actually need to move it?
             hasXCollision = hasYCollision = false;
             Rectangle collRect;
-            for (RectangleMapObject object : collidableObjects.getByType(RectangleMapObject.class)) {
+            final Array<RectangleMapObject> collisionObjects = collidableObjects.getByType(RectangleMapObject.class);
+            bounds.x += velocity.x * delta;
+            for (RectangleMapObject object : collisionObjects) {
                 collRect = object.getRectangle();
                 if (bounds.overlaps(collRect)) {
                     hasXCollision = true;
                     if (velocity.x > 0)
-                        bounds.x = collRect.x - bounds.width - 0.01f;
+                        bounds.x = collRect.x - bounds.width - collisionGap;
                     else
-                        bounds.x = collRect.x + collRect.width + 0.01f;
+                        bounds.x = collRect.x + collRect.width + collisionGap;
 
                     velocity.x = 0;
                 }
             }
             bounds.y += velocity.y * delta;
-            for (RectangleMapObject object : collidableObjects.getByType(RectangleMapObject.class)) {
+            for (RectangleMapObject object : collisionObjects) {
                 collRect = object.getRectangle();
                 if (bounds.overlaps(collRect)) {
                     if (velocity.y > 0) {
-                        bounds.y = collRect.y - bounds.height - 0.01f;
+                        bounds.y = collRect.y - bounds.height - collisionGap;
                     } else {
                         hasYCollision = true;
-                        bounds.y = collRect.y + collRect.height + 0.01f;
+                        bounds.y = collRect.y + collRect.height + collisionGap;
                         isOnGround = true;
                     }
                     velocity.y = 0;
@@ -119,7 +123,7 @@ public class PhysicalEntity extends Entity {
 
     @Override
     public void destroy() {
-        //Nothing to destroy =)
+       super.destroy();
     }
 
     public boolean hasCollision() {

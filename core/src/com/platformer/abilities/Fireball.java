@@ -26,9 +26,16 @@ public class Fireball extends Ability {
     public void activate() {
         if (isAvailable) {
             final Projectile fireball = new Projectile(sourceChar.getPosition());
-            ///TODO: refactor the physics initial values setting.!!!
-            fireball.setVelocity(new Vector2(0.0f, 500.0f));
-            fireball.setAcceleration(new Vector2(250.0f, 0.0f));
+            switch (sourceChar.getOrientation()) {
+                case LEFT:
+                    fireball.setVelocity(new Vector2(0.0f, 300.0f));
+                    fireball.setAcceleration(new Vector2(-250.0f, 500.0f));
+                    break;
+                case RIGHT:
+                    fireball.setVelocity(new Vector2(0.0f, 300.0f));
+                    fireball.setAcceleration(new Vector2(250.0f, 500.0f));
+                    break;
+            }
             GameScreen.world.addRenderableActor(fireball);
             isAvailable = false;
         }

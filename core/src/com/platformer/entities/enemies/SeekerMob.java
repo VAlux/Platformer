@@ -12,6 +12,8 @@ import com.platformer.states.CharacterState;
 import com.platformer.utils.Tools;
 
 import static com.platformer.states.CharacterState.JUMP;
+import static com.platformer.states.CharacterState.WALK_LEFT;
+import static com.platformer.states.CharacterState.WALK_RIGHT;
 
 public final class SeekerMob extends Mob {
 
@@ -47,6 +49,14 @@ public final class SeekerMob extends Mob {
         }
     }
 
+    private void patroll() {
+
+    }
+
+    private void attack() {
+
+    }
+
     private void seek() {
         for (Char aChar : aChars) {
             ///TODO: replace this shit with target recognition mechanism.
@@ -62,15 +72,12 @@ public final class SeekerMob extends Mob {
     private void pursuit() {
         if (attackTarget != null) {
             if (attackTarget.getPosition().x > this.position.x) {
-                this.acceleration.x = accelerationFactor;
-                state = CharacterState.WALK_RIGHT;
+                walk(WALK_RIGHT);
             } else if (attackTarget.getPosition().x < this.position.x){
-                this.acceleration.x = -accelerationFactor;
-                state = CharacterState.WALK_LEFT;
+                walk(WALK_LEFT);
             }
             if (attackTarget.getPosition().y > this.position.y && isOnGround) {
-                this.velocity.y = stats.jumpVelocity;
-                state = JUMP;
+                jump();
             }
         }
     }

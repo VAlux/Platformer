@@ -11,7 +11,6 @@ import com.badlogic.gdx.math.Vector3;
 import com.platformer.Platformer;
 import com.platformer.entities.RenderableEntity;
 import com.platformer.entities.World;
-import com.platformer.fx.FXRenderer;
 import com.platformer.input.CharacterGestureInputHandler;
 import com.platformer.input.CharacterInputHandler;
 import com.platformer.input.InputQueueProcessor;
@@ -100,6 +99,12 @@ public class GameScreen implements Screen {
 
     /**
      * Rendering loop.
+     * Rendering in 4(5) phases:
+     * 1: render background layer.
+     * 2: render actors.
+     * 3: render foreground layer.
+     * 4(optional): render debug info.
+     * 5: render hud.
      * @param delta Time passed between frames in ms.
      */
     @Override
@@ -167,7 +172,6 @@ public class GameScreen implements Screen {
         mapRenderer.dispose();
         hud.dispose();
         debugRenderer.dispose();
-        Gdx.app.log(TAG, "game disposed");
     }
 
     @Override

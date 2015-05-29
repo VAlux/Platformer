@@ -6,11 +6,13 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.platformer.abilities.Ability;
 import com.platformer.items.Inventory;
+import com.platformer.states.CharacterOrientation;
 import com.platformer.states.CharacterState;
 import com.platformer.stats.CharacterStats;
 
 import java.util.ArrayList;
 
+import static com.platformer.states.CharacterOrientation.RIGHT;
 import static com.platformer.states.CharacterState.*;
 
 public class Char extends RenderableEntity {
@@ -25,6 +27,7 @@ public class Char extends RenderableEntity {
     protected CharacterStats stats;
     protected CharacterStats etalonStats;
     protected CharacterState state;
+    protected CharacterOrientation orientation;
 
     protected ArrayList<Ability> abilities;
 
@@ -41,6 +44,7 @@ public class Char extends RenderableEntity {
         etalonStats.loadDefaults();
         stats = new CharacterStats();
         stats.copy(etalonStats);
+        orientation = RIGHT;
 
         inventory = new Inventory(inventoryCapacity);
         createAbilities();
@@ -55,14 +59,14 @@ public class Char extends RenderableEntity {
     }
 
     public void spawn() {
-        this.bounds.setPosition(spawnPosition);
+        bounds.setPosition(spawnPosition);
         position.set(bounds.x, bounds.y);
         velocity.set(0, 0);
         acceleration.set(0, 0);
         state = SPAWN;
+        orientation = RIGHT;
         stats.copy(etalonStats);
     }
-
 
     @Override
     public void act(final float delta) {
@@ -264,5 +268,13 @@ public class Char extends RenderableEntity {
 
     public boolean hasYCollision() {
         return hasYCollision;
+    }
+
+    public CharacterOrientation getOrientation() {
+        return orientation;
+    }
+
+    public void setOrientation(CharacterOrientation orientation) {
+        this.orientation = orientation;
     }
 }

@@ -41,6 +41,19 @@ public class Mob extends Char {
         }
     }
 
+    protected void walk(CharacterState direction) {
+        switch (direction) {
+            case WALK_LEFT:
+                this.acceleration.x = -accelerationFactor;
+                state = CharacterState.WALK_LEFT;
+                break;
+            case WALK_RIGHT:
+                this.acceleration.x = accelerationFactor;
+                state = CharacterState.WALK_RIGHT;
+                break;
+        }
+    }
+
     public void setAttackTarget(Char attackTarget) {
         this.attackTarget = attackTarget;
     }

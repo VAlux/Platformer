@@ -3,7 +3,10 @@ package com.platformer.input;
 import com.badlogic.gdx.*;
 import com.platformer.entities.Char;
 import com.platformer.items.ItemsPool;
+import com.platformer.states.CharacterOrientation;
 
+import static com.platformer.states.CharacterOrientation.LEFT;
+import static com.platformer.states.CharacterOrientation.RIGHT;
 import static com.platformer.states.CharacterState.*;
 
 /**
@@ -37,12 +40,16 @@ public class CharacterInputHandler extends InputAdapter implements InputHandler 
             c.jump();
         } else if (Gdx.input.isKeyPressed(Input.Keys.A)) {
             c.getAcceleration().x = -c.getAccelerationFactor();
-            if (c.getState() != JUMP)
+            if (c.getState() != JUMP) {
                 c.setState(WALK_LEFT);
+                c.setOrientation(LEFT);
+            }
         } else if (Gdx.input.isKeyPressed(Input.Keys.D)) {
             c.getAcceleration().x = c.getAccelerationFactor();
-            if (c.getState() != JUMP)
+            if (c.getState() != JUMP) {
                 c.setState(WALK_RIGHT);
+                c.setOrientation(RIGHT);
+            }
         } else {
             if (c.getState() != JUMP)
                 c.switchToIdleState();
@@ -68,7 +75,7 @@ public class CharacterInputHandler extends InputAdapter implements InputHandler 
             return true;
         }
         else if (character == 'q'){
-            c.getAbilities().get(1).activate(); ///TODO: just testing.
+            c.getAbilities().get(0).activate(); ///TODO: just testing.
             return true;
         }
         return false;
