@@ -1,9 +1,10 @@
 package com.platformer.input;
 
-import com.badlogic.gdx.*;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
+import com.badlogic.gdx.InputAdapter;
 import com.platformer.entities.Char;
 import com.platformer.items.ItemsPool;
-import com.platformer.states.CharacterOrientation;
 
 import static com.platformer.states.CharacterOrientation.LEFT;
 import static com.platformer.states.CharacterOrientation.RIGHT;

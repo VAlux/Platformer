@@ -3,7 +3,6 @@ package com.platformer.input;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.InputProcessor;
-import com.badlogic.gdx.input.GestureDetector;
 
 import java.util.ArrayList;
 import java.util.List;

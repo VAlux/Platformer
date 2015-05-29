@@ -2,7 +2,6 @@ package com.platformer.entities;
 
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
-import com.platformer.maps.Map;
 import com.platformer.screens.GameScreen;
 import com.platformer.states.CharacterState;
 
