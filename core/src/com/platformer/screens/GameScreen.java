@@ -161,8 +161,8 @@ public class GameScreen implements Screen {
     @Override
     public void resize(int width, int height) {
         hud.resize(width, height);
-        camera.viewportWidth = width / 2;
-        camera.viewportHeight = height / 2;
+        camera.viewportWidth = width;
+        camera.viewportHeight = height;
         updateCamera(Gdx.graphics.getDeltaTime());
     }
 

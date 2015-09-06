@@ -2,14 +2,14 @@ package com.platformer.entities;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.utils.Array;
 import com.platformer.entities.characters.Elf;
 import com.platformer.entities.enemies.SeekerMob;
+import com.platformer.entities.projectiles.Projectile;
 import com.platformer.exceptions.MapLayerNotFoundException;
 import com.platformer.exceptions.MapObjectNotFoundException;
-import com.platformer.items.ItemsPool;
 import com.platformer.maps.Map;
 
-import java.util.ArrayList;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 public class World extends Actor {
@@ -32,34 +32,44 @@ public class World extends Actor {
     /**
      * Sub-list of the actors list, contains only references to the renderable actors in the world.
      */
-    private ArrayList<RenderableEntity> renderableActors;
+    private Array<RenderableEntity> renderableActors;
+
+    /**
+     * Sub-list of the actors list, contains only active projectiles in the world.
+     */
+    private Array<Projectile> projectiles;
 
     /**
      * Sub-list of the actors list, contains only references to the characters in the world.
      */
-    private ArrayList<Char> chars;
+    private Array<Char> chars;
 
     /**
      * Sub-list of the actors list, contains only references to the mobs in the world.
      */
-    private ArrayList<Mob> mobs;
+    private Array<Mob> mobs;
 
     public World() {
         actors = new CopyOnWriteArrayList<Actor>();
-        renderableActors = new ArrayList<RenderableEntity>();
-        chars = new ArrayList<Char>();
-        mobs = new ArrayList<Mob>();
+        renderableActors = new Array<RenderableEntity>();
+        chars = new Array<Char>();
+        mobs = new Array<Mob>();
+        projectiles = new Array<Projectile>();
     }
 
     public void init() {
         loadMap("maps/jungle.tmx");
         createCharacters();
-        ItemsPool.initPool();
     }
 
     public void addRenderableActor(RenderableEntity actor) {
         addActor(actor);
         renderableActors.add(actor);
+    }
+
+    public void addProjectile(Projectile projectile) {
+        addRenderableActor(projectile);
+        projectiles.add(projectile);
     }
 
     public void addActor(Actor actor) {
@@ -81,7 +91,7 @@ public class World extends Actor {
     }
 
     public void removeRenderableActor(RenderableEntity actor) {
-        renderableActors.remove(actor);
+        renderableActors.removeValue(actor, false);
         removeActor(actor);
     }
 
@@ -97,7 +107,7 @@ public class World extends Actor {
     }
 
     private void createPlayer(){
-        player = new Elf(map, 10);
+        player = new Elf(map);
         addCharacter(player);
     }
 
@@ -139,15 +149,19 @@ public class World extends Actor {
         return actors;
     }
 
-    public ArrayList<RenderableEntity> getRenderableActors() {
+    public Array<RenderableEntity> getRenderableActors() {
         return renderableActors;
     }
 
-    public ArrayList<Char> getChars() {
+    public Array<Char> getChars() {
         return chars;
     }
 
-    public ArrayList<Mob> getMobs() {
+    public Array<Mob> getMobs() {
         return mobs;
+    }
+
+    public Array<Projectile> getProjectiles() {
+        return projectiles;
     }
 }
