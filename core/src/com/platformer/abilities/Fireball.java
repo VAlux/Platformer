@@ -5,6 +5,7 @@ import com.platformer.abilities.effect.DamageEffect;
 import com.platformer.entities.Actor;
 import com.platformer.entities.Char;
 import com.platformer.entities.RenderableEntity;
+import com.platformer.entities.projectiles.FireballProjectileFactory;
 import com.platformer.entities.projectiles.FireballProjectile;
 import com.platformer.entities.projectiles.Projectile;
 import com.platformer.screens.GameScreen;
@@ -32,6 +33,11 @@ public class Fireball extends Ability {
     protected Iterable<Projectile> fireballProjectiles;
 
     /**
+     * Factory for creating renderable fireball projectiles.
+     */
+    private FireballProjectileFactory fireballProjectileFactory;
+
+    /**
      * The fireball filtering predicate.
      * Needed as a selection condition
      * to obtain the list of fireball projectiles from the general projectiles list.
@@ -49,6 +55,7 @@ public class Fireball extends Ability {
         cooldownTime = 0.1f;
         energyCost = 10;
         damageEffect = new DamageEffect(10.0f);
+        fireballProjectileFactory = new FireballProjectileFactory();
     }
 
     @Override
@@ -84,7 +91,7 @@ public class Fireball extends Ability {
      */
     @Override
     public void activate() {
-        final FireballProjectile projectile = new FireballProjectile(sourceChar.getPosition());
+        final FireballProjectile projectile = (FireballProjectile) fireballProjectileFactory.createProjectile(sourceChar.getPosition());
         if (isAvailable()) {
             launchProjectile(projectile, 300, 250, sourceChar.getOrientation());
             sourceChar.getStats().energy -= energyCost;

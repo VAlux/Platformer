@@ -1,10 +1,7 @@
 package com.platformer.entities.projectiles;
 
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
-import com.platformer.utils.Tools;
 
 import static com.platformer.states.ProjectileState.EXPLODED;
 import static com.platformer.states.ProjectileState.EXPLODING;
@@ -19,7 +16,6 @@ public class FireballProjectile extends Projectile {
 
     public FireballProjectile(Vector2 position) {
         super(position);
-        createAnimations();
     }
 
     @Override
@@ -49,11 +45,11 @@ public class FireballProjectile extends Projectile {
         }
     }
 
-    protected void createAnimations() {
-        /// TODO: It is needed to load texture once for every instance of the projectile!
-        texture = new Texture("tilesets/fx/explosion_small.png");
-        splittedTextureAtlas = new TextureRegion(texture).split(60, 60);
-        flyingAnimation = new Animation(0.1f, Tools.extractAnimation(splittedTextureAtlas, 1, 3));
-        explodeAnimation = new Animation(0.1f, Tools.extractAnimation(splittedTextureAtlas, 6, 10));
+    public void setFlyingAnimation(Animation flyingAnimation) {
+        this.flyingAnimation = flyingAnimation;
+    }
+
+    public void setExplodeAnimation(Animation explodeAnimation) {
+        this.explodeAnimation = explodeAnimation;
     }
 }

@@ -11,7 +11,7 @@ public abstract class Actor {
 
     public Actor() {
         id = (int) (Math.random() * 1000L); /// TODO: replace with hash later
-        stateTime = 0;
+        stateTime = 0.0f;
     }
 
     public long getId() {

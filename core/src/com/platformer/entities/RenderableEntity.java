@@ -26,6 +26,8 @@ public abstract class RenderableEntity extends PhysicalEntity {
     }
 
     public void destroy() {
-        texture.dispose();
+        if (texture != null) {
+            texture.dispose();
+        }
     }
 }
