@@ -42,9 +42,9 @@ public class HUD extends InputAdapter {
     public void render(float delta) {
         stage.act(delta);
         stage.draw();
-
-        if (DEBUG_INFO_ENABLED)
-            Table.drawDebug(stage);
+//
+//        if (DEBUG_INFO_ENABLED)
+//            Table.drawDebug(stage);
     }
 
     public void update(){

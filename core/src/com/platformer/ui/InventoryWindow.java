@@ -22,7 +22,7 @@ public class InventoryWindow {
         windowStyle = new Window.WindowStyle(font, Color.BLACK, skin.getDrawable("btndown"));
         window = new Window("Inventory", windowStyle);
         window.padTop(64);
-        window.setCenterPosition(Gdx.graphics.getWidth() / 2, Gdx.graphics.getHeight() / 2);
+        window.setPosition(Gdx.graphics.getWidth() / 2, Gdx.graphics.getHeight() / 2);
         window.setSize(256, 128);
     }
 

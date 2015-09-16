@@ -23,7 +23,7 @@ public class DebugInfo extends Table {
         this.aChar = aChar;
         stats = aChar.getStats();
         BitmapFont font = new BitmapFont(Gdx.files.internal("fonts/font_white.fnt"));
-        font.setScale(.6f);
+//        font.setScale(.6f);
 
         final Label.LabelStyle statsLabelStyle = new Label.LabelStyle(font, Color.WHITE);
         final Label.LabelStyle posLabelStyle = new Label.LabelStyle(font, Color.GREEN);

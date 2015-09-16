@@ -1,6 +1,6 @@
 android {
-    buildToolsVersion "19.1.0"
-    compileSdkVersion 19
+    buildToolsVersion "21.1.2"
+    compileSdkVersion 21
     sourceSets {
         main {
             manifest.srcFile 'AndroidManifest.xml'
@@ -9,36 +9,13 @@ android {
             renderscript.srcDirs = ['src']
             res.srcDirs = ['res']
             assets.srcDirs = ['assets']
+            jniLibs.srcDirs = ['libs']
         }
 
         instrumentTest.setRoot('tests')
     }
-
-    signingConfigs {
-
-        release {
-
-            storeFile file('RKeyStore.jks')
-            storePassword "keyStorePass"
-            keyAlias "release"
-            keyPassword "release"
-        }
-    }
-
-    buildTypes {
-
-        release {
-
-            signingConfig signingConfigs.release
-        }
-    }
 }
 
-// needed to addInputHandler JNI shared libraries to APK when compiling on CLI
-tasks.withType(com.android.build.gradle.tasks.PackageApplication) { pkgTask ->
-    pkgTask.jniFolders = new HashSet<File>()
-    pkgTask.jniFolders.add(new File(projectDir, 'libs'))
-}
 
 // called every time gradle gets executed, takes the native dependencies of
 // the natives configuration, and extracts them to the proper libs/ folders
@@ -82,7 +59,7 @@ task run(type: Exec) {
     }
 
     def adb = path + "/platform-tools/adb"
-    commandLine "$adb", 'shell', 'am', 'start', '-n', 'com.platformer.android/com.platformer.android.AndroidLauncher'
+    commandLine "$adb", 'shell', 'am', 'start', '-n', 'com.mygdx.game.android/com.mygdx.game.android.AndroidLauncher'
 }
 
 // sets up the Android Eclipse project, using the old Ant based build.
@@ -101,7 +78,7 @@ eclipse {
     }
 
     classpath {
-        plusConfigurations += project.configurations.compile        
+        plusConfigurations += [ project.configurations.compile ]        
         containers 'com.android.ide.eclipse.adt.ANDROID_FRAMEWORK', 'com.android.ide.eclipse.adt.LIBRARIES'       
     }
 

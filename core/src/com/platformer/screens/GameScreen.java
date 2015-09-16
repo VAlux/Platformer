@@ -73,13 +73,13 @@ public class GameScreen implements Screen {
         world.init();
         initInputHandling();
         mapRenderer = new OrthogonalTiledMapRenderer(world.getMap().getTiledMap());
-        batch = (SpriteBatch) mapRenderer.getSpriteBatch();
+        batch = (SpriteBatch) mapRenderer.getBatch();
         camera = new OrthographicCamera();
         debugRenderer = new DebugRenderer(camera);
         playerPosition = new Vector3(world.getPlayer().getPosition(), 0);
         cameraLerpTarget = new Vector3(playerPosition);
         camera.position.set(playerPosition);
-        hud = new HUD(mapRenderer.getSpriteBatch(), world.getPlayer());
+        hud = new HUD(mapRenderer.getBatch(), world.getPlayer());
     }
 
     /**
@@ -161,8 +161,8 @@ public class GameScreen implements Screen {
     @Override
     public void resize(int width, int height) {
         hud.resize(width, height);
-        camera.viewportWidth = width / 2;
-        camera.viewportHeight = height / 2;
+        camera.viewportWidth = width;
+        camera.viewportHeight = height;
         updateCamera(Gdx.graphics.getDeltaTime());
     }
 
