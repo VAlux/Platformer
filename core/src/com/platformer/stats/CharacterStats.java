@@ -35,49 +35,16 @@ public class CharacterStats {
     }
 
     public void copy(final CharacterStats stats) {
-        level = stats.level;
-        experience = stats.experience;
-        score = stats.score;
-
-        health = stats.health;
-        maxHealth = stats.maxHealth;
-        energy = stats.energy;
-        maxEnergy = stats.maxEnergy;
-
-        offence = stats.offence;
-        defense = stats.defense;
-
-        jumpVelocity = stats.jumpVelocity;
-    }
-    
-    public void addStats(final CharacterStats stats){
-        level = MathUtils.clamp(level + stats.level, 1, level + stats.level);
-        experience = MathUtils.clamp(experience + stats.experience, 0, experience + stats.experience);
-        score = MathUtils.clamp(score + stats.score, 0, score + stats.score);
-
-        maxHealth = MathUtils.clamp(maxHealth + stats.maxHealth, 0, maxHealth + stats.maxHealth);
-        health = MathUtils.clamp(health + stats.health + stats.maxHealth, 0, maxHealth);
-        maxEnergy = MathUtils.clamp(maxEnergy + stats.maxEnergy, 0, maxEnergy + stats.maxEnergy);
-        energy = MathUtils.clamp(energy + stats.energy + stats.maxEnergy, 0, maxEnergy);
-        offence = MathUtils.clamp(offence + stats.offence, 1, offence + stats.offence);
-        defense = MathUtils.clamp(defense + stats.defense, 1, defense + stats.defense);
-
-        jumpVelocity = MathUtils.clamp(jumpVelocity + stats.jumpVelocity, 100, 1000);
-    }
-
-    public void subtractStats(final CharacterStats stats){
-        level = MathUtils.clamp(level - stats.level, 1, level - stats.level);
-        experience = MathUtils.clamp(experience - stats.experience, 0, experience - stats.experience);
-        score = MathUtils.clamp(score - stats.score, 0, score - stats.score);
-
-        maxHealth = MathUtils.clamp(maxHealth - stats.maxHealth, 0, maxHealth - stats.maxHealth);
-        health = MathUtils.clamp(health - stats.health - stats.maxHealth, 0, maxHealth);
-        maxEnergy = MathUtils.clamp(maxEnergy - stats.maxEnergy - stats.maxEnergy, 0, maxEnergy - stats.maxEnergy);
-        energy = MathUtils.clamp(energy - stats.energy, 0, maxEnergy);
-        offence = MathUtils.clamp(offence - stats.offence, 1, offence - stats.offence);
-        defense = MathUtils.clamp(defense - stats.defense, 1, defense - stats.defense);
-
-        jumpVelocity = MathUtils.clamp(jumpVelocity - stats.jumpVelocity, 100, 1000);
+        this.level = stats.level;
+        this.experience = stats.experience;
+        this.score = stats.score;
+        this.health = stats.health;
+        this.maxHealth = stats.maxHealth;
+        this.energy = stats.energy;
+        this.maxEnergy = stats.maxEnergy;
+        this.offence = stats.offence;
+        this.defense = stats.defense;
+        this.jumpVelocity = stats.jumpVelocity;
     }
     
     @Override

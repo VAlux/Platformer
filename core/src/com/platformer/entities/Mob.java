@@ -2,6 +2,7 @@ package com.platformer.entities;
 
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.utils.Array;
 import com.platformer.screens.GameScreen;
 import com.platformer.states.CharacterState;
 
@@ -15,11 +16,11 @@ public class Mob extends Char {
 
     protected Char attackTarget;
     protected Rectangle fieldOfView;
-    protected ArrayList<Char> aChars;
+    protected Array<Char> aChars;
     protected Vector2 fovSize;
 
     public Mob(Vector2 spawnPosition){
-        super(spawnPosition, 0);
+        super(spawnPosition);
         specialObjects = map.getSpecObjectsLayer().getObjects();
         collidableObjects = map.getCollisionLayer().getObjects();
 

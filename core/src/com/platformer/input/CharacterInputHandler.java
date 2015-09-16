@@ -4,11 +4,10 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
 import com.platformer.entities.Char;
-import com.platformer.items.ItemsPool;
 
-import static com.platformer.states.CharacterOrientation.LEFT;
-import static com.platformer.states.CharacterOrientation.RIGHT;
 import static com.platformer.states.CharacterState.*;
+import static com.platformer.states.Orientation.LEFT;
+import static com.platformer.states.Orientation.RIGHT;
 
 /**
  * Created by alvo on 28.12.14.
@@ -67,16 +66,14 @@ public class CharacterInputHandler extends InputAdapter implements InputHandler 
     @Override
     public boolean keyTyped(char character) {
         if (character == 'e') {
-            c.useItem(ItemsPool.IDs.HEAL_POTION);
+            c.getAbilities().get(1).activate(); ///TODO: testing ability call.
             return true;
         }
         else if (character == 'i') {
-            if (c.isActiveInventory()) c.deactivateInventory();
-            else c.activateInventory();
             return true;
         }
         else if (character == 'q'){
-            c.getAbilities().get(0).activate(); ///TODO: just testing.
+            c.getAbilities().get(0).activate(); ///TODO: testing ability call.
             return true;
         }
         return false;

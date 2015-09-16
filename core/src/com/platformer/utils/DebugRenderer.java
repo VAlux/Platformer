@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Disposable;
 import com.platformer.entities.Char;
 import com.platformer.entities.Mob;
@@ -21,7 +22,7 @@ public final class DebugRenderer implements Disposable {
         renderer = new ShapeRenderer(256);
     }
 
-    public void renderActorsBounds(final ArrayList<RenderableEntity> entities) {
+    public void renderActorsBounds(final Array<RenderableEntity> entities) {
         renderer.setProjectionMatrix(camera.combined);
         renderer.begin(ShapeRenderer.ShapeType.Line);
         renderer.setColor(Color.GREEN);
@@ -33,7 +34,7 @@ public final class DebugRenderer implements Disposable {
         renderer.end();
     }
 
-    public void renderFOV(final ArrayList<Char> aChars) {
+    public void renderFOV(final Array<Char> aChars) {
         renderer.setProjectionMatrix(camera.combined);
         renderer.begin(ShapeRenderer.ShapeType.Line);
         renderer.setColor(Color.RED);

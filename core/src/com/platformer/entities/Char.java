@@ -2,56 +2,43 @@ package com.platformer.entities;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Animation;
-import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.platformer.abilities.Ability;
-import com.platformer.items.Inventory;
-import com.platformer.states.CharacterOrientation;
 import com.platformer.states.CharacterState;
+import com.platformer.states.Orientation;
 import com.platformer.stats.CharacterStats;
 
 import java.util.ArrayList;
 
-import static com.platformer.states.CharacterOrientation.RIGHT;
 import static com.platformer.states.CharacterState.*;
+import static com.platformer.states.Orientation.RIGHT;
 
 public class Char extends RenderableEntity {
 
-    private static final String TAG = Char.class.getSimpleName();
-
-    protected Inventory inventory;
-    protected boolean isActiveInventory = true;
-
     protected Vector2 spawnPosition;
-
     protected CharacterStats stats;
     protected CharacterStats etalonStats;
     protected CharacterState state;
-    protected CharacterOrientation orientation;
-
+    protected Orientation orientation;
     protected ArrayList<Ability> abilities;
-
     protected boolean isOnWall;
     protected boolean canWallJump;
 
-    protected Char(float xPos, float yPos, int inventoryCapacity) {
+    protected Char(float xPos, float yPos) {
         super(xPos, yPos);
         spawnPosition = new Vector2(xPos, yPos);
         velocity = new Vector2();
         acceleration = new Vector2();
-
         etalonStats = new CharacterStats();
         etalonStats.loadDefaults();
         stats = new CharacterStats();
         stats.copy(etalonStats);
         orientation = RIGHT;
-
-        inventory = new Inventory(inventoryCapacity);
         createAbilities();
     }
 
-    protected Char(Vector2 spawnPosition, int inventoryCapacity) {
-        this(spawnPosition.x, spawnPosition.y, inventoryCapacity);
+    protected Char(Vector2 spawnPosition) {
+        this(spawnPosition.x, spawnPosition.y);
     }
 
     protected void createAbilities() {
@@ -77,78 +64,6 @@ public class Char extends RenderableEntity {
         }
 
         move(delta);
-    }
-
-    /// TODO: temp kostil...see descr below.
-    // Deeply hidden bug, items from pool should be cloned and have its' own unique entry identifier (while still have ID which differ items from each other).
-    // Temporary solution is to clear items' effects from actor.
-    public void deactivateInventory(){
-        Gdx.app.log(TAG, "Re-initializing inventory of character with ID = " + this.getId());
-        if (inventory == null || inventory.size() == 0) return;
-        for (Inventory.ItemEntry itemEntry : inventory.getItems()){
-            if (!itemEntry.item.isConsumable())
-                for (int i = 0; i < itemEntry.quantity; ++i)
-                    itemEntry.item.remove(this);
-        }
-        isActiveInventory = false;
-    }
-
-    public void activateInventory(){
-        applyInventory();
-        isActiveInventory = true;
-    }
-
-    private void applyInventory(){
-        if (inventory == null || inventory.size() == 0) return;
-        for (Inventory.ItemEntry itemEntry : inventory.getItems()){
-            if (!itemEntry.item.isConsumable())
-                for (int i = 0; i < itemEntry.quantity; ++i)
-                    itemEntry.item.apply(this);
-        }
-    }
-
-    public void pickItem(long id) {
-        pickItem(id, 1);
-    }
-
-    public void pickItem(long id, int quantity){
-        inventory.addItem(id, quantity);
-        Inventory.ItemEntry itemEntry = inventory.getItem(id);
-        if (itemEntry != null && !itemEntry.item.isConsumable())
-            for (int i = 0; i < quantity; ++i)
-                itemEntry.item.apply(this);
-    }
-
-    public void dropItem(long id) {
-        dropItem(id, 1);
-    }
-
-
-    public void dropItem(long id, int quantity){
-        Inventory.ItemEntry itemEntry = inventory.getItem(id);
-        inventory.removeItem(id, quantity);
-        if (itemEntry != null && !itemEntry.item.isConsumable())
-            for (int i = 0; i < quantity; ++i)
-                itemEntry.item.remove(this);
-    }
-
-    public void useItem(long id){
-        useItem(id, 1);
-    }
-
-    public void useItem(long id, int quantity){
-        Inventory.ItemEntry itemEntry = inventory.getItem(id);
-        if (itemEntry != null && itemEntry.item.isConsumable()){
-            int q = MathUtils.clamp(quantity, 1, itemEntry.quantity);
-            for (int i = 0; i < q; i++) {
-                itemEntry.item.apply(this);
-            }
-        }
-        inventory.removeItem(id, quantity);
-    }
-
-    public boolean isActiveInventory() {
-        return isActiveInventory;
     }
 
     @Override
@@ -214,10 +129,6 @@ public class Char extends RenderableEntity {
         return stats;
     }
 
-    public Inventory getInventory() {
-        return inventory;
-    }
-
     public CharacterState getState() {
         return state;
     }
@@ -270,11 +181,11 @@ public class Char extends RenderableEntity {
         return hasYCollision;
     }
 
-    public CharacterOrientation getOrientation() {
+    public Orientation getOrientation() {
         return orientation;
     }
 
-    public void setOrientation(CharacterOrientation orientation) {
+    public void setOrientation(Orientation orientation) {
         this.orientation = orientation;
     }
 }

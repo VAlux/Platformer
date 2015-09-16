@@ -6,8 +6,8 @@ import static com.platformer.states.CharacterState.DEAD;
 
 public class Player extends Char {
 
-    public Player(Map map, int inventoryCapacity) {
-        super(map.getSpawnPoint(), inventoryCapacity);
+    public Player(Map map) {
+        super(map.getSpawnPoint());
         switchToIdleState();
     }
 

@@ -16,28 +16,86 @@ import static com.platformer.stats.WorldConstants.GRAVITY;
  */
 public class PhysicalEntity extends Entity {
 
+    /**
+     * Entity's position in the world.
+     */
     protected Vector2 position;
+
+    /**
+     * Entity's velocity.
+     */
     protected Vector2 velocity;
+
+    /**
+     * Entity's acceleration.
+     */
     protected Vector2 acceleration;
 
+    /**
+     * Maximal entity's velocity for clmping.
+     */
     protected float maxVelocity;
+
+    /**
+     * Entity's friction.
+     */
     protected float friction;
+
+    /**
+     * The level of gravity affection on the entity.
+     */
     protected float gravityScale;
+
+    /**
+     * Entity's acceleration factor.
+     */
     protected float accelerationFactor;
 
+    /**
+     * Physical bound of the entity.
+     */
     protected Rectangle bounds;
 
+    /**
+     * has collision on X-axis.
+     */
     protected boolean hasXCollision;
+
+    /**
+     * has collision on X-axis.
+     */
     protected boolean hasYCollision;
+
+    /**
+     *  is the entity is touching the ground.
+     */
     protected boolean isOnGround;
+
+    /**
+     * Is the entity is affected by physics simulation.
+     */
     protected boolean isDynamic;
 
+    /**
+     * Set of special objects on the map.
+     */
     protected MapObjects specialObjects;
+
+    /**
+     * Set of collidable object on the map.
+     */
     protected MapObjects collidableObjects;
 
+    /**
+     * Reference to the world map.
+     */
     protected Map map;
 
-    private final float collisionGap = 0.01f;
+    /**
+     * Default gravity scale.
+     * Needed to make possible the restoring the default value for gravity scale.
+     */
+    protected float defaultGravityScale;
 
     public PhysicalEntity() {
         super();
@@ -45,11 +103,10 @@ public class PhysicalEntity extends Entity {
     }
 
     private void init() {
-
         //default physics parameters.
         velocity = new Vector2();
         acceleration = new Vector2();
-        gravityScale = 1.0f;
+        gravityScale = defaultGravityScale = 1.0f; // normal Gravity affection.
         friction = 0.9f;
         maxVelocity = 500.0f;
         accelerationFactor = 20.0f;
@@ -79,6 +136,7 @@ public class PhysicalEntity extends Entity {
             hasXCollision = hasYCollision = false;
             Rectangle collRect;
             final Array<RectangleMapObject> collisionObjects = collidableObjects.getByType(RectangleMapObject.class);
+            final float collisionGap = 0.01f;
             bounds.x += velocity.x * delta;
             for (RectangleMapObject object : collisionObjects) {
                 collRect = object.getRectangle();
@@ -113,6 +171,17 @@ public class PhysicalEntity extends Entity {
         }
     }
 
+    public RenderableEntity getCollisionTarget() {
+        if (hasCollision()) {
+            for (RenderableEntity entity : GameScreen.world.getRenderableActors()) {
+                if (getBounds().overlaps(entity.bounds)) {
+                    return entity;
+                }
+            }
+        }
+        return null;
+    }
+
     public boolean isDynamic() {
         return isDynamic;
     }
@@ -121,9 +190,16 @@ public class PhysicalEntity extends Entity {
         this.isDynamic = isDynamic;
     }
 
-    @Override
-    public void destroy() {
-       super.destroy();
+    /**
+     * Set is the entity is affected by gravity.
+     * @param isAffected true -> Is affected by gravity, false -> not affected.
+     */
+    public void setGravityAffection(boolean isAffected) {
+        if (isAffected) {
+            setGravityScale(defaultGravityScale);
+        } else {
+            setGravityScale(0.0f);
+        }
     }
 
     public boolean hasCollision() {
@@ -138,12 +214,20 @@ public class PhysicalEntity extends Entity {
         this.velocity = velocity;
     }
 
+    public void setVelocity(float x, float y) {
+        this.velocity.set(x, y);
+    }
+
     public Vector2 getAcceleration() {
         return acceleration;
     }
 
     public void setAcceleration(Vector2 acceleration) {
         this.acceleration = acceleration;
+    }
+
+    public void setAcceleration(float x, float y) {
+        this.acceleration.set(x, y);
     }
 
     public Rectangle getBounds() {
@@ -192,5 +276,10 @@ public class PhysicalEntity extends Entity {
 
     public void setAccelerationFactor(float accelerationFactor) {
         this.accelerationFactor = accelerationFactor;
+    }
+
+    @Override
+    public void destroy() {
+        super.destroy();
     }
 }

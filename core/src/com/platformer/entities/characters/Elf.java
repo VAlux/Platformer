@@ -3,6 +3,7 @@ package com.platformer.entities.characters;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.platformer.abilities.DirectFireball;
 import com.platformer.abilities.Fireball;
 import com.platformer.entities.Player;
 import com.platformer.maps.Map;
@@ -19,8 +20,8 @@ public final class Elf extends Player {
     private Animation dyingAnimation;
     private Animation deadAnimation;
 
-    public Elf(Map map, int inventoryCapacity) {
-        super(map, inventoryCapacity);
+    public Elf(Map map) {
+        super(map);
         this.texture = new Texture("tilesets/atlases/character-elven.png");
         splittedTextureAtlas = new TextureRegion(texture).split((int) map.getTileWidth(), (int) map.getTileHeight());
         createAnimations();
@@ -38,6 +39,7 @@ public final class Elf extends Player {
     protected void createAbilities() {
         super.createAbilities();
         this.abilities.add(new Fireball(this));
+        this.abilities.add(new DirectFireball(this));
     }
 
     @Override

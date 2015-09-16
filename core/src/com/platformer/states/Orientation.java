@@ -3,7 +3,9 @@ package com.platformer.states;
 /**
  * Created by alexander on 24.05.15.
  */
-public enum CharacterOrientation {
+public enum Orientation {
     LEFT,
-    RIGHT
+    RIGHT,
+    UP,
+    DOWN
 }
