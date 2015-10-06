@@ -3,14 +3,14 @@ package com.platformer.utils;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.maps.MapObject;
+import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Disposable;
 import com.platformer.entities.Char;
 import com.platformer.entities.Mob;
 import com.platformer.entities.RenderableEntity;
-
-import java.util.ArrayList;
 
 public final class DebugRenderer implements Disposable {
 
@@ -26,10 +26,20 @@ public final class DebugRenderer implements Disposable {
         renderer.setProjectionMatrix(camera.combined);
         renderer.begin(ShapeRenderer.ShapeType.Line);
         renderer.setColor(Color.GREEN);
-        Rectangle actorBounds;
         for (RenderableEntity entity : entities) {
-            actorBounds = entity.getBounds();
+            final Rectangle actorBounds = entity.getBounds();
             renderer.rect(actorBounds.x, actorBounds.y, actorBounds.width, actorBounds.height);
+        }
+        renderer.end();
+    }
+
+    public void renderCollidableObjects(final Array<RectangleMapObject> objects) {
+        renderer.setProjectionMatrix(camera.combined);
+        renderer.begin(ShapeRenderer.ShapeType.Line);
+        renderer.setColor(Color.RED);
+        for (RectangleMapObject object : objects) {
+            final Rectangle rectangle = object.getRectangle();
+            renderer.rect(rectangle.x, rectangle.y, rectangle.width, rectangle.height);
         }
         renderer.end();
     }

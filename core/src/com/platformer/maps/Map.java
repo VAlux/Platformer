@@ -2,6 +2,8 @@ package com.platformer.maps;
 
 import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.MapObject;
+import com.badlogic.gdx.maps.MapObjects;
+import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
@@ -35,6 +37,13 @@ public class Map {
     private TiledMapTileLayer backgroundLayer;
     private Array<MapLayer> mapLayers;
 
+    /**
+     * Set of collidable object on the map.
+     */
+    protected Array<RectangleMapObject> collidableObjects;
+
+    protected MapObjects specialObjects;
+
 
     public Map(final String path) throws MapObjectNotFoundException, MapLayerNotFoundException{
         this.map = new TmxMapLoader().load(path);
@@ -54,6 +63,8 @@ public class Map {
         ///objects loading
         spawn = specObjectsLayer.getObjects().get(SPAWN_OBJECT_TAG);
         validateObjectsLoading();
+        collidableObjects = collisionLayer.getObjects().getByType(RectangleMapObject.class);
+        specialObjects = specObjectsLayer.getObjects();
         ///
         position = new Vector2(0, 1.0f / (mapHeight * tileHeight));
     }
@@ -140,5 +151,9 @@ public class Map {
 
     public MapLayer getCollisionLayer() {
         return collisionLayer;
+    }
+
+    public Array<RectangleMapObject> getCollidableObjects() {
+        return collidableObjects;
     }
 }

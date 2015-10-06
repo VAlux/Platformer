@@ -22,9 +22,7 @@ public class Mob extends Char {
     public Mob(Vector2 spawnPosition){
         super(spawnPosition);
         specialObjects = map.getSpecObjectsLayer().getObjects();
-        collidableObjects = map.getCollisionLayer().getObjects();
-
-        this.aChars = GameScreen.world.getChars();
+        aChars = GameScreen.world.getChars();
         fovSize = new Vector2(FOV_SCALE * map.getTileWidth(), FOV_SCALE * map.getTileHeight());
         fieldOfView = new Rectangle(position.x - fovSize.x / 2, position.y - fovSize.y / 2, fovSize.x, fovSize.y);
         switchToIdleState();

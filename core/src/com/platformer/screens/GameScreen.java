@@ -156,6 +156,7 @@ public class GameScreen implements Screen {
     private void renderDebugInfo(){
         debugRenderer.renderActorsBounds(world.getRenderableActors());
         debugRenderer.renderFOV(world.getChars());
+        debugRenderer.renderCollidableObjects(world.getMap().getCollidableObjects());
     }
 
     @Override

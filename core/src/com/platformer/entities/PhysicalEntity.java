@@ -82,11 +82,6 @@ public class PhysicalEntity extends Entity {
     protected MapObjects specialObjects;
 
     /**
-     * Set of collidable object on the map.
-     */
-    protected MapObjects collidableObjects;
-
-    /**
      * Reference to the world map.
      */
     protected Map map;
@@ -113,8 +108,6 @@ public class PhysicalEntity extends Entity {
         isDynamic = true;
 
         map = GameScreen.world.getMap();
-        specialObjects = map.getSpecObjectsLayer().getObjects();
-        collidableObjects = map.getCollisionLayer().getObjects();
     }
 
     @Override
@@ -135,10 +128,9 @@ public class PhysicalEntity extends Entity {
         if (isDynamic) { // do we actually need to move it?
             hasXCollision = hasYCollision = false;
             Rectangle collRect;
-            final Array<RectangleMapObject> collisionObjects = collidableObjects.getByType(RectangleMapObject.class);
             final float collisionGap = 0.01f;
             bounds.x += velocity.x * delta;
-            for (RectangleMapObject object : collisionObjects) {
+            for (RectangleMapObject object : map.getCollidableObjects()) {
                 collRect = object.getRectangle();
                 if (bounds.overlaps(collRect)) {
                     hasXCollision = true;
@@ -151,7 +143,7 @@ public class PhysicalEntity extends Entity {
                 }
             }
             bounds.y += velocity.y * delta;
-            for (RectangleMapObject object : collisionObjects) {
+            for (RectangleMapObject object : map.getCollidableObjects()) {
                 collRect = object.getRectangle();
                 if (bounds.overlaps(collRect)) {
                     if (velocity.y > 0) {

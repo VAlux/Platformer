@@ -50,11 +50,11 @@ public class World extends Actor {
     private Array<Mob> mobs;
 
     public World() {
-        actors = new CopyOnWriteArrayList<Actor>();
-        renderableActors = new Array<RenderableEntity>();
-        chars = new Array<Char>();
-        mobs = new Array<Mob>();
-        projectiles = new Array<Projectile>();
+        actors = new CopyOnWriteArrayList<>();
+        renderableActors = new Array<>();
+        chars = new Array<>();
+        mobs = new Array<>();
+        projectiles = new Array<>();
     }
 
     public void init() {
