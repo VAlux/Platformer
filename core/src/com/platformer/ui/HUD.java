@@ -36,7 +36,6 @@ public class HUD extends InputAdapter {
         }
 
         stage.addActor(table);
-        //stage.addActor(new InventoryWindow().getWindow()); ///TODO: inventory will be tested later.
     }
 
     public void render(float delta) {

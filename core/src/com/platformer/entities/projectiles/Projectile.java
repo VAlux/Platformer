@@ -12,14 +12,27 @@ public abstract class Projectile extends RenderableEntity {
     protected ProjectileState state;
     protected float TTL;
 
-    public Projectile(float X, float Y) {
-        super(X, Y);
-        this.TTL = 1.0f; // 1 second default TTL.
-        state = FLYING;
-    }
-
     public Projectile(Vector2 position) {
         this(position.x, position.y);
+    }
+
+    public Projectile(float X, float Y) {
+        super(X, Y);
+        init();
+    }
+
+    public Projectile(float X, float Y, int width, int height) {
+        super(X, Y, width, height);
+        init();
+    }
+
+    public Projectile(Vector2 pos, int width, int height) {
+        this(pos.x, pos.y, width, height);
+    }
+
+    protected void init() {
+        this.TTL = 1.0f; // 1 second default TTL.
+        state = FLYING;
     }
 
     @Override

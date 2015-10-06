@@ -25,6 +25,12 @@ public abstract class RenderableEntity extends PhysicalEntity {
         bounds = new Rectangle(X, Y, DEF_BOUNDS_SIZE, DEF_BOUNDS_SIZE);
     }
 
+    protected RenderableEntity(float X, float Y, int width, int height) {
+        super();
+        position = new Vector2(X, Y);
+        bounds = new Rectangle(X, Y, width, height);
+    }
+
     public void destroy() {
         if (texture != null) {
             texture.dispose();

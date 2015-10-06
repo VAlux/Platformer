@@ -11,11 +11,12 @@ import static com.platformer.states.ProjectileState.EXPLODING;
  */
 public class FireballProjectile extends Projectile {
 
+    private static final int TILE_SIZE = 64;
     protected Animation flyingAnimation;
     protected Animation explodeAnimation;
 
     public FireballProjectile(Vector2 position) {
-        super(position);
+        super(position, TILE_SIZE, TILE_SIZE);
     }
 
     @Override

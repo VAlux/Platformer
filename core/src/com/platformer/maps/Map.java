@@ -6,6 +6,7 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.utils.Array;
 import com.platformer.exceptions.MapLayerNotFoundException;
 import com.platformer.exceptions.MapObjectNotFoundException;
 
@@ -32,26 +33,35 @@ public class Map {
     private MapLayer specObjectsLayer;
     private TiledMapTileLayer foregroundLayer;
     private TiledMapTileLayer backgroundLayer;
+    private Array<MapLayer> mapLayers;
 
 
     public Map(final String path) throws MapObjectNotFoundException, MapLayerNotFoundException{
         this.map = new TmxMapLoader().load(path);
+        mapLayers = new Array<>();
         mapWidth = this.map.getProperties().get(WIDTH_PROPERTY_TAG, int.class);
         mapHeight = this.map.getProperties().get(HEIGHT_PROPERTY_TAG, int.class);
         tileWidth = this.map.getProperties().get(TILE_WIDTH_PROPERTY_TAG, int.class);
         tileHeight = this.map.getProperties().get(TILE_HEIGHT_PROPERTY_TAG, int.class);
 
         ///layers loading
-        collisionLayer = map.getLayers().get(COLL_OBJECTS_LAYER_TAG);
-        specObjectsLayer = map.getLayers().get(SPEC_OBJECTS_LAYER_TAG);
-        foregroundLayer = (TiledMapTileLayer) map.getLayers().get(FOREGROUND_LAYER_TAG);
-        backgroundLayer = (TiledMapTileLayer) map.getLayers().get(BACKGROUND_LAYER_TAG);
+        collisionLayer = loadMapLayer(COLL_OBJECTS_LAYER_TAG);
+        specObjectsLayer = loadMapLayer(SPEC_OBJECTS_LAYER_TAG);
+        foregroundLayer = (TiledMapTileLayer) loadMapLayer(FOREGROUND_LAYER_TAG);
+        backgroundLayer = (TiledMapTileLayer) loadMapLayer(BACKGROUND_LAYER_TAG);
+
         validateLayersLoading();
         ///objects loading
         spawn = specObjectsLayer.getObjects().get(SPAWN_OBJECT_TAG);
         validateObjectsLoading();
         ///
         position = new Vector2(0, 1.0f / (mapHeight * tileHeight));
+    }
+
+    private MapLayer loadMapLayer(final String layerTag) {
+        final MapLayer layer = map.getLayers().get(layerTag);
+        mapLayers.add(layer);
+        return layer;
     }
 
     private void validateLayersLoading() throws MapLayerNotFoundException {

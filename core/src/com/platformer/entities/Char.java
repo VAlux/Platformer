@@ -42,7 +42,7 @@ public class Char extends RenderableEntity {
     }
 
     protected void createAbilities() {
-        abilities = new ArrayList<Ability>();
+        abilities = new ArrayList<>();
     }
 
     public void spawn() {
