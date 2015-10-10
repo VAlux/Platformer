@@ -8,7 +8,7 @@ import com.platformer.abilities.effect.DamageEffect;
 import com.platformer.entities.Char;
 import com.platformer.entities.Mob;
 import com.platformer.entities.Player;
-import com.platformer.utils.Tools;
+import com.platformer.utils.GraphicTools;
 
 import static com.platformer.states.CharacterState.WALK_LEFT;
 import static com.platformer.states.CharacterState.WALK_RIGHT;
@@ -81,8 +81,8 @@ public final class SeekerMob extends Mob {
     }
 
     private void createAnimations() {
-        walkRightAnimation = new Animation(0.1f, Tools.extractAnimation(splittedTextureAtlas, 0, 3));
-        walkLeftAnimation = new Animation(0.1f, Tools.extractAnimation(splittedTextureAtlas, 9, 3));
+        walkRightAnimation = new Animation(0.1f, GraphicTools.extractAnimation(splittedTextureAtlas, 0, 3));
+        walkLeftAnimation = new Animation(0.1f, GraphicTools.extractAnimation(splittedTextureAtlas, 9, 3));
         idleRightAnimation = new Animation(0.1f, splittedTextureAtlas[0][0]);
         idleLeftAnimation = new Animation(0.1f, splittedTextureAtlas[2][0]);
     }

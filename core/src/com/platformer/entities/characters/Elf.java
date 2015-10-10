@@ -7,7 +7,7 @@ import com.platformer.abilities.DirectFireball;
 import com.platformer.abilities.Fireball;
 import com.platformer.entities.Player;
 import com.platformer.maps.Map;
-import com.platformer.utils.Tools;
+import com.platformer.utils.GraphicTools;
 
 public final class Elf extends Player {
 
@@ -22,17 +22,17 @@ public final class Elf extends Player {
 
     public Elf(Map map) {
         super(map);
-        this.texture = new Texture("tilesets/atlases/character-elven.png");
+        this.texture = new Texture("tilesets/atlases/characters.png");
         splittedTextureAtlas = new TextureRegion(texture).split((int) map.getTileWidth(), (int) map.getTileHeight());
         createAnimations();
     }
 
     private void createAnimations() {
-        walkRightAnimation = new Animation(0.1f, Tools.extractAnimation(splittedTextureAtlas, 0, 3));
-        walkLeftAnimation = new Animation(0.1f, Tools.extractAnimation(splittedTextureAtlas, 9, 3));
-        jumpAnimation = new Animation(0.1f, Tools.extractAnimation(splittedTextureAtlas, 4, 3));
-        idleRightAnimation = new Animation(0.1f, splittedTextureAtlas[0][0]); //just a static image for now.
-        idleLeftAnimation = new Animation(0.1f, splittedTextureAtlas[2][0]); // just a static image for now.
+        walkRightAnimation = new Animation(0.1f, GraphicTools.extractAnimation(splittedTextureAtlas, 46, 4));
+        walkLeftAnimation = GraphicTools.flipAnimation(walkRightAnimation, true, false);
+        jumpAnimation = new Animation(0.1f, GraphicTools.extractAnimation(splittedTextureAtlas, 51, 5));
+        idleRightAnimation = new Animation(0.1f, GraphicTools.extractAnimation(splittedTextureAtlas, 56, 5));
+        idleLeftAnimation = GraphicTools.flipAnimation(idleRightAnimation, true, false);
     }
 
     @Override

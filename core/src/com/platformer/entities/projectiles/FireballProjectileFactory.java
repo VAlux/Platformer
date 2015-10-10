@@ -4,7 +4,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
-import com.platformer.utils.Tools;
+import com.platformer.utils.GraphicTools;
 
 import static com.badlogic.gdx.graphics.g2d.Animation.PlayMode.LOOP;
 
@@ -16,8 +16,8 @@ public class FireballProjectileFactory extends ProjectileFactory {
     public FireballProjectileFactory() {
         texture = new Texture("tilesets/fx/explosion_small.png");
         splittedTextureAtlas = new TextureRegion(texture).split(60, 60);
-        flyingAnimation = new Animation(0.1f, Tools.extractAnimation(splittedTextureAtlas, 1, 3));
-        explodeAnimation = new Animation(0.1f, Tools.extractAnimation(splittedTextureAtlas, 6, 10));
+        flyingAnimation = new Animation(0.1f, GraphicTools.extractAnimation(splittedTextureAtlas, 1, 3));
+        explodeAnimation = new Animation(0.1f, GraphicTools.extractAnimation(splittedTextureAtlas, 6, 10));
         flyingAnimation.setPlayMode(LOOP);
         explodeAnimation.setPlayMode(LOOP);
     }

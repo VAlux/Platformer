@@ -7,6 +7,10 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Window;
 
+/**
+ * Redundant useless class.
+ * It is here just because I will need it in the future.
+ */
 public class InventoryWindow {
 
     private Window window;
