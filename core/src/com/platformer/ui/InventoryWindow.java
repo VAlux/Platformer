@@ -10,16 +10,12 @@ import com.badlogic.gdx.scenes.scene2d.ui.Window;
 public class InventoryWindow {
 
     private Window window;
-    private Window.WindowStyle windowStyle;
-    private BitmapFont font;
-    private Skin skin;
-    private TextureAtlas atlas;
 
     public InventoryWindow() {
-        font = new BitmapFont(Gdx.files.internal("fonts/font_white.fnt"));
-        atlas = new TextureAtlas(Gdx.files.internal("ui/buttons/button.pack"));
-        skin = new Skin(atlas);
-        windowStyle = new Window.WindowStyle(font, Color.BLACK, skin.getDrawable("btndown"));
+        BitmapFont font = new BitmapFont(Gdx.files.internal("fonts/font_white.fnt"));
+        TextureAtlas atlas = new TextureAtlas(Gdx.files.internal("ui/buttons/button.pack"));
+        Skin skin = new Skin(atlas);
+        Window.WindowStyle windowStyle = new Window.WindowStyle(font, Color.BLACK, skin.getDrawable("btndown"));
         window = new Window("Inventory", windowStyle);
         window.padTop(64);
         window.setPosition(Gdx.graphics.getWidth() / 2, Gdx.graphics.getHeight() / 2);

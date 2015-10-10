@@ -9,7 +9,6 @@ import com.platformer.entities.projectiles.Projectile;
 import com.platformer.exceptions.MapLayerNotFoundException;
 import com.platformer.exceptions.MapObjectNotFoundException;
 import com.platformer.maps.Map;
-
 import java.util.concurrent.CopyOnWriteArrayList;
 
 public class World extends Actor {
@@ -114,10 +113,7 @@ public class World extends Actor {
     private void loadMap(String mapPath){
         try {
             map = new Map(mapPath);
-        } catch (MapObjectNotFoundException e) {
-            e.printStackTrace();
-            Gdx.app.exit();
-        } catch (MapLayerNotFoundException e) {
+        } catch (MapObjectNotFoundException | MapLayerNotFoundException e) {
             e.printStackTrace();
             Gdx.app.exit();
         }

@@ -12,7 +12,7 @@ import com.badlogic.gdx.utils.Array;
 import com.platformer.exceptions.MapLayerNotFoundException;
 import com.platformer.exceptions.MapObjectNotFoundException;
 
-public class Map {
+public final class Map {
 
     private static final String WIDTH_PROPERTY_TAG = "width";
     private static final String HEIGHT_PROPERTY_TAG = "height";
@@ -105,12 +105,12 @@ public class Map {
         return mapWidth * tileWidth;
     }
 
-    public float getMapHeightTiles() {
-        return mapHeight;
-    }
-
     public float getMapHeight() {
         return mapHeight * mapHeight;
+    }
+
+    public float getMapHeightTiles() {
+        return mapHeight;
     }
 
     public Vector2 getPosition() {
