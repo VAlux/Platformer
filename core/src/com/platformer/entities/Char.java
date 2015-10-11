@@ -101,13 +101,11 @@ public class Char extends RenderableEntity {
         if (isOnGround()) {
             velocity.y = stats.jumpVelocity;
             setOnGround(false);
-            Gdx.app.log("input", "REGULAR JUMP");
         }
         if (isOnWall  && canWallJump) {
             velocity.y = stats.jumpVelocity;
             setCanWallJump(false);
             setOnWall(false);
-            Gdx.app.log("input", "WALL JUMP");
         }
         setState(JUMP);
     }

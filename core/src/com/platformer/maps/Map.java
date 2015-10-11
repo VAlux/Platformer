@@ -12,88 +12,151 @@ import com.badlogic.gdx.utils.Array;
 import com.platformer.exceptions.MapLayerNotFoundException;
 import com.platformer.exceptions.MapObjectNotFoundException;
 
+import static com.platformer.Constants.*;
+
+/**
+ * Useful wrapper around the TiledMap class.
+ */
 public final class Map {
 
-    private static final String WIDTH_PROPERTY_TAG = "width";
-    private static final String HEIGHT_PROPERTY_TAG = "height";
-    private static final String TILE_WIDTH_PROPERTY_TAG = "tilewidth";
-    private static final String TILE_HEIGHT_PROPERTY_TAG = "tileheight";
-    private static final String COLL_OBJECTS_LAYER_TAG = "collidable-objects";
-    private static final String SPEC_OBJECTS_LAYER_TAG = "special-objects";
-    private static final String SPAWN_OBJECT_TAG = "spawn-point";
-    private static final String FOREGROUND_LAYER_TAG = "foreground";
-    private static final String BACKGROUND_LAYER_TAG = "background";
-
+    /**
+     * The core tiled map.
+     */
     private TiledMap map;
+
+    /**
+     * Width of the map in tiles.
+     */
     private float mapWidth;
+
+    /**
+     * Height of the map in tiles.
+     */
     private float mapHeight;
+
+    /**
+     * Width of the single map tile.
+     */
     private float tileWidth;
+
+    /**
+     * Height of the single map tile
+     */
     private float tileHeight;
+
+    /**
+     * Main spawn point.
+     */
     private MapObject spawn;
+
+    /**
+     * Map position.
+     */
     private Vector2 position;
+
+    /**
+     * Layer, that holds all of the map's static collidable objects.
+     */
     private MapLayer collisionLayer;
+
+    /**
+     * Holds all of the map special objects, such as a spawn points.
+     */
     private MapLayer specObjectsLayer;
+
+    /**
+     * Set of tiles, which are located on the foreground.
+     * Rendered last, after the background set of tiles and characters are rendered.
+     */
     private TiledMapTileLayer foregroundLayer;
+
+    /**
+     * Set of tiles, which are located on the background.
+     * Rendered first, before the characters rendering and foreground layer rendering.
+     */
     private TiledMapTileLayer backgroundLayer;
+
+    /**
+     * The list of the all of the map layers.
+     */
     private Array<MapLayer> mapLayers;
 
     /**
      * Set of collidable object on the map.
      */
-    protected Array<RectangleMapObject> collidableObjects;
+    private Array<RectangleMapObject> mapCollidables;
 
-    protected MapObjects specialObjects;
+    /**
+     * Special objects on map.
+     * Could be used to hold spawn points, etc.
+     */
+    private MapObjects specialObjects;
 
-
-    public Map(final String path) throws MapObjectNotFoundException, MapLayerNotFoundException{
+    public Map(final String path) throws MapObjectNotFoundException, MapLayerNotFoundException {
         this.map = new TmxMapLoader().load(path);
         mapLayers = new Array<>();
-        mapWidth = this.map.getProperties().get(WIDTH_PROPERTY_TAG, int.class);
-        mapHeight = this.map.getProperties().get(HEIGHT_PROPERTY_TAG, int.class);
-        tileWidth = this.map.getProperties().get(TILE_WIDTH_PROPERTY_TAG, int.class);
-        tileHeight = this.map.getProperties().get(TILE_HEIGHT_PROPERTY_TAG, int.class);
-
-        ///layers loading
-        collisionLayer = loadMapLayer(COLL_OBJECTS_LAYER_TAG);
-        specObjectsLayer = loadMapLayer(SPEC_OBJECTS_LAYER_TAG);
-        foregroundLayer = (TiledMapTileLayer) loadMapLayer(FOREGROUND_LAYER_TAG);
-        backgroundLayer = (TiledMapTileLayer) loadMapLayer(BACKGROUND_LAYER_TAG);
-
+        mapWidth = this.map.getProperties().get(MAP_WIDTH_PROPERTY_TAG, int.class);
+        mapHeight = this.map.getProperties().get(MAP_HEIGHT_PROPERTY_TAG, int.class);
+        tileWidth = this.map.getProperties().get(MAP_TILE_WIDTH_PROPERTY_TAG, int.class);
+        tileHeight = this.map.getProperties().get(MAP_TILE_HEIGHT_PROPERTY_TAG, int.class);
+        ///layers loading.
+        collisionLayer = loadMapLayer(MAP_COLL_OBJECTS_LAYER_TAG);
+        specObjectsLayer = loadMapLayer(MAP_SPEC_OBJECTS_LAYER_TAG);
+        foregroundLayer = (TiledMapTileLayer) loadMapLayer(MAP_FOREGROUND_LAYER_TAG);
+        backgroundLayer = (TiledMapTileLayer) loadMapLayer(MAP_BACKGROUND_LAYER_TAG);
         validateLayersLoading();
-        ///objects loading
-        spawn = specObjectsLayer.getObjects().get(SPAWN_OBJECT_TAG);
-        validateObjectsLoading();
-        collidableObjects = collisionLayer.getObjects().getByType(RectangleMapObject.class);
+        ///objects loading.
         specialObjects = specObjectsLayer.getObjects();
-        ///
+        spawn = specialObjects.get(MAP_SPAWN_OBJECT_TAG);
+        validateObjectsLoading();
+        ///load collision objects.
+        mapCollidables = collisionLayer.getObjects().getByType(RectangleMapObject.class);
+        ///set map position.
         position = new Vector2(0, 1.0f / (mapHeight * tileHeight));
     }
 
+    /**
+     * Just load the map layer from the map by the layer tag.
+     * @param layerTag target layer tag.
+     * @return loaded map layer.
+     */
     private MapLayer loadMapLayer(final String layerTag) {
         final MapLayer layer = map.getLayers().get(layerTag);
         mapLayers.add(layer);
         return layer;
     }
 
+    /**
+     * Validation function ensures, that all of the needed map layers are loaded.
+     * @throws MapLayerNotFoundException trowed, if we have some of the layers loading problem.
+     */
     private void validateLayersLoading() throws MapLayerNotFoundException {
         if (collisionLayer == null)
-            throw new MapLayerNotFoundException(COLL_OBJECTS_LAYER_TAG);
+            throw new MapLayerNotFoundException(MAP_COLL_OBJECTS_LAYER_TAG);
         else if(specObjectsLayer == null)
-            throw new MapLayerNotFoundException(SPEC_OBJECTS_LAYER_TAG);
+            throw new MapLayerNotFoundException(MAP_SPEC_OBJECTS_LAYER_TAG);
         else if(foregroundLayer == null)
-            throw new MapLayerNotFoundException(FOREGROUND_LAYER_TAG);
+            throw new MapLayerNotFoundException(MAP_FOREGROUND_LAYER_TAG);
         else if(backgroundLayer == null)
-            throw new MapLayerNotFoundException(BACKGROUND_LAYER_TAG);
+            throw new MapLayerNotFoundException(MAP_BACKGROUND_LAYER_TAG);
 }
 
+    /**
+     * Validation function ensures, that all of the needed map objects are loaded.
+     * @throws MapObjectNotFoundException we have some of the objects loading problem.
+     */
     private void validateObjectsLoading ()throws MapObjectNotFoundException {
         if (spawn == null)
-            throw new MapObjectNotFoundException(SPAWN_OBJECT_TAG);
+            throw new MapObjectNotFoundException(MAP_SPAWN_OBJECT_TAG);
     }
 
+    /**
+     * Obtain the spawn point coordinates from the main spawn point object.
+     * @return main spawn point coordinates.
+     */
     public Vector2 getSpawnPoint(){
-        float xPos = spawn.getProperties().get("x", float.class);
-        float yPos = spawn.getProperties().get("y", float.class);
+        final float xPos = spawn.getProperties().get("x", float.class);
+        final float yPos = spawn.getProperties().get("y", float.class);
         return new Vector2(xPos, yPos);
     }
 
@@ -153,7 +216,15 @@ public final class Map {
         return collisionLayer;
     }
 
-    public Array<RectangleMapObject> getCollidableObjects() {
-        return collidableObjects;
+    public Array<RectangleMapObject> getMapCollidables() {
+        return mapCollidables;
+    }
+
+    public Array<MapLayer> getMapLayers() {
+        return mapLayers;
+    }
+
+    public MapObjects getSpecialObjects() {
+        return specialObjects;
     }
 }

@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
+import com.platformer.Constants;
 import com.platformer.abilities.effect.DamageEffect;
 import com.platformer.entities.Char;
 import com.platformer.entities.Mob;
@@ -25,7 +26,7 @@ public final class SeekerMob extends Mob {
     public SeekerMob(Vector2 spawnPosition) {
         super(spawnPosition);
         targetLocated = false;
-        this.texture = new Texture("tilesets/atlases/character-elven.png");
+        this.texture = new Texture(Constants.ATL_CHARACTERS_1);
         splittedTextureAtlas = new TextureRegion(texture).split((int) map.getTileWidth(), (int) map.getTileHeight());
         createAnimations();
     }

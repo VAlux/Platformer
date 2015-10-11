@@ -3,6 +3,7 @@ package com.platformer.entities.characters;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.platformer.Constants;
 import com.platformer.abilities.DirectFireball;
 import com.platformer.abilities.Fireball;
 import com.platformer.entities.Player;
@@ -22,7 +23,7 @@ public final class Elf extends Player {
 
     public Elf(Map map) {
         super(map);
-        this.texture = new Texture("tilesets/atlases/characters.png");
+        this.texture = new Texture(Constants.ATL_CHARACTERS_2);
         splittedTextureAtlas = new TextureRegion(texture).split((int) map.getTileWidth(), (int) map.getTileHeight());
         createAnimations();
     }

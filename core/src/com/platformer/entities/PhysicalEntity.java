@@ -5,11 +5,11 @@ import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.utils.Array;
 import com.platformer.maps.Map;
 import com.platformer.screens.GameScreen;
 
-import static com.platformer.stats.WorldConstants.GRAVITY;
+import static com.platformer.Constants.GM_COLLISION_GAP;
+import static com.platformer.Constants.GM_GRAVITY;
 
 /**
  * Created by alexander on 19.04.15.
@@ -32,7 +32,7 @@ public class PhysicalEntity extends Entity {
     protected Vector2 acceleration;
 
     /**
-     * Maximal entity's velocity for clmping.
+     * Maximal entity's velocity for clamping.
      */
     protected float maxVelocity;
 
@@ -114,7 +114,7 @@ public class PhysicalEntity extends Entity {
     public void act(float delta) {
         super.act(delta);
         if(isDynamic) {
-            acceleration.y = -GRAVITY * gravityScale * delta;
+            acceleration.y = -GM_GRAVITY * gravityScale * delta;
             velocity.add(acceleration);
 
             if (acceleration.x == 0)
@@ -127,39 +127,49 @@ public class PhysicalEntity extends Entity {
     public void move(final float delta) {
         if (isDynamic) { // do we actually need to move it?
             hasXCollision = hasYCollision = false;
-            Rectangle collRect;
-            final float collisionGap = 0.01f;
-            bounds.x += velocity.x * delta;
-            for (RectangleMapObject object : map.getCollidableObjects()) {
-                collRect = object.getRectangle();
-                if (bounds.overlaps(collRect)) {
-                    hasXCollision = true;
-                    if (velocity.x > 0)
-                        bounds.x = collRect.x - bounds.width - collisionGap;
-                    else
-                        bounds.x = collRect.x + collRect.width + collisionGap;
 
-                    velocity.x = 0;
-                }
-            }
+            bounds.x += velocity.x * delta;
+            handleHorizontalCollisions();
+
             bounds.y += velocity.y * delta;
-            for (RectangleMapObject object : map.getCollidableObjects()) {
-                collRect = object.getRectangle();
-                if (bounds.overlaps(collRect)) {
-                    if (velocity.y > 0) {
-                        bounds.y = collRect.y - bounds.height - collisionGap;
-                    } else {
-                        hasYCollision = true;
-                        bounds.y = collRect.y + collRect.height + collisionGap;
-                        isOnGround = true;
-                    }
-                    velocity.y = 0;
-                }
-            }
+            handleVerticalCollisions();
+
             if (!hasYCollision) {
                 isOnGround = false;
             }
+
             position.set(bounds.x, bounds.y);
+        }
+    }
+
+    protected void handleVerticalCollisions() {
+        for (RectangleMapObject object : map.getMapCollidables()) {
+            final Rectangle collRect = object.getRectangle();
+            if (bounds.overlaps(collRect)) {
+                if (velocity.y > 0) {
+                    bounds.y = collRect.y - bounds.height - GM_COLLISION_GAP;
+                } else {
+                    hasYCollision = true;
+                    bounds.y = collRect.y + collRect.height + GM_COLLISION_GAP;
+                    isOnGround = true;
+                }
+                velocity.y = 0;
+            }
+        }
+    }
+
+    protected void handleHorizontalCollisions() {
+        for (RectangleMapObject object : map.getMapCollidables()) {
+            final Rectangle collRect = object.getRectangle();
+            if (bounds.overlaps(collRect)) {
+                hasXCollision = true;
+                if (velocity.x > 0)
+                    bounds.x = collRect.x - bounds.width - GM_COLLISION_GAP;
+                else
+                    bounds.x = collRect.x + collRect.width + GM_COLLISION_GAP;
+
+                velocity.x = 0;
+            }
         }
     }
 

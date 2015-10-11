@@ -1,14 +1,19 @@
 package com.platformer.entities;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.maps.objects.RectangleMapObject;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
+import com.platformer.Constants;
 import com.platformer.entities.characters.Elf;
 import com.platformer.entities.enemies.SeekerMob;
 import com.platformer.entities.projectiles.Projectile;
 import com.platformer.exceptions.MapLayerNotFoundException;
 import com.platformer.exceptions.MapObjectNotFoundException;
 import com.platformer.maps.Map;
+
+import java.util.Arrays;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 public class World extends Actor {
@@ -48,6 +53,11 @@ public class World extends Actor {
      */
     private Array<Mob> mobs;
 
+    /**
+     * All of the objects, that could be collided.
+     */
+    private Array<Rectangle> collisionObjects;
+
     public World() {
         actors = new CopyOnWriteArrayList<>();
         renderableActors = new Array<>();
@@ -56,9 +66,16 @@ public class World extends Actor {
         projectiles = new Array<>();
     }
 
+    /**
+     * World initialization sequence.
+     * 1 -> load the map.
+     * 2 -> create characters.
+     * 3 -> collisions initialization.
+     */
     public void init() {
-        loadMap("maps/jungle.tmx");
+        loadMap(Constants.TMX_MAP_JUNGLE);
         createCharacters();
+        initCollisionsArray();
     }
 
     public void addRenderableActor(RenderableEntity actor) {
@@ -110,6 +127,11 @@ public class World extends Actor {
         addCharacter(player);
     }
 
+    /**
+     * Just load the mop from tmx file, using the specified path as a location.
+     * Also here we handle all of the possible exceptions, which can occur during the map loading process.
+     * @param mapPath path to the map tmx file.
+     */
     private void loadMap(String mapPath){
         try {
             map = new Map(mapPath);
@@ -119,18 +141,35 @@ public class World extends Actor {
         }
     }
 
+    /**
+     * Sequence for the initialization of the collisions array.
+     * 1 -> load all of the static map collision objects.
+     * 2 -> load characters bounding rectangles as collidables.
+     */
+    private void initCollisionsArray() {
+        //add all of the static map collision objects.
+        collisionObjects = new Array<>(map.getMapCollidables().size);
+        for (RectangleMapObject collidable : map.getMapCollidables()) {
+            collisionObjects.add(collidable.getRectangle());
+        }
+        //add all of the characters as the collidables.
+        for (Char character : chars) {
+            collisionObjects.add(character.getBounds());
+        }
+    }
+
+    public void addCollidableObject(Rectangle collidableRect) {
+        collisionObjects.add(collidableRect);
+    }
+
     @Override
     public void act(float delta) {
-        for (Actor actor : actors) {
-            actor.act(delta);
-        }
+        actors.forEach(actor -> actor.act(delta));
     }
 
     @Override
     public void destroy() {
-        for (Actor actor : actors) {
-            actor.destroy();
-        }
+        actors.forEach(com.platformer.entities.Actor::destroy);
     }
 
     public Map getMap() {
@@ -155,6 +194,10 @@ public class World extends Actor {
 
     public Array<Mob> getMobs() {
         return mobs;
+    }
+
+    public Array<Rectangle> getCollisionObjects() {
+        return collisionObjects;
     }
 
     public Array<Projectile> getProjectiles() {

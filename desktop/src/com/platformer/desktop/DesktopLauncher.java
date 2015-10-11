@@ -2,6 +2,7 @@ package com.platformer.desktop;
 
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
+import com.platformer.Constants;
 import com.platformer.Platformer;
 
 public class DesktopLauncher {
@@ -9,8 +10,8 @@ public class DesktopLauncher {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
         config.resizable = false;
         config.useGL30 = false;
-        config.width = Platformer.WIDTH;
-        config.height = Platformer.HEIGHT;
+        config.width = Constants.GAME_WIDTH;
+        config.height = Constants.GAME_HEIGHT;
         new LwjglApplication(new Platformer(), config);
 	}
 }

@@ -6,10 +6,9 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.input.GestureDetector;
-import com.badlogic.gdx.maps.tiled.TiledMapTile;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector3;
-import com.platformer.Platformer;
+import com.platformer.Constants;
 import com.platformer.entities.RenderableEntity;
 import com.platformer.entities.World;
 import com.platformer.input.CharacterGestureInputHandler;
@@ -123,7 +122,7 @@ public class GameScreen implements Screen {
         mapRenderer.renderTileLayer(world.getMap().getForegroundLayer());
         batch.end();
 
-        if (Platformer.DEBUG_INFO_ENABLED)
+        if (Constants.GAME_DEBUG_INFO_ENABLED)
             renderDebugInfo();
 
         hud.update();
@@ -157,7 +156,7 @@ public class GameScreen implements Screen {
     private void renderDebugInfo(){
         debugRenderer.renderActorsBounds(world.getRenderableActors());
         debugRenderer.renderFOV(world.getChars());
-        debugRenderer.renderCollidableObjects(world.getMap().getCollidableObjects());
+        debugRenderer.renderCollidableObjects(world.getMap().getMapCollidables());
     }
 
     @Override
