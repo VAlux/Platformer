@@ -26,7 +26,7 @@ public final class SeekerMob extends Mob {
     public SeekerMob(Vector2 spawnPosition) {
         super(spawnPosition);
         targetLocated = false;
-        this.texture = new Texture(Constants.ATL_CHARACTERS_1);
+        this.texture = new Texture(Constants.ATL_GREEN_ELF);
         splittedTextureAtlas = new TextureRegion(texture).split((int) map.getTileWidth(), (int) map.getTileHeight());
         createAnimations();
     }

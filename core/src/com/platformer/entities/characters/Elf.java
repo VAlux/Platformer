@@ -23,17 +23,25 @@ public final class Elf extends Player {
 
     public Elf(Map map) {
         super(map);
-        this.texture = new Texture(Constants.ATL_CHARACTERS_2);
+        this.texture = new Texture(Constants.ATL_KIRBY);
         splittedTextureAtlas = new TextureRegion(texture).split((int) map.getTileWidth(), (int) map.getTileHeight());
         createAnimations();
     }
 
     private void createAnimations() {
-        walkRightAnimation = new Animation(0.1f, GraphicTools.extractAnimation(splittedTextureAtlas, 46, 4));
+        walkRightAnimation = new Animation(0.1f, GraphicTools.extractAnimation(splittedTextureAtlas, 0, 4));
+        walkRightAnimation.setPlayMode(Animation.PlayMode.LOOP_PINGPONG);
+
         walkLeftAnimation = GraphicTools.flipAnimation(walkRightAnimation, true, false);
-        jumpAnimation = new Animation(0.1f, GraphicTools.extractAnimation(splittedTextureAtlas, 51, 5));
-        idleRightAnimation = new Animation(0.1f, GraphicTools.extractAnimation(splittedTextureAtlas, 56, 5));
+        walkRightAnimation.setPlayMode(Animation.PlayMode.LOOP_PINGPONG);
+
+        jumpAnimation = new Animation(0.1f, GraphicTools.extractAnimation(splittedTextureAtlas, 0, 4));
+
+        idleRightAnimation = new Animation(0.1f, GraphicTools.extractAnimation(splittedTextureAtlas, 0, 4));
+        idleRightAnimation.setPlayMode(Animation.PlayMode.LOOP_PINGPONG);
+
         idleLeftAnimation = GraphicTools.flipAnimation(idleRightAnimation, true, false);
+        idleLeftAnimation.setPlayMode(Animation.PlayMode.LOOP_PINGPONG);
     }
 
     @Override

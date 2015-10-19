@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 /**
  * Some useful tools, which helps to comfortable work with graphics in libGDX.
  */
-public class GraphicTools {
+public final class GraphicTools {
 
     /**
      * Extract the key frames from the texture atlas.
@@ -28,6 +28,28 @@ public class GraphicTools {
             }
         }
         return frames;
+    }
+
+    /**
+     * Reorder frames in reverse order.
+     * @param frames source frames.
+     */
+    public static void reverseFrames(TextureRegion[] frames) {
+        for (int i = 0; i < frames.length / 2; i++) {
+            swapFrames(frames, i, frames.length - i - 1);
+        }
+    }
+
+    /**
+     * Swap frames with specified indexes.
+     * @param frames source frames.
+     * @param first first frame index.
+     * @param second second frame index.
+     */
+    public static void swapFrames(TextureRegion[] frames, int first, int second) {
+        TextureRegion holder = frames[first];
+        frames[first] = frames[second];
+        frames[second] = holder;
     }
 
     /**

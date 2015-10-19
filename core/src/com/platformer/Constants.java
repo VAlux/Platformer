@@ -5,8 +5,8 @@ package com.platformer;
  */
 public class Constants {
     //Atlas sources.
-    public static final String ATL_CHARACTERS_1 = "tilesets/atlases/character-elven.png";
-    public static final String ATL_CHARACTERS_2 = "tilesets/atlases/characters.png";
+    public static final String ATL_GREEN_ELF = "tilesets/atlases/character-elven.png";
+    public static final String ATL_KIRBY = "tilesets/atlases/kirby1.png";
     public static final String ATL_EXPLOSION_SMALL = "tilesets/fx/explosion_small.png";
 
     //TMX sources.
