@@ -4,13 +4,15 @@ import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.MapObjects;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
-import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
-import com.badlogic.gdx.maps.tiled.TmxMapLoader;
+import com.badlogic.gdx.maps.tiled.*;
+import com.badlogic.gdx.maps.tiled.tiles.StaticTiledMapTile;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
+import com.platformer.entities.RenderableEntity;
 import com.platformer.exceptions.MapLayerNotFoundException;
 import com.platformer.exceptions.MapObjectNotFoundException;
+import com.platformer.utils.GenericTools;
 
 import static com.platformer.Constants.*;
 
@@ -113,6 +115,25 @@ public final class Map {
         mapCollidables = collisionLayer.getObjects().getByType(RectangleMapObject.class);
         ///set map position.
         position = new Vector2(0, 1.0f / (mapHeight * tileHeight));
+    }
+
+    public Array<Integer> getTilesAroundActor(RenderableEntity actor, int width, int height) {
+        final int actorXPos = (int) (actor.getPosition().x / tileWidth);
+        final int actorYPos = (int) (actor.getPosition().y / tileHeight);
+        final int initialMapXOffset = MathUtils.clamp(actorXPos - width, 0, backgroundLayer.getWidth());
+        final int initialMapYOffset = MathUtils.clamp(actorYPos - height, 0, backgroundLayer.getHeight());
+        Array<Integer> tilesAround = new Array<>();
+
+        for (int mapXPos = initialMapXOffset; mapXPos < actorXPos + width; mapXPos++) {
+            for (int mapYPos = initialMapYOffset; mapYPos < actorYPos + height; mapYPos++) {
+                if (mapXPos == actorXPos && mapYPos == actorYPos) {
+                    tilesAround.add(-1);
+                } else {
+                    tilesAround.add(backgroundLayer.getCell(mapXPos, mapYPos).getTile().getId());
+                }
+            }
+        }
+        return tilesAround;
     }
 
     /**

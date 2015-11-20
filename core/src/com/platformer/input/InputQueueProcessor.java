@@ -71,6 +71,8 @@ public class InputQueueProcessor {
      * iterate through the inputs queue and process them.
      */
     public final void processInput() {
-        inputQueue.forEach(com.platformer.input.InputHandler::handle);
+        for (InputHandler inputHandler : inputQueue) {
+            inputHandler.handle();
+        }
     }
 }

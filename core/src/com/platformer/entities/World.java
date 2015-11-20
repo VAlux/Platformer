@@ -13,7 +13,6 @@ import com.platformer.exceptions.MapLayerNotFoundException;
 import com.platformer.exceptions.MapObjectNotFoundException;
 import com.platformer.maps.Map;
 
-import java.util.Arrays;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 public class World extends Actor {
@@ -164,12 +163,16 @@ public class World extends Actor {
 
     @Override
     public void act(float delta) {
-        actors.forEach(actor -> actor.act(delta));
+        for (Actor actor : actors) {
+            actor.act(delta);
+        }
     }
 
     @Override
     public void destroy() {
-        actors.forEach(com.platformer.entities.Actor::destroy);
+        for (Actor actor : actors) {
+            actor.destroy();
+        }
     }
 
     public Map getMap() {

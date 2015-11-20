@@ -3,7 +3,6 @@ package com.platformer.utils;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.Array;
@@ -36,7 +35,7 @@ public final class DebugRenderer implements Disposable {
     public void renderCollidableObjects(final Array<RectangleMapObject> objects) {
         renderer.setProjectionMatrix(camera.combined);
         renderer.begin(ShapeRenderer.ShapeType.Line);
-        renderer.setColor(Color.RED);
+        renderer.setColor(Color.YELLOW);
         for (RectangleMapObject object : objects) {
             final Rectangle rectangle = object.getRectangle();
             renderer.rect(rectangle.x, rectangle.y, rectangle.width, rectangle.height);

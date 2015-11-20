@@ -67,6 +67,11 @@ public class GameScreen implements Screen {
      */
     private HUD hud;
 
+    /**
+     * Scale factor for the main Game camera.
+     */
+    private static float scaleFactor = 0.9f;
+
     @Override
     public void show() {
         world = new World();
@@ -162,8 +167,9 @@ public class GameScreen implements Screen {
     @Override
     public void resize(int width, int height) {
         hud.resize(width, height);
-        camera.viewportWidth = width;
-        camera.viewportHeight = height;
+
+        camera.viewportWidth = width * scaleFactor;
+        camera.viewportHeight = height * scaleFactor;
         updateCamera(Gdx.graphics.getDeltaTime());
     }
 
