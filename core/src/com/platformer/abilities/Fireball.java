@@ -5,7 +5,7 @@ import com.platformer.abilities.effect.DamageEffect;
 import com.platformer.entities.Actor;
 import com.platformer.entities.Char;
 import com.platformer.entities.RenderableEntity;
-import com.platformer.entities.projectiles.FireballProjectileFactory;
+import com.platformer.entities.projectiles.ParabolicFireballProjectileFactory;
 import com.platformer.entities.projectiles.FireballProjectile;
 import com.platformer.entities.projectiles.Projectile;
 import com.platformer.screens.GameScreen;
@@ -35,7 +35,7 @@ public class Fireball extends Ability {
     /**
      * Factory for creating renderable fireball projectiles.
      */
-    private FireballProjectileFactory fireballProjectileFactory;
+    private ParabolicFireballProjectileFactory fireballProjectileFactory;
 
     /**
      * The fireball filtering predicate.
@@ -55,7 +55,7 @@ public class Fireball extends Ability {
         cooldownTime = 0.1f;
         energyCost = 10;
         damageEffect = new DamageEffect(10.0f);
-        fireballProjectileFactory = new FireballProjectileFactory();
+        fireballProjectileFactory = new ParabolicFireballProjectileFactory();
     }
 
     @Override

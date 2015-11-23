@@ -12,9 +12,9 @@ import static com.badlogic.gdx.graphics.g2d.Animation.PlayMode.LOOP;
 /**
  * Created by alvo on 15.09.15.
  */
-public class FireballProjectileFactory extends ProjectileFactory {
+public class ParabolicFireballProjectileFactory extends ProjectileFactory {
 
-    public FireballProjectileFactory() {
+    public ParabolicFireballProjectileFactory() {
         texture = new Texture(Constants.ATL_EXPLOSION_SMALL);
         splittedTextureAtlas = new TextureRegion(texture).split(60, 60);
         flyingAnimation = new Animation(0.1f, GraphicTools.extractAnimation(splittedTextureAtlas, 1, 3));
