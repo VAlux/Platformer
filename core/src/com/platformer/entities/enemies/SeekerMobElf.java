@@ -14,7 +14,7 @@ import com.platformer.utils.GraphicTools;
 import static com.platformer.states.CharacterState.WALK_LEFT;
 import static com.platformer.states.CharacterState.WALK_RIGHT;
 
-public final class SeekerMob extends Mob {
+public final class SeekerMobElf extends Mob {
 
     private Animation idleRightAnimation;
     private Animation idleLeftAnimation;
@@ -23,7 +23,7 @@ public final class SeekerMob extends Mob {
 
     private boolean targetLocated;
 
-    public SeekerMob(Vector2 spawnPosition) {
+    public SeekerMobElf(Vector2 spawnPosition) {
         super(spawnPosition);
         targetLocated = false;
         this.texture = new Texture(Constants.ATL_GREEN_ELF);

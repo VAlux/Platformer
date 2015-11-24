@@ -19,7 +19,7 @@ public class DirectFireball extends Fireball {
     @Override
     public void activate() {
         final DirectFireballProjectile projectile =
-                (DirectFireballProjectile) projectileFactory.createProjectile(sourceChar.getPosition());
+                (DirectFireballProjectile) projectileFactory.createProjectile(sourceChar);
         if (isAvailable()) {
             launchProjectile(projectile, 0, 650, sourceChar.getOrientation());
             sourceChar.getStats().energy -= energyCost;

@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
+import com.platformer.entities.Char;
 
 /**
  * Created by alvo on 15.09.15.
@@ -15,5 +16,5 @@ public abstract class ProjectileFactory {
     protected Animation explodeAnimation;
     protected TextureRegion[][] splittedTextureAtlas;
 
-    public abstract Projectile createProjectile(Vector2 position);
+    public abstract Projectile createProjectile(Char source);
 }

@@ -143,13 +143,12 @@ public class PhysicalEntity extends Entity {
     }
 
     protected void handleVerticalCollisions() {
-        for (RectangleMapObject object : map.getMapCollidables()) {
-            final Rectangle collRect = object.getRectangle();
-            if (bounds.overlaps(collRect)) {
+        for (Rectangle collRect: GameScreen.world.getCollisionObjects()) {
+            if (bounds != collRect && bounds.overlaps(collRect)) {
+                hasYCollision = true;
                 if (velocity.y > 0) {
                     bounds.y = collRect.y - bounds.height - GM_COLLISION_GAP;
                 } else {
-                    hasYCollision = true;
                     bounds.y = collRect.y + collRect.height + GM_COLLISION_GAP;
                     isOnGround = true;
                 }
@@ -159,9 +158,8 @@ public class PhysicalEntity extends Entity {
     }
 
     protected void handleHorizontalCollisions() {
-        for (RectangleMapObject object : map.getMapCollidables()) {
-            final Rectangle collRect = object.getRectangle();
-            if (bounds.overlaps(collRect)) {
+        for (Rectangle collRect : GameScreen.world.getCollisionObjects()) {
+            if (bounds != collRect && bounds.overlaps(collRect)) {
                 hasXCollision = true;
                 if (velocity.x > 0)
                     bounds.x = collRect.x - bounds.width - GM_COLLISION_GAP;

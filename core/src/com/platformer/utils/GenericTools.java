@@ -15,10 +15,11 @@ public class GenericTools {
      */
     public static void printArrayAsMatrix(Array<?> array, int size) {
         for (int i = 0; i < array.size; i++) {
-            System.out.print(array.get(i) + " ");
-            if(i % size == 0) {
+            System.out.print(array.get(i) + "\t");
+            if(i > 1 && i % size == 0) {
                 System.out.print(System.lineSeparator());
             }
         }
+        System.out.print("\n\n\n");
     }
 }

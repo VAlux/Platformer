@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.platformer.Constants;
+import com.platformer.entities.Char;
 import com.platformer.utils.GraphicTools;
 
 import static com.badlogic.gdx.graphics.g2d.Animation.PlayMode.LOOP;
@@ -24,8 +25,8 @@ public class ParabolicFireballProjectileFactory extends ProjectileFactory {
     }
 
     @Override
-    public Projectile createProjectile(Vector2 position) {
-        final FireballProjectile projectile = new FireballProjectile(position);
+    public Projectile createProjectile(Char source) {
+        final FireballProjectile projectile = new FireballProjectile(source);
         projectile.setFlyingAnimation(flyingAnimation);
         projectile.setExplodeAnimation(explodeAnimation);
         return projectile;

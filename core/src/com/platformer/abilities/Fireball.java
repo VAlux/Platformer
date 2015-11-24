@@ -61,12 +61,18 @@ public class Fireball extends Ability {
     @Override
     public void act(float delta) {
         super.act(delta);
-        refreshProjectilesList();
-        for (Projectile fireballProjectile : fireballProjectiles) {
-            final RenderableEntity collisionTarget = fireballProjectile.getCollisionTarget();
-            if (collisionTarget instanceof Char && fireballProjectile.getState() == EXPLODING) {
-                damageEffect.apply((Char) collisionTarget);
-            }
+//        refreshProjectilesList();
+//        for (Projectile fireballProjectile : fireballProjectiles) {
+//            final RenderableEntity collisionTarget = fireballProjectile.getCollisionTarget();
+//            if (collisionTarget instanceof Char && fireballProjectile.getState() == EXPLODING) {
+//                damageEffect.apply((Char) collisionTarget);
+//            }
+//        }
+    }
+
+    public void projectileHit(Actor target) {
+        if (target instanceof Char) {
+            damageEffect.apply((Char) target);
         }
     }
 
@@ -91,7 +97,8 @@ public class Fireball extends Ability {
      */
     @Override
     public void activate() {
-        final FireballProjectile projectile = (FireballProjectile) fireballProjectileFactory.createProjectile(sourceChar.getPosition());
+        final FireballProjectile projectile =
+                (FireballProjectile) fireballProjectileFactory.createProjectile(sourceChar);
         if (isAvailable()) {
             launchProjectile(projectile, 300, 250, sourceChar.getOrientation());
             sourceChar.getStats().energy -= energyCost;

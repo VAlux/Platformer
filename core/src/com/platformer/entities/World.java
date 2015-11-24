@@ -6,8 +6,8 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.platformer.Constants;
-import com.platformer.entities.characters.Elf;
-import com.platformer.entities.enemies.SeekerMob;
+import com.platformer.entities.characters.Kirby;
+import com.platformer.entities.enemies.SeekerMobElf;
 import com.platformer.entities.projectiles.Projectile;
 import com.platformer.exceptions.MapLayerNotFoundException;
 import com.platformer.exceptions.MapObjectNotFoundException;
@@ -117,12 +117,12 @@ public class World extends Actor {
 
     private void createMobs(){
         //TODO: hardcoded testing location of the mob.
-        SeekerMob seekerMob = new SeekerMob(new Vector2(27.0f * 32.0f, 16.0f * 32.0f));
-        addMob(seekerMob);
+        SeekerMobElf seekerMobElf = new SeekerMobElf(new Vector2(27.0f * 32.0f, 16.0f * 32.0f));
+        addMob(seekerMobElf);
     }
 
     private void createPlayer(){
-        player = new Elf(map);
+        player = new Kirby(map);
         addCharacter(player);
     }
 
@@ -147,7 +147,7 @@ public class World extends Actor {
      */
     private void initCollisionsArray() {
         //add all of the static map collision objects.
-        collisionObjects = new Array<>(map.getMapCollidables().size);
+        collisionObjects = new Array<>(map.getMapCollidables().size + chars.size);
         for (RectangleMapObject collidable : map.getMapCollidables()) {
             collisionObjects.add(collidable.getRectangle());
         }

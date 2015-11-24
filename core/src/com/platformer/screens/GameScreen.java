@@ -16,6 +16,8 @@ import com.platformer.input.CharacterInputHandler;
 import com.platformer.input.InputQueueProcessor;
 import com.platformer.ui.HUD;
 import com.platformer.utils.DebugRenderer;
+import com.platformer.utils.GenericTools;
+import com.platformer.utils.MapTools;
 
 public class GameScreen implements Screen {
     private static final String TAG = GameScreen.class.getSimpleName();
@@ -126,6 +128,8 @@ public class GameScreen implements Screen {
         renderActors();
         mapRenderer.renderTileLayer(world.getMap().getForegroundLayer());
         batch.end();
+
+//        GenericTools.printArrayAsMatrix(MapTools.getTilesAroundActor(world.getPlayer(), 5, 5), 10);
 
         if (Constants.GAME_DEBUG_INFO_ENABLED)
             renderDebugInfo();

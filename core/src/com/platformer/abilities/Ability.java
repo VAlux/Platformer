@@ -6,7 +6,7 @@ import com.platformer.entities.projectiles.Projectile;
 import com.platformer.screens.GameScreen;
 import com.platformer.states.Orientation;
 
-public abstract  class Ability extends Entity {
+public abstract class Ability extends Entity {
 
     /**
      * Ability owner.
@@ -77,6 +77,8 @@ public abstract  class Ability extends Entity {
         }
         GameScreen.world.addProjectile(projectile);
     }
+
+    public abstract void projectileHit(Actor target);
 
     /**
      * Prepares the ability to the next use.

@@ -1,14 +1,12 @@
 package com.platformer.entities;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.utils.Array;
 import com.platformer.abilities.Ability;
 import com.platformer.states.CharacterState;
 import com.platformer.states.Orientation;
 import com.platformer.stats.CharacterStats;
-
-import java.util.ArrayList;
 
 import static com.platformer.states.CharacterState.*;
 import static com.platformer.states.Orientation.RIGHT;
@@ -20,7 +18,7 @@ public class Char extends RenderableEntity {
     protected CharacterStats etalonStats;
     protected CharacterState state;
     protected Orientation orientation;
-    protected ArrayList<Ability> abilities;
+    protected Array<Ability> abilities;
     protected boolean isOnWall;
     protected boolean canWallJump;
 
@@ -42,7 +40,7 @@ public class Char extends RenderableEntity {
     }
 
     protected void createAbilities() {
-        abilities = new ArrayList<>();
+        abilities = new Array<>();
     }
 
     public void spawn() {
@@ -167,7 +165,7 @@ public class Char extends RenderableEntity {
         this.canWallJump = canWallJump;
     }
 
-    public ArrayList<Ability> getAbilities() {
+    public Array<Ability> getAbilities() {
         return abilities;
     }
 

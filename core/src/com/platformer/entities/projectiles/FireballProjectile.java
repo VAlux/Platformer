@@ -1,7 +1,7 @@
 package com.platformer.entities.projectiles;
 
 import com.badlogic.gdx.graphics.g2d.Animation;
-import com.badlogic.gdx.math.Vector2;
+import com.platformer.entities.Char;
 
 import static com.platformer.states.ProjectileState.EXPLODED;
 import static com.platformer.states.ProjectileState.EXPLODING;
@@ -15,8 +15,8 @@ public class FireballProjectile extends Projectile {
     protected Animation flyingAnimation;
     protected Animation explodeAnimation;
 
-    public FireballProjectile(Vector2 position) {
-        super(position, TILE_SIZE, TILE_SIZE);
+    public FireballProjectile(Char source) {
+        super(source, TILE_SIZE, TILE_SIZE);
     }
 
     @Override
@@ -26,6 +26,7 @@ public class FireballProjectile extends Projectile {
             stateTime = 0.0f;
             state = EXPLODING;
             setDynamic(false); // stop moving while exploding.
+            sourceAbility.projectileHit(getCollisionTarget());
         }
 
         if (explodeAnimation.isAnimationFinished(stateTime)) {

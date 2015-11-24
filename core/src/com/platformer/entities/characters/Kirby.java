@@ -10,7 +10,7 @@ import com.platformer.entities.Player;
 import com.platformer.maps.Map;
 import com.platformer.utils.GraphicTools;
 
-public final class Elf extends Player {
+public final class Kirby extends Player {
 
     private Animation idleRightAnimation;
     private Animation idleLeftAnimation;
@@ -21,7 +21,10 @@ public final class Elf extends Player {
     private Animation dyingAnimation;
     private Animation deadAnimation;
 
-    public Elf(Map map) {
+    private Fireball fireballAbility;
+    private DirectFireball directFireballAbility;
+
+    public Kirby(Map map) {
         super(map);
         this.texture = new Texture(Constants.ATL_KIRBY);
         splittedTextureAtlas = new TextureRegion(texture).split((int) map.getTileWidth(), (int) map.getTileHeight());
@@ -47,8 +50,9 @@ public final class Elf extends Player {
     @Override
     protected void createAbilities() {
         super.createAbilities();
-        this.abilities.add(new Fireball(this));
-        this.abilities.add(new DirectFireball(this));
+        fireballAbility = new Fireball(this);
+        directFireballAbility = new DirectFireball(this);
+        this.abilities.addAll(fireballAbility, directFireballAbility);
     }
 
     @Override
@@ -73,5 +77,21 @@ public final class Elf extends Player {
             default:
                 return idleRightAnimation;
         }
+    }
+
+    public Fireball getFireballAbility() {
+        return fireballAbility;
+    }
+
+    public void setFireballAbility(Fireball fireballAbility) {
+        this.fireballAbility = fireballAbility;
+    }
+
+    public DirectFireball getDirectFireballAbility() {
+        return directFireballAbility;
+    }
+
+    public void setDirectFireballAbility(DirectFireball directFireballAbility) {
+        this.directFireballAbility = directFireballAbility;
     }
 }

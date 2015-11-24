@@ -2,6 +2,7 @@ package com.platformer;
 
 /**
  * Created by Alvo on 10.10.2015.
+ * All in-game constants, static settings and String literals(Paths, Tags, Aliases).
  */
 public class Constants {
     //Atlas sources.
