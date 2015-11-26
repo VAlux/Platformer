@@ -174,7 +174,7 @@ public class PhysicalEntity extends Entity {
     public RenderableEntity getCollisionTarget() {
         if (hasCollision()) {
             for (RenderableEntity entity : GameScreen.world.getRenderableActors()) {
-                if (getBounds().overlaps(entity.bounds)) {
+                if (entity.bounds != this.bounds && this.bounds.overlaps(entity.bounds)) {
                     return entity;
                 }
             }

@@ -3,8 +3,8 @@ package com.platformer.entities.projectiles;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.math.Vector2;
 import com.platformer.Constants;
+import com.platformer.abilities.Ability;
 import com.platformer.entities.Char;
 import com.platformer.utils.GraphicTools;
 
@@ -25,8 +25,9 @@ public class DirectFireballProjectileFactory extends ProjectileFactory {
     }
 
     @Override
-    public Projectile createProjectile(Char source) {
+    public Projectile createProjectile(Char source, Ability directFireballAbility) {
         final DirectFireballProjectile projectile = new DirectFireballProjectile(source);
+        projectile.setSourceAbility(directFireballAbility);
         projectile.setFlyingAnimation(flyingAnimation);
         projectile.setExplodeAnimation(explodeAnimation);
         return projectile;

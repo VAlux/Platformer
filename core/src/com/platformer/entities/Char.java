@@ -3,6 +3,7 @@ package com.platformer.entities;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
+import com.platformer.Constants;
 import com.platformer.abilities.Ability;
 import com.platformer.states.CharacterState;
 import com.platformer.states.Orientation;
@@ -100,8 +101,9 @@ public class Char extends RenderableEntity {
             velocity.y = stats.jumpVelocity;
             setOnGround(false);
         }
-        if (isOnWall  && canWallJump) {
+        if (isOnWall && canWallJump) {
             velocity.y = stats.jumpVelocity;
+            velocity.x -= acceleration.x * Constants.GM_WALL_JUMP_KICKBACK_ACC_FACTOR;
             setCanWallJump(false);
             setOnWall(false);
         }

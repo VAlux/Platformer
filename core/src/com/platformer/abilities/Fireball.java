@@ -1,19 +1,15 @@
 package com.platformer.abilities;
 
-import com.badlogic.gdx.utils.Predicate;
+import com.platformer.Constants;
 import com.platformer.abilities.effect.DamageEffect;
 import com.platformer.entities.Actor;
 import com.platformer.entities.Char;
-import com.platformer.entities.RenderableEntity;
-import com.platformer.entities.projectiles.ParabolicFireballProjectileFactory;
 import com.platformer.entities.projectiles.FireballProjectile;
-import com.platformer.entities.projectiles.Projectile;
-import com.platformer.screens.GameScreen;
-
-import static com.platformer.states.ProjectileState.EXPLODING;
+import com.platformer.entities.projectiles.ParabolicFireballProjectileFactory;
 
 /**
  * Created by alexander on 01.05.15.
+ * Code for handling the Fireball ability.
  */
 public class Fireball extends Ability {
 
@@ -28,60 +24,28 @@ public class Fireball extends Ability {
     protected DamageEffect damageEffect;
 
     /**
-     * All of the fireball projectiles in the world.
-     */
-    protected Iterable<Projectile> fireballProjectiles;
-
-    /**
      * Factory for creating renderable fireball projectiles.
      */
     private ParabolicFireballProjectileFactory fireballProjectileFactory;
 
-    /**
-     * The fireball filtering predicate.
-     * Needed as a selection condition
-     * to obtain the list of fireball projectiles from the general projectiles list.
-     */
-    protected Predicate<Projectile> selectFireballsPredicate = new Predicate<Projectile>() {
-        @Override
-        public boolean evaluate(Projectile projectile) {
-            return projectile instanceof FireballProjectile;
-        }
-    };
-
     public Fireball(Actor source) {
         super(source);
         sourceChar = (Char) source;
-        cooldownTime = 0.1f;
-        energyCost = 10;
+        cooldownTime = Constants.GM_FIREBALL_COOLDOWN_TIME;
+        energyCost = Constants.GM_FIREBALL_ENERGY_COST;
         damageEffect = new DamageEffect(10.0f);
         fireballProjectileFactory = new ParabolicFireballProjectileFactory();
     }
 
-    @Override
-    public void act(float delta) {
-        super.act(delta);
-//        refreshProjectilesList();
-//        for (Projectile fireballProjectile : fireballProjectiles) {
-//            final RenderableEntity collisionTarget = fireballProjectile.getCollisionTarget();
-//            if (collisionTarget instanceof Char && fireballProjectile.getState() == EXPLODING) {
-//                damageEffect.apply((Char) collisionTarget);
-//            }
-//        }
-    }
-
+    /**
+     * Fireball hit the actor. If the target is Char -> apply Fireball effect to it.
+     * @param target actor, which is hit by the projectile.
+     */
     public void projectileHit(Actor target) {
+        super.projectileHit(target);
         if (target instanceof Char) {
             damageEffect.apply((Char) target);
         }
-    }
-
-    /**
-     * Get all of the projectiles of the fireball type.
-     * TODO: Maybe need to get this method to the upper level of abstraction.
-     */
-    private void refreshProjectilesList() {
-        fireballProjectiles = GameScreen.world.getProjectiles().select(selectFireballsPredicate);
     }
 
     /**
@@ -98,7 +62,7 @@ public class Fireball extends Ability {
     @Override
     public void activate() {
         final FireballProjectile projectile =
-                (FireballProjectile) fireballProjectileFactory.createProjectile(sourceChar);
+                (FireballProjectile) fireballProjectileFactory.createProjectile(sourceChar, this);
         if (isAvailable()) {
             launchProjectile(projectile, 300, 250, sourceChar.getOrientation());
             sourceChar.getStats().energy -= energyCost;

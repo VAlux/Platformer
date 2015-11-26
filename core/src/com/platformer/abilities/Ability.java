@@ -1,5 +1,6 @@
 package com.platformer.abilities;
 
+import com.badlogic.gdx.Gdx;
 import com.platformer.entities.Actor;
 import com.platformer.entities.Entity;
 import com.platformer.entities.projectiles.Projectile;
@@ -37,6 +38,16 @@ public abstract class Ability extends Entity {
      * Override this method to describe the mechanism of activating the ability.
      */
     public abstract void activate();
+
+    /**
+     * Callback for the handling the projectile hitting actor event.
+     * @param target actor, which is hit by the projectile.
+     */
+    public void projectileHit(Actor target) {
+        if (target != null) {
+            Gdx.app.log("Ability.projectileHit", "Target actor id: " + target.getId() + " Actor: " + target.getClass());
+        }
+    }
 
     protected Ability(final Actor source) {
         super();
@@ -77,8 +88,6 @@ public abstract class Ability extends Entity {
         }
         GameScreen.world.addProjectile(projectile);
     }
-
-    public abstract void projectileHit(Actor target);
 
     /**
      * Prepares the ability to the next use.

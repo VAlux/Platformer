@@ -3,11 +3,12 @@ package com.platformer.entities.projectiles;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.math.Vector2;
+import com.platformer.abilities.Ability;
 import com.platformer.entities.Char;
 
 /**
  * Created by alvo on 15.09.15.
+ * Abstract Factory for creating projectiles.
  */
 public abstract class ProjectileFactory {
 
@@ -16,5 +17,5 @@ public abstract class ProjectileFactory {
     protected Animation explodeAnimation;
     protected TextureRegion[][] splittedTextureAtlas;
 
-    public abstract Projectile createProjectile(Char source);
+    public abstract Projectile createProjectile(Char source, Ability sourceAbility);
 }

@@ -29,7 +29,14 @@ public class Constants {
     public static final String MAP_FOREGROUND_LAYER_TAG = "foreground";
     public static final String MAP_BACKGROUND_LAYER_TAG = "background";
 
-    ///Game mechanics specifics.
+    ///General Game mechanics specifics.
     public static final float GM_COLLISION_GAP = 0.01f;
     public static final float GM_GRAVITY = 900.0f;
+
+    //Character-specific
+    public static final int GM_WALL_JUMP_KICKBACK_ACC_FACTOR = 16;
+
+    //Abilities
+    public static final float GM_FIREBALL_COOLDOWN_TIME = 0.1f;
+    public static final int GM_FIREBALL_ENERGY_COST = 10;
 }
