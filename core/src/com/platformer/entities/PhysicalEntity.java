@@ -1,7 +1,6 @@
 package com.platformer.entities;
 
 import com.badlogic.gdx.maps.MapObjects;
-import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
@@ -9,6 +8,7 @@ import com.platformer.maps.Map;
 import com.platformer.screens.GameScreen;
 
 import static com.platformer.Constants.GM_COLLISION_GAP;
+import static com.platformer.Constants.GM_DEF_ACTOR_BOUNDS_SIZE;
 import static com.platformer.Constants.GM_GRAVITY;
 
 /**
@@ -92,12 +92,8 @@ public class PhysicalEntity extends Entity {
      */
     protected float defaultGravityScale;
 
-    public PhysicalEntity() {
+    public PhysicalEntity(float x, float y) {
         super();
-        init();
-    }
-
-    private void init() {
         //default physics parameters.
         velocity = new Vector2();
         acceleration = new Vector2();
@@ -106,7 +102,7 @@ public class PhysicalEntity extends Entity {
         maxVelocity = 500.0f;
         accelerationFactor = 20.0f;
         isDynamic = true;
-
+        bounds = new Rectangle(x, y, GM_DEF_ACTOR_BOUNDS_SIZE, GM_DEF_ACTOR_BOUNDS_SIZE);
         map = GameScreen.world.getMap();
     }
 
@@ -138,7 +134,7 @@ public class PhysicalEntity extends Entity {
                 isOnGround = false;
             }
 
-            position.set(bounds.x, bounds.y);
+           setPosition(bounds.x, bounds.y);
         }
     }
 
@@ -242,8 +238,8 @@ public class PhysicalEntity extends Entity {
         return position;
     }
 
-    public void setPosition(Vector2 position) {
-        this.position = position;
+    public void setPosition(float x, float y) {
+        position.set(x, y);
     }
 
     public float getMaxVelocity() {

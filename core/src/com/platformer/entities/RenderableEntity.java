@@ -8,32 +8,58 @@ import com.badlogic.gdx.math.Vector2;
 
 public abstract class RenderableEntity extends PhysicalEntity {
 
-    private static final int DEF_BOUNDS_SIZE = 32;
-
     protected Texture texture;
     protected TextureRegion[][] splittedTextureAtlas;
+    protected Vector2 visualPosition;
+    protected Vector2 visualPositionOffset;
 
     public abstract Animation getAnimation();
+
+    protected RenderableEntity(float x, float y) {
+        super(x, y);
+        position = new Vector2(x, y);
+        visualPosition = new Vector2(position);
+        visualPositionOffset = new Vector2(0.0f, 0.0f);
+    }
 
     protected RenderableEntity() {
         this(0, 0);
     }
 
-    protected RenderableEntity(float X, float Y) {
-        super();
-        position = new Vector2(X, Y);
-        bounds = new Rectangle(X, Y, DEF_BOUNDS_SIZE, DEF_BOUNDS_SIZE);
-    }
-
-    protected RenderableEntity(float X, float Y, int width, int height) {
-        super();
-        position = new Vector2(X, Y);
-        bounds = new Rectangle(X, Y, width, height);
+    protected RenderableEntity(float x, float y, int width, int height) {
+        this(x, y);
+        bounds = new Rectangle(x, y, width, height);
     }
 
     public void destroy() {
         if (texture != null) {
             texture.dispose();
         }
+    }
+
+    public Vector2 getVisualPosition() {
+        return visualPosition;
+    }
+
+    public void setVisualPosition(Vector2 visualPosition) {
+        this.visualPosition = visualPosition;
+    }
+
+    @Override
+    public void setPosition(float x, float y) {
+        super.setPosition(x, y);
+        visualPosition.set(x + visualPositionOffset.x, y + visualPositionOffset.y);
+    }
+
+    public Vector2 getVisualPositionOffset() {
+        return visualPositionOffset;
+    }
+
+    public void setVisualPositionOffset(Vector2 visualPositionOffset) {
+        this.visualPositionOffset = visualPositionOffset;
+    }
+
+    public void setVisualPositionOffset(float x, float y) {
+        this.visualPositionOffset.set(x, y);
     }
 }

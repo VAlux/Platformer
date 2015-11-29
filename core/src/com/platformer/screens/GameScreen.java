@@ -157,8 +157,8 @@ public class GameScreen implements Screen {
     private void renderActors() {
         for (RenderableEntity actor : world.getRenderableActors()) {
             batch.draw(actor.getAnimation().getKeyFrame(actor.getStateTime(), true),
-                       actor.getPosition().x,
-                       actor.getPosition().y);
+                       actor.getVisualPosition().x,
+                       actor.getVisualPosition().y);
         }
     }
     

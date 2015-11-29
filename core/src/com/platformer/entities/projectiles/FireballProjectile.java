@@ -5,7 +5,6 @@ import com.badlogic.gdx.math.Rectangle;
 import com.platformer.entities.Char;
 import com.platformer.screens.GameScreen;
 
-import static com.platformer.Constants.GM_COLLISION_GAP;
 import static com.platformer.states.ProjectileState.EXPLODED;
 import static com.platformer.states.ProjectileState.EXPLODING;
 
@@ -21,6 +20,7 @@ public class FireballProjectile extends Projectile {
 
     public FireballProjectile(Char source) {
         super(source, TILE_SIZE / 4, TILE_SIZE / 4);
+        setVisualPositionOffset(-(TILE_SIZE / 4 + bounds.width / 4), -(TILE_SIZE / 4 + bounds.height / 4));
     }
 
     @Override

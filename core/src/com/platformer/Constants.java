@@ -32,6 +32,7 @@ public class Constants {
     ///General Game mechanics specifics.
     public static final float GM_COLLISION_GAP = 0.01f;
     public static final float GM_GRAVITY = 900.0f;
+    public static final int GM_DEF_ACTOR_BOUNDS_SIZE = 32;
 
     //Character-specific
     public static final int GM_WALL_JUMP_KICKBACK_ACC_FACTOR = 16;

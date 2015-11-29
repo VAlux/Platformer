@@ -5,10 +5,6 @@ package com.platformer.entities;
  */
 public class Entity extends Actor {
 
-    public Entity() {
-        super();
-    }
-
     @Override
     public void act(float delta) {
         stateTime += delta;
@@ -16,6 +12,6 @@ public class Entity extends Actor {
 
     @Override
     public void destroy() {
-        //Nothing to destroy. =)
+        stateTime = 0.0f;
     }
 }
