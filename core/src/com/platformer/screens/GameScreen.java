@@ -16,11 +16,10 @@ import com.platformer.input.CharacterInputHandler;
 import com.platformer.input.InputQueueProcessor;
 import com.platformer.ui.HUD;
 import com.platformer.utils.DebugRenderer;
-import com.platformer.utils.GenericTools;
-import com.platformer.utils.MapTools;
+
+import static com.platformer.Constants.PROP_GAME_SCREEN_SCALE_FACTOR;
 
 public class GameScreen implements Screen {
-    private static final String TAG = GameScreen.class.getSimpleName();
 
     /**
      * World actor, contains all of the other actors, which are present in the game.
@@ -69,11 +68,6 @@ public class GameScreen implements Screen {
      */
     private HUD hud;
 
-    /**
-     * Scale factor for the main Game camera.
-     */
-    private static float scaleFactor = 0.9f;
-
     @Override
     public void show() {
         world = new World();
@@ -97,11 +91,14 @@ public class GameScreen implements Screen {
         final CharacterInputHandler characterInputHandler = new CharacterInputHandler(world.getPlayer());
         inputQueueProcessor = new InputQueueProcessor();
 
-        inputQueueProcessor.addInputHandler(characterInputHandler); // keyboard
+        // keyboard
+        inputQueueProcessor.addInputHandler(characterInputHandler);
         inputQueueProcessor.addInputProcessor(characterInputHandler);
 
-        inputQueueProcessor.addInputHandler(gestureInputHandler); // custom handling of gestures
-        inputQueueProcessor.addInputProcessor(new GestureDetector(gestureInputHandler)); // standard gesture handling. (tap, pinch, zoom, etc.)
+        // custom handling of gestures
+        inputQueueProcessor.addInputHandler(gestureInputHandler);
+        // standard gesture handling. (tap, pinch, zoom, etc.)
+        inputQueueProcessor.addInputProcessor(new GestureDetector(gestureInputHandler));
     }
 
     /**
@@ -131,24 +128,30 @@ public class GameScreen implements Screen {
 
 //        GenericTools.printArrayAsMatrix(MapTools.getTilesAroundActor(world.getPlayer(), 5, 5), 10);
 
-        if (Constants.GAME_DEBUG_INFO_ENABLED)
+        if (Constants.PROP_DEBUG_INFO_ENABLED)
             renderDebugInfo();
 
         hud.update();
         hud.render(delta);
     }
 
+    private boolean checkCameraHorizontalConstraint(final Vector3 constraint) {
+        return  constraint.x - camera.viewportWidth / 2 > world.getMap().getPosition().x &&
+                constraint.x + camera.viewportWidth / 2 < world.getMap().getMapWidth();
+    }
+
+    private boolean checkCameraVerticalConstraint(final Vector3 constraint) {
+        return  constraint.y - camera.viewportHeight / 2 > world.getMap().getPosition().y &&
+                constraint.y + camera.viewportHeight / 2 < world.getMap().getMapHeight();
+    }
+
     private void updateCamera(final float delta) {
         playerPosition.set(world.getPlayer().getPosition(), 0);
         cameraLerpTarget.lerp(playerPosition, 3 * delta);
-        //horizontal camera movement constraint
-        if (cameraLerpTarget.x - camera.viewportWidth / 2 > world.getMap().getPosition().x &&
-                cameraLerpTarget.x + camera.viewportWidth / 2 < world.getMap().getMapWidth()) {
+        if (checkCameraHorizontalConstraint(cameraLerpTarget)) {
             camera.position.x = cameraLerpTarget.x;
         }
-        //vertical camera movement constraint
-        if (cameraLerpTarget.y - camera.viewportHeight / 2 > world.getMap().getPosition().y &&
-                cameraLerpTarget.y + camera.viewportHeight / 2 < world.getMap().getMapHeight()) {
+        if (checkCameraVerticalConstraint(cameraLerpTarget)) {
             camera.position.y = cameraLerpTarget.y;
         }
         camera.update();
@@ -171,9 +174,8 @@ public class GameScreen implements Screen {
     @Override
     public void resize(int width, int height) {
         hud.resize(width, height);
-
-        camera.viewportWidth = width * scaleFactor;
-        camera.viewportHeight = height * scaleFactor;
+        camera.viewportWidth = width * PROP_GAME_SCREEN_SCALE_FACTOR;
+        camera.viewportHeight = height * PROP_GAME_SCREEN_SCALE_FACTOR;
         updateCamera(Gdx.graphics.getDeltaTime());
     }
 

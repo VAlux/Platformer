@@ -7,11 +7,11 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.platformer.Constants;
 import com.platformer.entities.characters.Kirby;
-import com.platformer.entities.enemies.SeekerMobElf;
+import com.platformer.entities.characters.bots.SeekerMobElf;
 import com.platformer.entities.projectiles.Projectile;
-import com.platformer.exceptions.MapLayerNotFoundException;
-import com.platformer.exceptions.MapObjectNotFoundException;
+import com.platformer.exceptions.MapNotFoundException;
 import com.platformer.maps.Map;
+import com.platformer.maps.MapsPool;
 
 import java.util.concurrent.CopyOnWriteArrayList;
 
@@ -72,7 +72,8 @@ public class World extends Actor {
      * 3 -> collisions initialization.
      */
     public void init() {
-        loadMap(Constants.TMX_MAP_JUNGLE);
+        MapsPool.init();
+        setCurrentMap(Constants.TMX_MAP_JUNGLE.getName());
         createCharacters();
         initCollisionsArray();
     }
@@ -127,16 +128,15 @@ public class World extends Actor {
     }
 
     /**
-     * Just load the mop from tmx file, using the specified path as a location.
-     * Also here we handle all of the possible exceptions, which can occur during the map loading process.
-     * @param mapPath path to the map tmx file.
+     * Just get the specified map from the MapsPool.
+     * @see MapsPool
+     * @param mapName path to the map tmx file.
      */
-    private void loadMap(String mapPath){
+    private void setCurrentMap(final String mapName){
         try {
-            map = new Map(mapPath);
-        } catch (MapObjectNotFoundException | MapLayerNotFoundException e) {
-            e.printStackTrace();
-            Gdx.app.exit();
+            map = MapsPool.getMapByName(mapName);
+        } catch (MapNotFoundException e) {
+            Gdx.app.error("World.setCurrentMap", e.getMessage());
         }
     }
 

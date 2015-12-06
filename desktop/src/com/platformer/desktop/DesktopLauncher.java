@@ -10,8 +10,8 @@ public class DesktopLauncher {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
         config.resizable = false;
         config.useGL30 = false;
-        config.width = Constants.GAME_WIDTH;
-        config.height = Constants.GAME_HEIGHT;
+        config.width = Constants.PROP_GAME_WIDTH;
+        config.height = Constants.PROP_GAME_HEIGHT;
         new LwjglApplication(new Platformer(), config);
 	}
 }

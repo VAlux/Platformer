@@ -1,4 +1,4 @@
-package com.platformer.entities.enemies;
+package com.platformer.entities.characters.bots;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;

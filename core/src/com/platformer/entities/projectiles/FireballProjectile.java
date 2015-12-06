@@ -15,12 +15,16 @@ import static com.platformer.states.ProjectileState.EXPLODING;
 public class FireballProjectile extends Projectile {
 
     private static final int TILE_SIZE = 64;
+    private static final int PROJECTILE_SCALE_FACTOR = 4;
+    private static final int PROJECTILE_SIZE = TILE_SIZE / PROJECTILE_SCALE_FACTOR;
+
     protected Animation flyingAnimation;
     protected Animation explodeAnimation;
 
     public FireballProjectile(Char source) {
-        super(source, TILE_SIZE / 4, TILE_SIZE / 4);
-        setVisualPositionOffset(-(TILE_SIZE / 4 + bounds.width / 4), -(TILE_SIZE / 4 + bounds.height / 4));
+        super(source, PROJECTILE_SIZE, PROJECTILE_SIZE);
+        setVisualPositionOffset(-(PROJECTILE_SIZE + bounds.width / PROJECTILE_SCALE_FACTOR),
+                                -(PROJECTILE_SIZE + bounds.height / PROJECTILE_SCALE_FACTOR));
     }
 
     @Override

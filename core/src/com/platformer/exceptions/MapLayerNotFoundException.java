@@ -7,4 +7,8 @@ public class MapLayerNotFoundException extends Exception{
     public MapLayerNotFoundException(String layerName) {
         super(message + " :: " + layerName);
     }
+
+    public MapLayerNotFoundException() {
+        super(message);
+    }
 }

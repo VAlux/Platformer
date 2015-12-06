@@ -13,6 +13,7 @@ import static com.platformer.Constants.GM_GRAVITY;
 
 /**
  * Created by alexander on 19.04.15.
+ * Represents every entity in the game world, which could be affected by physics.
  */
 public class PhysicalEntity extends Entity {
 

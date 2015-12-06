@@ -3,13 +3,13 @@ package com.platformer.input;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.input.GestureDetector;
 import com.platformer.Constants;
-import com.platformer.Platformer;
 import com.platformer.entities.Char;
 
 import static com.platformer.states.CharacterState.*;
 
 /**
  * Created by alexander on 04.05.15.
+ * Handling the user input gestures.
  */
 public class CharacterGestureInputHandler extends GestureDetector.GestureAdapter implements InputHandler {
 
@@ -22,7 +22,7 @@ public class CharacterGestureInputHandler extends GestureDetector.GestureAdapter
     @Override
     public void handle() {
         if (Gdx.input.isTouched()) {
-            if (Gdx.input.getX() < Constants.GAME_WIDTH / 2){
+            if (Gdx.input.getX() < Constants.PROP_GAME_WIDTH / 2){
                 character.getVelocity().x = -character.getMaxVelocity();
                 if (character.getState() != JUMP)
                     character.setState(WALK_LEFT);
@@ -42,7 +42,7 @@ public class CharacterGestureInputHandler extends GestureDetector.GestureAdapter
 
     @Override
     public boolean touchDown(float x, float y, int pointer, int button) {
-        if (x < Constants.GAME_WIDTH / 2) {
+        if (x < Constants.PROP_GAME_WIDTH / 2) {
             character.getVelocity().x = -character.getMaxVelocity();
             if (character.getState() != JUMP)
                 character.setState(WALK_LEFT);

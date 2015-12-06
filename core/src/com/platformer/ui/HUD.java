@@ -6,10 +6,9 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
-import com.platformer.Constants;
 import com.platformer.entities.Char;
 
-import static com.platformer.Constants.GAME_DEBUG_INFO_ENABLED;
+import static com.platformer.Constants.PROP_DEBUG_INFO_ENABLED;
 
 public class HUD extends InputAdapter {
 
@@ -29,7 +28,7 @@ public class HUD extends InputAdapter {
         table.left().top();
         table.add(bars);
 
-        if (GAME_DEBUG_INFO_ENABLED){
+        if (PROP_DEBUG_INFO_ENABLED){
             table.debug();
             table.debugTable();
             table.row();
@@ -47,7 +46,7 @@ public class HUD extends InputAdapter {
     public void update(){
         bars.update();
 
-        if (GAME_DEBUG_INFO_ENABLED)
+        if (PROP_DEBUG_INFO_ENABLED)
             debugInfo.update();
     }
 

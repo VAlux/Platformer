@@ -7,10 +7,9 @@ import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
-import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
-import com.platformer.entities.RenderableEntity;
 import com.platformer.exceptions.MapLayerNotFoundException;
 import com.platformer.exceptions.MapObjectNotFoundException;
 
@@ -20,6 +19,11 @@ import static com.platformer.Constants.*;
  * Useful wrapper around the TiledMap class.
  */
 public final class Map {
+
+    /**
+     * Identification name of the map.
+     */
+    private String name;
 
     /**
      * The core tiled map.
@@ -94,9 +98,16 @@ public final class Map {
      */
     private MapObjects specialObjects;
 
-    public Map(final String path) throws MapObjectNotFoundException, MapLayerNotFoundException {
-        this.map = new TmxMapLoader().load(path);
+    /**
+     * Map Bounds.
+     */
+    private Rectangle bounds;
+
+    public Map(final MapResourceIdentifier identifier) throws MapObjectNotFoundException, MapLayerNotFoundException {
+        map = new TmxMapLoader().load(identifier.getPathToFile());
+        name = identifier.getName();
         mapLayers = new Array<>();
+        //map properties loading.
         mapWidth = this.map.getProperties().get(MAP_WIDTH_PROPERTY_TAG, int.class);
         mapHeight = this.map.getProperties().get(MAP_HEIGHT_PROPERTY_TAG, int.class);
         tileWidth = this.map.getProperties().get(MAP_TILE_WIDTH_PROPERTY_TAG, int.class);
@@ -115,6 +126,8 @@ public final class Map {
         mapCollidables = collisionLayer.getObjects().getByType(RectangleMapObject.class);
         ///set map position.
         position = new Vector2(0, 1.0f / (mapHeight * tileHeight));
+
+        bounds = new Rectangle(position.x, position.y, mapWidth, mapHeight);
     }
 
     /**
@@ -228,5 +241,13 @@ public final class Map {
 
     public MapObjects getSpecialObjects() {
         return specialObjects;
+    }
+
+    public Rectangle getBounds() {
+        return bounds;
+    }
+
+    public String getName() {
+        return name;
     }
 }

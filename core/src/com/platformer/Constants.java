@@ -1,5 +1,8 @@
 package com.platformer;
 
+import com.platformer.maps.MapResourceIdentifier;
+import javafx.util.Pair;
+
 /**
  * Created by Alvo on 10.10.2015.
  * All in-game constants, static settings and String literals(Paths, Tags, Aliases).
@@ -11,12 +14,13 @@ public class Constants {
     public static final String ATL_EXPLOSION_SMALL = "tilesets/fx/explosion_small.png";
 
     //TMX sources.
-    public static final String TMX_MAP_JUNGLE = "maps/jungle.tmx";
+    public static final MapResourceIdentifier TMX_MAP_JUNGLE = new MapResourceIdentifier("Jungle", "maps/jungle.tmx");
 
     //Generic Game properties.
-    public static final int GAME_WIDTH = 1024;
-    public static final int GAME_HEIGHT = 768;
-    public static final boolean GAME_DEBUG_INFO_ENABLED = true;
+    public static final int PROP_GAME_WIDTH = 1024;
+    public static final int PROP_GAME_HEIGHT = 768;
+    public static final float PROP_GAME_SCREEN_SCALE_FACTOR = 0.9f;
+    public static final boolean PROP_DEBUG_INFO_ENABLED = true;
 
     //Map object|layer tagging.
     public static final String MAP_WIDTH_PROPERTY_TAG = "width";

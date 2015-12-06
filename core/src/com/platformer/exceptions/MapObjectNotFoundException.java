@@ -7,4 +7,8 @@ public class MapObjectNotFoundException extends Exception {
     public MapObjectNotFoundException(String objectName) {
         super(message + " :: " + objectName);
     }
+
+    public MapObjectNotFoundException() {
+        super(message);
+    }
 }
