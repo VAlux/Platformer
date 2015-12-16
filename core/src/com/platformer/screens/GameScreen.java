@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.input.GestureDetector;
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector3;
 import com.platformer.Constants;
@@ -113,7 +114,7 @@ public class GameScreen implements Screen {
      */
     @Override
     public void render(float delta) {
-        Gdx.gl.glClearColor(0.2f, 0.2f, 0.2f, 1);
+        Gdx.gl.glClearColor(0.1f, 0.5f, 0.8f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
         updateCamera(delta);
         mapRenderer.setView(camera);
@@ -121,6 +122,9 @@ public class GameScreen implements Screen {
         world.act(delta);
 
         batch.begin();
+        for (TiledMapTileLayer parallaxLayer : world.getMap().getParallaxBackground().getLayers()) {
+            mapRenderer.renderTileLayer(parallaxLayer);
+        }
         mapRenderer.renderTileLayer(world.getMap().getBackgroundLayer());
         renderActors();
         mapRenderer.renderTileLayer(world.getMap().getForegroundLayer());

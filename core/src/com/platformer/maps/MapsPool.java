@@ -12,7 +12,7 @@ import com.platformer.exceptions.MapObjectNotFoundException;
  * Map pooling functionality.
  * Contains the preloaded list of all the maps available in the game.
  */
-public class MapsPool {
+public final class MapsPool {
 
     /**
      * All of the available maps.
@@ -28,7 +28,7 @@ public class MapsPool {
                 maps.add(new Map(mapIdentifier));
             } catch (MapObjectNotFoundException | MapLayerNotFoundException e) {
                 Gdx.app.log("MapsPool.init", "Maps Pool initialization error! " + e.getMessage());
-                return;
+                Gdx.app.exit();
             }
         }
         Gdx.app.log("MapsPool.init", "Maps Pool initialization successful");

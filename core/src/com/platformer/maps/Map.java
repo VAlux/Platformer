@@ -88,6 +88,11 @@ public final class Map {
     private Array<MapLayer> mapLayers;
 
     /**
+     * Specialized layer container for parallax map background.
+     */
+    private ParallaxLayer parallaxBackground;
+
+    /**
      * Set of collidable object on the map.
      */
     private Array<RectangleMapObject> mapCollidables;
@@ -106,28 +111,49 @@ public final class Map {
     public Map(final MapResourceIdentifier identifier) throws MapObjectNotFoundException, MapLayerNotFoundException {
         map = new TmxMapLoader().load(identifier.getPathToFile());
         name = identifier.getName();
+        loadMapProperties();
+        loadMapLayers();
+        loadMapObjects();
+        position = new Vector2(0, 1.0f / (mapHeight * tileHeight));
+        bounds = new Rectangle(position.x, position.y, mapWidth, mapHeight);
+    }
+
+    /**
+     * Load Map Objects, such as spawn points, etc...
+     * @throws MapObjectNotFoundException
+     */
+    private void loadMapObjects() throws MapObjectNotFoundException {
+        specialObjects = specObjectsLayer.getObjects();
+        spawn = specialObjects.get(MAP_SPAWN_OBJECT_TAG);
+        mapCollidables = collisionLayer.getObjects().getByType(RectangleMapObject.class);
+        validateObjectsLoading();
+    }
+
+    /**
+     * Load all of the map layers.
+     * @throws MapLayerNotFoundException
+     */
+    private void loadMapLayers() throws MapLayerNotFoundException {
         mapLayers = new Array<>();
-        //map properties loading.
-        mapWidth = this.map.getProperties().get(MAP_WIDTH_PROPERTY_TAG, int.class);
-        mapHeight = this.map.getProperties().get(MAP_HEIGHT_PROPERTY_TAG, int.class);
-        tileWidth = this.map.getProperties().get(MAP_TILE_WIDTH_PROPERTY_TAG, int.class);
-        tileHeight = this.map.getProperties().get(MAP_TILE_HEIGHT_PROPERTY_TAG, int.class);
-        ///layers loading.
         collisionLayer = loadMapLayer(MAP_COLL_OBJECTS_LAYER_TAG);
         specObjectsLayer = loadMapLayer(MAP_SPEC_OBJECTS_LAYER_TAG);
         foregroundLayer = (TiledMapTileLayer) loadMapLayer(MAP_FOREGROUND_LAYER_TAG);
         backgroundLayer = (TiledMapTileLayer) loadMapLayer(MAP_BACKGROUND_LAYER_TAG);
-        validateLayersLoading();
-        ///objects loading.
-        specialObjects = specObjectsLayer.getObjects();
-        spawn = specialObjects.get(MAP_SPAWN_OBJECT_TAG);
-        validateObjectsLoading();
-        ///load collision objects.
-        mapCollidables = collisionLayer.getObjects().getByType(RectangleMapObject.class);
-        ///set map position.
-        position = new Vector2(0, 1.0f / (mapHeight * tileHeight));
+        //parallax background stuff.
+        parallaxBackground = new ParallaxLayer(3);
+        parallaxBackground.addLayer((TiledMapTileLayer) loadMapLayer(MAP_PARALLAX_1_LAYER_TAG));
+        parallaxBackground.addLayer((TiledMapTileLayer) loadMapLayer(MAP_PARALLAX_2_LAYER_TAG));
+        parallaxBackground.addLayer((TiledMapTileLayer) loadMapLayer(MAP_PARALLAX_3_LAYER_TAG));
+    }
 
-        bounds = new Rectangle(position.x, position.y, mapWidth, mapHeight);
+    /**
+     * Load map properties, such as map width, height, etc...
+     */
+    private void loadMapProperties() {
+        mapWidth = this.map.getProperties().get(MAP_WIDTH_PROPERTY_TAG, int.class);
+        mapHeight = this.map.getProperties().get(MAP_HEIGHT_PROPERTY_TAG, int.class);
+        tileWidth = this.map.getProperties().get(MAP_TILE_WIDTH_PROPERTY_TAG, int.class);
+        tileHeight = this.map.getProperties().get(MAP_TILE_HEIGHT_PROPERTY_TAG, int.class);
     }
 
     /**
@@ -135,26 +161,14 @@ public final class Map {
      * @param layerTag target layer tag.
      * @return loaded map layer.
      */
-    private MapLayer loadMapLayer(final String layerTag) {
+    private MapLayer loadMapLayer(final String layerTag) throws MapLayerNotFoundException {
         final MapLayer layer = map.getLayers().get(layerTag);
+        if (layer == null) {
+            throw new MapLayerNotFoundException(layerTag);
+        }
         mapLayers.add(layer);
         return layer;
     }
-
-    /**
-     * Validation function ensures, that all of the needed map layers are loaded.
-     * @throws MapLayerNotFoundException trowed, if we have some of the layers loading problem.
-     */
-    private void validateLayersLoading() throws MapLayerNotFoundException {
-        if (collisionLayer == null)
-            throw new MapLayerNotFoundException(MAP_COLL_OBJECTS_LAYER_TAG);
-        else if(specObjectsLayer == null)
-            throw new MapLayerNotFoundException(MAP_SPEC_OBJECTS_LAYER_TAG);
-        else if(foregroundLayer == null)
-            throw new MapLayerNotFoundException(MAP_FOREGROUND_LAYER_TAG);
-        else if(backgroundLayer == null)
-            throw new MapLayerNotFoundException(MAP_BACKGROUND_LAYER_TAG);
-}
 
     /**
      * Validation function ensures, that all of the needed map objects are loaded.
@@ -249,5 +263,9 @@ public final class Map {
 
     public String getName() {
         return name;
+    }
+
+    public ParallaxLayer getParallaxBackground() {
+        return parallaxBackground;
     }
 }

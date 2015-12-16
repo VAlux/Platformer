@@ -1,9 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" width="100" height="100" tilewidth="32" tileheight="32">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="100" height="100" tilewidth="32" tileheight="32" nextobjectid="5">
  <tileset firstgid="1" source="../tilesets/jungle.tsx"/>
  <tileset firstgid="421" name="jungle-objects" tilewidth="32" tileheight="32">
   <image source="../tilesets/atlases/Jungle_objects.PNG" width="416" height="224"/>
  </tileset>
+ <tileset firstgid="512" name="clouds" tilewidth="32" tileheight="32">
+  <image source="../tilesets/atlases/clouds.png" width="696" height="507"/>
+ </tileset>
+ <layer name="parallax1" width="100" height="100">
+  <data encoding="base64" compression="zlib">
+   eJzt1EdPVVEUQOHre6IiTBBBepnQFBAEfrMgRYrAhA5KkQkdaepERXqRCW0R/wG85J28rC9Z051z9012FEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSpPt4H4uiVmqjD9ROHdRJXfSRuqmHeqmPPlE/DdBgLNlf8HAh7WCIWcM0QqM0RuM0QZM0RZ/pC03TDM3SHH2l+RT4HyHtYIFZi7REy7RCq7RG6/SNNmiTtmibdug7/aCfKfA/QtrBL2b9pj+0S39pj/bpgA7piI7phE7pjM7pH12kwP8IaQeXzLqia7q5mxuPokcUozg9pjR6Qk/pGaXTc8qgzHji3pKsOx7SDrKY9YKy6SXlUC69ojzKpwIqpCIqphIqpTIqT+BbknXHQ9pBBbMqqYqqqYZe0xuqpTqqp7fUQI30jpqomVoS+JZk3fGQdhCSkO64wrrjCuuO6z/vuCRJkiRJkiRJkpQabgGV1cN6
+  </data>
+ </layer>
+ <layer name="parallax2" width="100" height="100">
+  <data encoding="base64" compression="zlib">
+   eJzt1stOFFEUhtFKP52IQ/AaFYaiqBFhqMglCgy9oASER+XveSWd6vQ5dclayTfeJ1W7KqdpAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgDF4MGuatfQwradHs2nMGquXeSav0uu0lbYLPqOas9psZN5mepyepKfpWXqeXgxkNz7lHHvpc9pPBwXPVXNWmzeZt5PepndpN71PH9LHgbyP7znHj3SWztNFwXPVnNXmS+Z9TYfpWzpKx+kknQ7kfVznHDfpf7pNdwXPVXNWm5+Z9yv9Tn/SZfqb/qWrgbwPoF9juNe0mer9fAz3mjZ9389LWeZe0+WbKrXHfd/PS1nmXtPlmyq1x33fz+dq/TMXzenyTZXa477v53O1/pmL5nT5poawx6XU+meucs4Q9riUWrs25Z1epVq7NuWdBgAAAIApugdZU3KF
+  </data>
+ </layer>
+ <layer name="parallax3" width="100" height="100">
+  <data encoding="base64" compression="zlib">
+   eJzt2UmOwjAQBVAL1gy3Ae4L9BkYbsNwDgqx6wXqBBy7nfekvwXHVYUdkRIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAJWwnKe0i+8jPpPRqXmbTlOaRRWQ5Lb2aYR2iBsfIKXKupB6tucS+XiO3yP0f7vEqZmId2XSYjRrnfMxan/O/9mjuvizd913OstJrfcrdl+8+v7bf5dZndAg19HQOXc/gvnfa39/z6X7m6Ok+95FWfGM/W52RXHK/H76r6bNW6lWXkue0XqhL63e22u7IQxnrcwMAAAAA49H3v68HcPFLgg==
+  </data>
+ </layer>
  <layer name="background" width="100" height="100">
   <data encoding="base64" compression="zlib">
    eJzt1ktKxEAQAND2t1Twt9TRpYIfkDmCgq69gC68h648qHoOa2ACYZiEZDKTtM5bPEhSFVJdoZoep5TGAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAa88bw9ewrqL1aTNs1cQK22GnJp/uTsJpGNXECmfhvCaf7nbDR9ibE/sK3xV+Mqj9P7qY/o/LDGohpftUPR/07yWZj5wU8/GQQS19mj075qKYj9eU9zn2MByF4+l1+X4Rs2fHXI0q1r4KTb8xybtp4LZh3sR++PwDDpa03ja5Td6/W7KrDHpd9l7x/HoFa8/R48B9bjMfQ/eqD0PvV3X/qRxbl/noe79adE6eMuhVH/rar7p6y6BX8/wCtoRTxg==
@@ -14,14 +32,14 @@
    eJzt1ktOwgAUhtHiktiJqOxCEXfAEEV34WMgifGBQx460LEuQHfiP8BESRAmtRDOSb6QtA1p7m2aFgUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAALCs7VpRNNJO2k17qVmr+q42z3Vm3k/76SC10mFqp6M5+7ixp9J1M+PjdJJ66TSdmTvAyjnPu/kiXaYr7+nK3WYHd+k+PZS8j0H+/9HO/zTMfEZpnCbTWb3l933O3F5y/HXm3Pe36iJPueZ5et3st+rWj/jtI7P69Bz/i/oaBausU/UNsBR7Koe5su6+AJgDJl4=
   </data>
  </layer>
- <objectgroup name="special-objects" width="100" height="100">
-  <object name="spawn-point" x="1600" y="2880" width="32" height="32">
+ <objectgroup name="special-objects">
+  <object id="1" name="spawn-point" x="1664" y="2688" width="32" height="32">
    <ellipse/>
   </object>
  </objectgroup>
- <objectgroup name="collidable-objects" width="100" height="100">
-  <object x="640" y="2976" width="1376" height="224"/>
-  <object x="1856" y="2752" width="96" height="224"/>
-  <object x="1952" y="2752" width="384" height="64"/>
+ <objectgroup name="collidable-objects">
+  <object id="2" x="640" y="2976" width="1376" height="224"/>
+  <object id="3" x="1856" y="2752" width="96" height="224"/>
+  <object id="4" x="1952" y="2752" width="384" height="64"/>
  </objectgroup>
 </map>

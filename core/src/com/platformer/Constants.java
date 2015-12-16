@@ -20,7 +20,7 @@ public class Constants {
     public static final int PROP_GAME_WIDTH = 1024;
     public static final int PROP_GAME_HEIGHT = 768;
     public static final float PROP_GAME_SCREEN_SCALE_FACTOR = 0.9f;
-    public static final boolean PROP_DEBUG_INFO_ENABLED = true;
+    public static final boolean PROP_DEBUG_INFO_ENABLED = false;
 
     //Map object|layer tagging.
     public static final String MAP_WIDTH_PROPERTY_TAG = "width";
@@ -32,6 +32,9 @@ public class Constants {
     public static final String MAP_SPAWN_OBJECT_TAG = "spawn-point";
     public static final String MAP_FOREGROUND_LAYER_TAG = "foreground";
     public static final String MAP_BACKGROUND_LAYER_TAG = "background";
+    public static final String MAP_PARALLAX_1_LAYER_TAG = "parallax1";
+    public static final String MAP_PARALLAX_2_LAYER_TAG = "parallax2";
+    public static final String MAP_PARALLAX_3_LAYER_TAG = "parallax3";
 
     ///General Game mechanics specifics.
     public static final float GM_COLLISION_GAP = 0.01f;
