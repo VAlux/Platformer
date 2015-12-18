@@ -9,16 +9,18 @@ import com.badlogic.gdx.input.GestureDetector;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.utils.Array;
 import com.platformer.Constants;
 import com.platformer.entities.RenderableEntity;
 import com.platformer.entities.World;
 import com.platformer.input.CharacterGestureInputHandler;
 import com.platformer.input.CharacterInputHandler;
 import com.platformer.input.InputQueueProcessor;
+import com.platformer.maps.ParallaxLayer;
 import com.platformer.ui.HUD;
 import com.platformer.utils.DebugRenderer;
 
-import static com.platformer.Constants.PROP_GAME_SCREEN_SCALE_FACTOR;
+import static com.platformer.Constants.*;
 
 public class GameScreen implements Screen {
 
@@ -52,22 +54,32 @@ public class GameScreen implements Screen {
     /**
      * Main camera in the GameScreen
      */
-    private OrthographicCamera camera;
+    private OrthographicCamera mainCamera;
 
     /**
-     * Camera interpolation target. Needed to implement smooth camera following.
+     * Multiple cameras for parallax rendering.
+     */
+    private Array<OrthographicCamera> parallaxCameras;
+
+    /**
+     * Camera interpolation target. Needed to implement smooth mainCamera following.
      */
     private Vector3 cameraLerpTarget;
 
     /**
-     * Position of the player to be followed by camera.
+     * Position of the player to be followed by mainCamera.
      */
-    private Vector3 playerPosition; // camera position interpolation needs vector3 instead of vector2.
+    private Vector3 playerPosition; // mainCamera position interpolation needs vector3 instead of vector2.
 
     /**
      * Head-up display. Contains all of the stage2d ui elements.
      */
     private HUD hud;
+
+    /**
+     * Reference to the map's parallax tile layer.
+     */
+    private ParallaxLayer parallaxLayer;
 
     @Override
     public void show() {
@@ -76,11 +88,12 @@ public class GameScreen implements Screen {
         initInputHandling();
         mapRenderer = new OrthogonalTiledMapRenderer(world.getMap().getTiledMap());
         batch = (SpriteBatch) mapRenderer.getBatch();
-        camera = new OrthographicCamera();
-        debugRenderer = new DebugRenderer(camera);
+        mainCamera = new OrthographicCamera();
+        debugRenderer = new DebugRenderer(mainCamera);
         playerPosition = new Vector3(world.getPlayer().getPosition(), 0);
         cameraLerpTarget = new Vector3(playerPosition);
-        camera.position.set(playerPosition);
+        mainCamera.position.set(playerPosition);
+        initParallaxCameras();
         hud = new HUD(mapRenderer.getBatch(), world.getPlayer());
     }
 
@@ -116,8 +129,8 @@ public class GameScreen implements Screen {
     public void render(float delta) {
         Gdx.gl.glClearColor(0.1f, 0.5f, 0.8f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
-        updateCamera(delta);
-        mapRenderer.setView(camera);
+        updateCamera(mainCamera, delta, GM_DEF_CAMERA_LERP_FACTOR);
+        mapRenderer.setView(mainCamera);
         inputQueueProcessor.processInput();
         world.act(delta);
 
@@ -140,18 +153,27 @@ public class GameScreen implements Screen {
     }
 
     private boolean checkCameraHorizontalConstraint(final Vector3 constraint) {
-        return  constraint.x - camera.viewportWidth / 2 > world.getMap().getPosition().x &&
-                constraint.x + camera.viewportWidth / 2 < world.getMap().getMapWidth();
+        return  constraint.x - mainCamera.viewportWidth / 2 > world.getMap().getPosition().x &&
+                constraint.x + mainCamera.viewportWidth / 2 < world.getMap().getMapWidth();
     }
 
     private boolean checkCameraVerticalConstraint(final Vector3 constraint) {
-        return  constraint.y - camera.viewportHeight / 2 > world.getMap().getPosition().y &&
-                constraint.y + camera.viewportHeight / 2 < world.getMap().getMapHeight();
+        return  constraint.y - mainCamera.viewportHeight / 2 > world.getMap().getPosition().y &&
+                constraint.y + mainCamera.viewportHeight / 2 < world.getMap().getMapHeight();
     }
 
-    private void updateCamera(final float delta) {
+    private void initParallaxCameras() {
+        parallaxLayer = world.getMap().getParallaxBackground();
+        final int parallaxLayersAmount = parallaxLayer.getLayersAmount();
+        parallaxCameras = new Array<>(parallaxLayersAmount);
+        for (int i = 0; i < parallaxLayersAmount; i++) {
+            parallaxCameras.add(new OrthographicCamera(PROP_GAME_WIDTH, PROP_GAME_HEIGHT));
+        }
+    }
+
+    private void updateCamera(OrthographicCamera camera, float delta, float interpolationFactor) {
         playerPosition.set(world.getPlayer().getPosition(), 0);
-        cameraLerpTarget.lerp(playerPosition, 3 * delta);
+        cameraLerpTarget.lerp(playerPosition, interpolationFactor * delta);
         if (checkCameraHorizontalConstraint(cameraLerpTarget)) {
             camera.position.x = cameraLerpTarget.x;
         }
@@ -178,9 +200,9 @@ public class GameScreen implements Screen {
     @Override
     public void resize(int width, int height) {
         hud.resize(width, height);
-        camera.viewportWidth = width * PROP_GAME_SCREEN_SCALE_FACTOR;
-        camera.viewportHeight = height * PROP_GAME_SCREEN_SCALE_FACTOR;
-        updateCamera(Gdx.graphics.getDeltaTime());
+        mainCamera.viewportWidth = width * PROP_GAME_SCREEN_SCALE_FACTOR;
+        mainCamera.viewportHeight = height * PROP_GAME_SCREEN_SCALE_FACTOR;
+        updateCamera(mainCamera, Gdx.graphics.getDeltaTime(), GM_DEF_CAMERA_LERP_FACTOR);
     }
 
     @Override

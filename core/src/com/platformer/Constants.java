@@ -1,7 +1,6 @@
 package com.platformer;
 
 import com.platformer.maps.MapResourceIdentifier;
-import javafx.util.Pair;
 
 /**
  * Created by Alvo on 10.10.2015.
@@ -40,7 +39,7 @@ public class Constants {
     public static final float GM_COLLISION_GAP = 0.01f;
     public static final float GM_GRAVITY = 900.0f;
     public static final int GM_DEF_ACTOR_BOUNDS_SIZE = 32;
-
+    public static final float GM_DEF_CAMERA_LERP_FACTOR = 3.0f;
     //Character-specific
     public static final int GM_WALL_JUMP_KICKBACK_ACC_FACTOR = 16;
 

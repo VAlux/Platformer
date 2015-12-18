@@ -23,4 +23,8 @@ public class ParallaxLayer {
     public Array<TiledMapTileLayer> getLayers() {
         return parallaxLayers;
     }
+
+    public int getLayersAmount() {
+        return parallaxLayers.size;
+    }
 }
