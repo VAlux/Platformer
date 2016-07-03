@@ -19,7 +19,7 @@ public class Constants {
     public static final int PROP_GAME_WIDTH = 1024;
     public static final int PROP_GAME_HEIGHT = 768;
     public static final float PROP_GAME_SCREEN_SCALE_FACTOR = 0.9f;
-    public static final boolean PROP_DEBUG_INFO_ENABLED = false;
+    public static final boolean PROP_DEBUG_INFO_ENABLED = true;
 
     //Map object|layer tagging.
     public static final String MAP_WIDTH_PROPERTY_TAG = "width";
