@@ -4,7 +4,7 @@ import com.platformer.Constants;
 import com.platformer.abilities.effect.DamageEffect;
 import com.platformer.entities.Actor;
 import com.platformer.entities.Char;
-import com.platformer.entities.projectiles.FireballProjectile;
+import com.platformer.entities.projectiles.ParabolicFireballProjectile;
 import com.platformer.entities.projectiles.ParabolicFireballProjectileFactory;
 
 /**
@@ -61,8 +61,8 @@ public class Fireball extends Ability {
      */
     @Override
     public void activate() {
-        final FireballProjectile projectile =
-                (FireballProjectile) fireballProjectileFactory.createProjectile(sourceChar, this);
+        final ParabolicFireballProjectile projectile =
+                (ParabolicFireballProjectile) fireballProjectileFactory.createProjectile(sourceChar, this);
         if (isAvailable()) {
             launchProjectile(projectile, 300, 250, sourceChar.getOrientation());
             sourceChar.getStats().energy -= energyCost;

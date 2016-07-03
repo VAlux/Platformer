@@ -5,7 +5,7 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.platformer.Constants;
 import com.platformer.abilities.Ability;
-import com.platformer.entities.Char;
+import com.platformer.entities.PhysicalEntity;
 import com.platformer.utils.GraphicTools;
 
 import static com.badlogic.gdx.graphics.g2d.Animation.PlayMode.LOOP;
@@ -25,7 +25,7 @@ public class DirectFireballProjectileFactory extends ProjectileFactory {
     }
 
     @Override
-    public Projectile createProjectile(Char source, Ability directFireballAbility) {
+    public Projectile createProjectile(PhysicalEntity source, Ability directFireballAbility) {
         final DirectFireballProjectile projectile = new DirectFireballProjectile(source);
         projectile.setSourceAbility(directFireballAbility);
         projectile.setFlyingAnimation(flyingAnimation);

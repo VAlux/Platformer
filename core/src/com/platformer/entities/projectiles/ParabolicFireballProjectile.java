@@ -2,7 +2,7 @@ package com.platformer.entities.projectiles;
 
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.math.Rectangle;
-import com.platformer.entities.Char;
+import com.platformer.entities.PhysicalEntity;
 import com.platformer.screens.GameScreen;
 
 import static com.platformer.states.ProjectileState.EXPLODED;
@@ -12,16 +12,12 @@ import static com.platformer.states.ProjectileState.EXPLODING;
  * Created by alexander on 05.09.15.
  * Logic for the general fireball projectile.
  */
-public class FireballProjectile extends Projectile {
-
-    private static final int TILE_SIZE = 64;
-    private static final int PROJECTILE_SCALE_FACTOR = 4;
-    private static final int PROJECTILE_SIZE = TILE_SIZE / PROJECTILE_SCALE_FACTOR;
+public class ParabolicFireballProjectile extends Projectile {
 
     protected Animation flyingAnimation;
     protected Animation explodeAnimation;
 
-    public FireballProjectile(Char source) {
+    public ParabolicFireballProjectile(PhysicalEntity source) {
         super(source, PROJECTILE_SIZE, PROJECTILE_SIZE);
         setVisualPositionOffset(-(PROJECTILE_SIZE + bounds.width / PROJECTILE_SCALE_FACTOR),
                                 -(PROJECTILE_SIZE + bounds.height / PROJECTILE_SCALE_FACTOR));

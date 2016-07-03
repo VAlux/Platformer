@@ -4,6 +4,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.platformer.abilities.Ability;
 import com.platformer.entities.Char;
+import com.platformer.entities.PhysicalEntity;
 import com.platformer.entities.RenderableEntity;
 import com.platformer.screens.GameScreen;
 import com.platformer.states.ProjectileState;
@@ -13,10 +14,13 @@ import static com.platformer.states.ProjectileState.FLYING;
 
 public abstract class Projectile extends RenderableEntity {
 
+    protected static final int PROJECTILE_TILE_SIZE = 64;
+    protected static final int PROJECTILE_SCALE_FACTOR = 4;
+    protected static final int PROJECTILE_SIZE = PROJECTILE_TILE_SIZE / PROJECTILE_SCALE_FACTOR;
     protected ProjectileState state;
-    protected Char source;
+    protected PhysicalEntity source;
     protected Ability sourceAbility;
-    protected float TTL;
+    protected float timeToLive;
 
     public Projectile(Vector2 position) {
         this(position.x, position.y);
@@ -36,13 +40,13 @@ public abstract class Projectile extends RenderableEntity {
         this(position.x, position.y, width, height);
     }
 
-    public Projectile(Char source, int width, int height) {
+    public Projectile(PhysicalEntity source, int width, int height) {
         this(source.getPosition(), width, height);
         this.source = source;
     }
 
     protected void init() {
-        this.TTL = 1.0f; // 1 second default TTL.
+        this.timeToLive = 1.0f; // 1 second default TTL.
         state = FLYING;
     }
 
@@ -50,7 +54,7 @@ public abstract class Projectile extends RenderableEntity {
     public void act(float delta) {
         super.act(delta);
         super.move(delta);
-        TTL -= delta;
+        timeToLive -= delta;
     }
 
     @Override
@@ -90,15 +94,15 @@ public abstract class Projectile extends RenderableEntity {
     }
 
     public boolean ttlExpired() {
-        return TTL <= 0;
+        return timeToLive <= 0;
     }
 
-    public float getTTL() {
-        return TTL;
+    public float getTimeToLive() {
+        return timeToLive;
     }
 
-    public void setTTL(float TTL) {
-        this.TTL = TTL;
+    public void setTimeToLive(float timeToLive) {
+        this.timeToLive = timeToLive;
     }
 
     public ProjectileState getState() {
@@ -109,7 +113,7 @@ public abstract class Projectile extends RenderableEntity {
         this.state = state;
     }
 
-    public Char getSource() {
+    public PhysicalEntity getSource() {
         return source;
     }
 
